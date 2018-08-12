@@ -1,0 +1,18 @@
+C:\Users\Admin\Desktop\Учёт колёс\Учёт колёс\bin\Debug\Учёт колёс.exe
+C:\Users\Admin\Desktop\Учёт колёс\Учёт колёс\bin\Debug\Учёт колёс.pdb
+C:\Users\Admin\Desktop\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\Учёт колёс\Учёт колёс\obj\Debug\Учёт_колёс.Form1.resources
+C:\Users\Admin\Desktop\Учёт колёс\Учёт колёс\obj\Debug\Учёт_колёс.Properties.Resources.resources
+C:\Users\Admin\Desktop\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.csproj.GenerateResource.cache
+C:\Users\Admin\Desktop\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.exe
+C:\Users\Admin\Desktop\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.pdb
+D:\Учёт колёс\Учёт колёс\bin\Debug\Учёт колёс.exe
+D:\Учёт колёс\Учёт колёс\bin\Debug\Учёт колёс.pdb
+D:\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.csprojAssemblyReference.cache
+D:\Учёт колёс\Учёт колёс\obj\Debug\Учёт_колёс.Form1.resources
+D:\Учёт колёс\Учёт колёс\obj\Debug\Учёт_колёс.Properties.Resources.resources
+D:\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.csproj.GenerateResource.cache
+D:\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.csproj.CoreCompileInputs.cache
+D:\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.exe
+D:\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.pdb

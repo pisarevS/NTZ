@@ -1,0 +1,31 @@
+C:\Users\Admin\Desktop\Ввод данных\Ввод данных\bin\Release\Ввод данных.exe.config
+C:\Users\Admin\Desktop\Ввод данных\Ввод данных\bin\Release\Ввод данных.exe
+C:\Users\Admin\Desktop\Ввод данных\Ввод данных\bin\Release\Ввод данных.pdb
+C:\Users\Admin\Desktop\Ввод данных\Ввод данных\bin\Release\ExcelDataReader.DataSet.dll
+C:\Users\Admin\Desktop\Ввод данных\Ввод данных\bin\Release\ExcelDataReader.dll
+C:\Users\Admin\Desktop\Ввод данных\Ввод данных\bin\Release\ExcelDataReader.xml
+C:\Users\Admin\Desktop\Ввод данных\Ввод данных\bin\Release\ExcelDataReader.DataSet.xml
+C:\Users\Admin\Desktop\Ввод данных\Ввод данных\obj\Release\Ввод_данных.Form1.resources
+C:\Users\Admin\Desktop\Ввод данных\Ввод данных\obj\Release\Ввод_данных.Form2.resources
+C:\Users\Admin\Desktop\Ввод данных\Ввод данных\obj\Release\Ввод_данных.Properties.Resources.resources
+C:\Users\Admin\Desktop\Ввод данных\Ввод данных\obj\Release\Ввод данных.csproj.GenerateResource.Cache
+C:\Users\Admin\Desktop\Ввод данных\Ввод данных\obj\Release\Ввод данных.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\Ввод данных\Ввод данных\obj\Release\Ввод данных.exe
+C:\Users\Admin\Desktop\Ввод данных\Ввод данных\obj\Release\Ввод данных.pdb
+C:\Users\Admin\Desktop\Ввод данных\Ввод данных\obj\Release\Ввод данных.csproj.CopyComplete
+C:\Users\Admin\Desktop\Ввод данных 4.5\Ввод данных\bin\Release\Ввод данных.exe.config
+C:\Users\Admin\Desktop\Ввод данных 4.5\Ввод данных\bin\Release\Ввод данных.exe
+C:\Users\Admin\Desktop\Ввод данных 4.5\Ввод данных\bin\Release\Ввод данных.pdb
+C:\Users\Admin\Desktop\Ввод данных 4.5\Ввод данных\bin\Release\ExcelDataReader.DataSet.dll
+C:\Users\Admin\Desktop\Ввод данных 4.5\Ввод данных\bin\Release\ExcelDataReader.dll
+C:\Users\Admin\Desktop\Ввод данных 4.5\Ввод данных\bin\Release\ExcelDataReader.xml
+C:\Users\Admin\Desktop\Ввод данных 4.5\Ввод данных\bin\Release\ExcelDataReader.DataSet.xml
+C:\Users\Admin\Desktop\Ввод данных 4.5\Ввод данных\obj\Release\Ввод данных.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Desktop\Ввод данных 4.5\Ввод данных\obj\Release\Ввод_данных.Form1.resources
+C:\Users\Admin\Desktop\Ввод данных 4.5\Ввод данных\obj\Release\Ввод_данных.Form2.resources
+C:\Users\Admin\Desktop\Ввод данных 4.5\Ввод данных\obj\Release\Ввод_данных.Properties.Resources.resources
+C:\Users\Admin\Desktop\Ввод данных 4.5\Ввод данных\obj\Release\Ввод данных.csproj.GenerateResource.cache
+C:\Users\Admin\Desktop\Ввод данных 4.5\Ввод данных\obj\Release\Ввод данных.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\Ввод данных 4.5\Ввод данных\obj\Release\Ввод данных.csproj.CopyComplete
+C:\Users\Admin\Desktop\Ввод данных 4.5\Ввод данных\obj\Release\Ввод данных.exe
+C:\Users\Admin\Desktop\Ввод данных 4.5\Ввод данных\obj\Release\Ввод данных.pdb
