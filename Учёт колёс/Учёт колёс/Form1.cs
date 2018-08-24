@@ -17,14 +17,14 @@ namespace Учёт_колёс
         _Close _close = new _Close();
         _Excel _excel = new _Excel();
         string template = Path.GetFullPath("template.xls");
-        string path = "file.txt";      
-        int namber = 1;
+        string path = "file.txt";
         string side = null;
-       
+        int namber = 1;
+        
         public Form1()
         {
             InitializeComponent();
-            radioButton1.Checked = true;
+            VS.Checked = true;
             sr = new StreamReader(path, Encoding.Default);
             Text = sr.ReadLine();
             sr.Close();
@@ -36,55 +36,55 @@ namespace Учёт_колёс
             string path = "Штат операторов.txt";
             sr = new StreamReader(path, Encoding.Default);
             while (!sr.EndOfStream)
-                comboBox1.Items.Add(sr.ReadLine());
+                oper.Items.Add(sr.ReadLine());
             sr.Close();
         }
 
         public void EnabledButton()
         {
-            if (comboBox1.Text != "" && textBox1.Text != "" && textBox2.Text != "")
+            if (oper.Text != "" && meltingNumber.Text != "" && wheelNumber.Text != "")
             {
-                button1.Enabled = true;
+                enter.Enabled = true;
             }
             else
             {
-                button1.Enabled = false;
+                enter.Enabled = false;
             }
         }
 
-        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _excel.OpenExcel(path,openFileDialog1);
             sr = new StreamReader(path, Encoding.Default);
             Text = sr.ReadLine();
         }
 
-        private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CreateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _excel.CreateExcel(path,saveFileDialog1);
             sr = new StreamReader(path, Encoding.Default);
             Text = sr.ReadLine();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void EnterButton(object sender, EventArgs e)
         {
-            if (radioButton1.Checked) side = "В/С";
-            if (radioButton2.Checked) side = "Н/С";
-            dataGridView1.Rows.Add(Convert.ToString(namber++), textBox2.Text, side, comboBox1.Text);
-            textBox2.Text = "";
+            if (VS.Checked) side = "В/С";
+            if (NS.Checked) side = "Н/С";
+            dataGridView1.Rows.Add(Convert.ToString(namber++), wheelNumber.Text, side, oper.Text);
+            wheelNumber.Text = "";
             if (dataGridView1.Rows.Count != 0)
-                button5.Enabled = true;
+                save.Enabled = true;
         }
 
-        private void deleteAll_Click(object sender, EventArgs e)
+        private void DeleteAllButton(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
             namber = 1;
             if (dataGridView1.Rows.Count == 1)
-                button5.Enabled = false;
+                save.Enabled = false;
         }
 
-        private void deleteCell_Click(object sender, EventArgs e)
+        private void DeleteCellButton(object sender, EventArgs e)
         {
             try
             {
@@ -100,65 +100,65 @@ namespace Учёт_колёс
                 namber = a + 1;
                 if (dataGridView1.Rows.Count == 1)
                 {
-                    button5.Enabled = false;
+                    save.Enabled = false;
                 }
             }
             catch { }
         }
 
-        private void button1_KeyDown(object sender, KeyEventArgs e)
+        private void EnterButtonKeyDown(object sender, KeyEventArgs e)
         {
 
-            if (e.KeyCode == Keys.Enter && textBox2.Text != "")
-                button1_Click(sender, e);
+            if (e.KeyCode == Keys.Enter && wheelNumber.Text != "")
+                EnterButton(sender, e);
 
             if (e.KeyCode == Keys.PageDown)
             {
-                if (radioButton1.Checked) radioButton2.Checked = true;
+                if (VS.Checked) NS.Checked = true;
             }
             if (e.KeyCode == Keys.PageUp)
             {
-                if (radioButton2.Checked) radioButton1.Checked = true;
+                if (NS.Checked) VS.Checked = true;
             }
-            if (e.KeyCode == Keys.F5 && button5.Enabled == true)
-                button5_Click(sender, e);
+            if (e.KeyCode == Keys.F5 && save.Enabled == true)
+                SaveButton(sender, e);
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void SaveButton(object sender, EventArgs e)
         {
-            _excel.ExportToExcel(path,template, textBox1,dataGridView1,saveFileDialog1);
+            _excel.ExportToExcel(path,template, meltingNumber,dataGridView1,saveFileDialog1);
         }
 
-        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItemClick(object sender, EventArgs e)
         {
-            _excel.ExportToExcel(path,template, textBox1, dataGridView1,saveFileDialog1);
+            _excel.ExportToExcel(path,template, meltingNumber, dataGridView1,saveFileDialog1);
         }
 
-        private void выйтиToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItemClick(object sender, EventArgs e)
         {
             //CloseProcess();
             this.Close();
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBox1SelectedIndexChanged(object sender, EventArgs e)
         {
             EnabledButton();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void MeltingNumberTextChanged(object sender, EventArgs e)
         {
             EnabledButton();
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void WheelNumberTextChanged(object sender, EventArgs e)
         {
             EnabledButton();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void SearchButton(object sender, EventArgs e)
         {
-            _excel.SearchInExcel(path,textBox1, textBox2,radioButton1,radioButton2);
+            _excel.SearchInExcel(path,meltingNumber, wheelNumber,VS,NS);
         }
     }
 }

@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.oper = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.NS = new System.Windows.Forms.RadioButton();
+            this.VS = new System.Windows.Forms.RadioButton();
+            this.enter = new System.Windows.Forms.Button();
+            this.meltingNumber = new System.Windows.Forms.TextBox();
+            this.wheelNumber = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -43,37 +43,37 @@
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.search = new System.Windows.Forms.Button();
+            this.deleteAll = new System.Windows.Forms.Button();
+            this.deleteCell = new System.Windows.Forms.Button();
+            this.save = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.создатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выйтиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CreateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // oper
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(118, 46);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(100, 21);
-            this.comboBox1.TabIndex = 0;
-            this.comboBox1.UseWaitCursor = true;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.oper.FormattingEnabled = true;
+            this.oper.Location = new System.Drawing.Point(118, 46);
+            this.oper.Name = "oper";
+            this.oper.Size = new System.Drawing.Size(100, 21);
+            this.oper.TabIndex = 0;
+            this.oper.UseWaitCursor = true;
+            this.oper.SelectedIndexChanged += new System.EventHandler(this.ComboBox1SelectedIndexChanged);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.NS);
+            this.groupBox1.Controls.Add(this.VS);
             this.groupBox1.Location = new System.Drawing.Point(252, 42);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(89, 62);
@@ -82,61 +82,61 @@
             this.groupBox1.Text = "Сторона";
             this.groupBox1.UseWaitCursor = true;
             // 
-            // radioButton2
+            // NS
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(6, 41);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(45, 17);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Н/С";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.UseWaitCursor = true;
+            this.NS.AutoSize = true;
+            this.NS.Location = new System.Drawing.Point(6, 41);
+            this.NS.Name = "NS";
+            this.NS.Size = new System.Drawing.Size(45, 17);
+            this.NS.TabIndex = 1;
+            this.NS.TabStop = true;
+            this.NS.Text = "Н/С";
+            this.NS.UseVisualStyleBackColor = true;
+            this.NS.UseWaitCursor = true;
             // 
-            // radioButton1
+            // VS
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(6, 19);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(44, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "В/С";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.UseWaitCursor = true;
+            this.VS.AutoSize = true;
+            this.VS.Location = new System.Drawing.Point(6, 19);
+            this.VS.Name = "VS";
+            this.VS.Size = new System.Drawing.Size(44, 17);
+            this.VS.TabIndex = 0;
+            this.VS.TabStop = true;
+            this.VS.Text = "В/С";
+            this.VS.UseVisualStyleBackColor = true;
+            this.VS.UseWaitCursor = true;
             // 
-            // button1
+            // enter
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(118, 155);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 28);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Ввод";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.UseWaitCursor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.enter.Enabled = false;
+            this.enter.Location = new System.Drawing.Point(118, 155);
+            this.enter.Name = "enter";
+            this.enter.Size = new System.Drawing.Size(100, 28);
+            this.enter.TabIndex = 2;
+            this.enter.Text = "Ввод";
+            this.enter.UseVisualStyleBackColor = true;
+            this.enter.UseWaitCursor = true;
+            this.enter.Click += new System.EventHandler(this.EnterButton);
             // 
-            // textBox1
+            // meltingNumber
             // 
-            this.textBox1.Location = new System.Drawing.Point(118, 84);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.UseWaitCursor = true;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button1_KeyDown);
+            this.meltingNumber.Location = new System.Drawing.Point(118, 84);
+            this.meltingNumber.Name = "meltingNumber";
+            this.meltingNumber.Size = new System.Drawing.Size(100, 20);
+            this.meltingNumber.TabIndex = 3;
+            this.meltingNumber.UseWaitCursor = true;
+            this.meltingNumber.TextChanged += new System.EventHandler(this.MeltingNumberTextChanged);
+            this.meltingNumber.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EnterButtonKeyDown);
             // 
-            // textBox2
+            // wheelNumber
             // 
-            this.textBox2.Location = new System.Drawing.Point(118, 120);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 4;
-            this.textBox2.UseWaitCursor = true;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
-            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button1_KeyDown);
+            this.wheelNumber.Location = new System.Drawing.Point(118, 120);
+            this.wheelNumber.Name = "wheelNumber";
+            this.wheelNumber.Size = new System.Drawing.Size(100, 20);
+            this.wheelNumber.TabIndex = 4;
+            this.wheelNumber.UseWaitCursor = true;
+            this.wheelNumber.TextChanged += new System.EventHandler(this.WheelNumberTextChanged);
+            this.wheelNumber.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EnterButtonKeyDown);
             // 
             // label1
             // 
@@ -206,50 +206,50 @@
             this.Column4.HeaderText = "Оператор";
             this.Column4.Name = "Column4";
             // 
-            // button2
+            // search
             // 
-            this.button2.Location = new System.Drawing.Point(252, 110);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(89, 30);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Поиск";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.UseWaitCursor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.search.Location = new System.Drawing.Point(252, 110);
+            this.search.Name = "search";
+            this.search.Size = new System.Drawing.Size(89, 30);
+            this.search.TabIndex = 9;
+            this.search.Text = "Поиск";
+            this.search.UseVisualStyleBackColor = true;
+            this.search.UseWaitCursor = true;
+            this.search.Click += new System.EventHandler(this.SearchButton);
             // 
-            // button3
+            // deleteAll
             // 
-            this.button3.Location = new System.Drawing.Point(12, 623);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 30);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "Удлить все";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.UseWaitCursor = true;
-            this.button3.Click += new System.EventHandler(this.deleteAll_Click);
+            this.deleteAll.Location = new System.Drawing.Point(12, 623);
+            this.deleteAll.Name = "deleteAll";
+            this.deleteAll.Size = new System.Drawing.Size(100, 30);
+            this.deleteAll.TabIndex = 10;
+            this.deleteAll.Text = "Удлить все";
+            this.deleteAll.UseVisualStyleBackColor = true;
+            this.deleteAll.UseWaitCursor = true;
+            this.deleteAll.Click += new System.EventHandler(this.DeleteAllButton);
             // 
-            // button4
+            // deleteCell
             // 
-            this.button4.Location = new System.Drawing.Point(118, 623);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 30);
-            this.button4.TabIndex = 11;
-            this.button4.Text = "Удалить строку";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.UseWaitCursor = true;
-            this.button4.Click += new System.EventHandler(this.deleteCell_Click);
+            this.deleteCell.Location = new System.Drawing.Point(118, 623);
+            this.deleteCell.Name = "deleteCell";
+            this.deleteCell.Size = new System.Drawing.Size(100, 30);
+            this.deleteCell.TabIndex = 11;
+            this.deleteCell.Text = "Удалить строку";
+            this.deleteCell.UseVisualStyleBackColor = true;
+            this.deleteCell.UseWaitCursor = true;
+            this.deleteCell.Click += new System.EventHandler(this.DeleteCellButton);
             // 
-            // button5
+            // save
             // 
-            this.button5.Enabled = false;
-            this.button5.Location = new System.Drawing.Point(252, 623);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(89, 30);
-            this.button5.TabIndex = 12;
-            this.button5.Text = "Сохранить";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.UseWaitCursor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.save.Enabled = false;
+            this.save.Location = new System.Drawing.Point(252, 623);
+            this.save.Name = "save";
+            this.save.Size = new System.Drawing.Size(89, 30);
+            this.save.TabIndex = 12;
+            this.save.Text = "Сохранить";
+            this.save.UseVisualStyleBackColor = true;
+            this.save.UseWaitCursor = true;
+            this.save.Click += new System.EventHandler(this.SaveButton);
             // 
             // openFileDialog1
             // 
@@ -269,60 +269,60 @@
             // файлToolStripMenuItem
             // 
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.открытьToolStripMenuItem,
-            this.создатьToolStripMenuItem,
-            this.сохранитьToolStripMenuItem,
-            this.выйтиToolStripMenuItem});
+            this.OpenToolStripMenuItem,
+            this.CreateToolStripMenuItem,
+            this.SaveToolStripMenuItem,
+            this.ExitToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
-            // открытьToolStripMenuItem
+            // OpenToolStripMenuItem
             // 
-            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.открытьToolStripMenuItem.Text = "Открыть";
-            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
+            this.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
+            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.OpenToolStripMenuItem.Text = "Открыть";
+            this.OpenToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
-            // создатьToolStripMenuItem
+            // CreateToolStripMenuItem
             // 
-            this.создатьToolStripMenuItem.Name = "создатьToolStripMenuItem";
-            this.создатьToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.создатьToolStripMenuItem.Text = "Создать";
-            this.создатьToolStripMenuItem.Click += new System.EventHandler(this.создатьToolStripMenuItem_Click);
+            this.CreateToolStripMenuItem.Name = "CreateToolStripMenuItem";
+            this.CreateToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.CreateToolStripMenuItem.Text = "Создать";
+            this.CreateToolStripMenuItem.Click += new System.EventHandler(this.CreateToolStripMenuItem_Click);
             // 
-            // сохранитьToolStripMenuItem
+            // SaveToolStripMenuItem
             // 
-            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.сохранитьToolStripMenuItem.Text = "Сохранить               F5";
-            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
+            this.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
+            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.SaveToolStripMenuItem.Text = "Сохранить               F5";
+            this.SaveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItemClick);
             // 
-            // выйтиToolStripMenuItem
+            // ExitToolStripMenuItem
             // 
-            this.выйтиToolStripMenuItem.Name = "выйтиToolStripMenuItem";
-            this.выйтиToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.выйтиToolStripMenuItem.Text = "Выйти";
-            this.выйтиToolStripMenuItem.Click += new System.EventHandler(this.выйтиToolStripMenuItem_Click);
+            this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.ExitToolStripMenuItem.Text = "Выйти";
+            this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItemClick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(354, 663);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.save);
+            this.Controls.Add(this.deleteCell);
+            this.Controls.Add(this.deleteAll);
+            this.Controls.Add(this.search);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.wheelNumber);
+            this.Controls.Add(this.meltingNumber);
+            this.Controls.Add(this.enter);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.oper);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
@@ -330,7 +330,7 @@
             this.Text = "Учёт колес";
             this.UseWaitCursor = true;
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button1_KeyDown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EnterButtonKeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -343,29 +343,29 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox oper;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.RadioButton NS;
+        private System.Windows.Forms.RadioButton VS;
+        private System.Windows.Forms.Button enter;
+        private System.Windows.Forms.TextBox meltingNumber;
+        private System.Windows.Forms.TextBox wheelNumber;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button search;
+        private System.Windows.Forms.Button deleteAll;
+        private System.Windows.Forms.Button deleteCell;
+        private System.Windows.Forms.Button save;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem создатьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem выйтиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem OpenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CreateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SaveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ExitToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
