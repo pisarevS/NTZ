@@ -14,10 +14,9 @@ namespace Учёт_колёс
         Excel.Workbook workbook;
         Excel.Workbook workbookTemplate;
         Excel.Worksheet worksheet;
-        _Close _close = new _Close();                   
+        _Close _close = new _Close();
         StreamReader sr;
         StreamWriter sw;
-        public string filename = null;
         int iLastRow;
 
         public void UploadInExcel(Excel.Application ExcelApp, DataGridView dataGridView1, SaveFileDialog saveFileDialog1)
@@ -119,38 +118,56 @@ namespace Учёт_колёс
 
         }
 
-        public void CreateExcel(string path, SaveFileDialog saveFileDialog1)
+        public void CreateExcel(string filename, string path, SaveFileDialog saveFileDialog1)
         {
-            sw = new StreamWriter(path, false, Encoding.Default);
             ExcelApp = new Excel.Application();
             saveFileDialog1.Title = "Создать";
             saveFileDialog1.InitialDirectory = @"D:\";
             saveFileDialog1.Filter = "Книга Excel 97-2003 |*.xls";
             saveFileDialog1.ShowDialog();
-            ExcelApp.SheetsInNewWorkbook = 1;
-            workbook = ExcelApp.Workbooks.Add();
+            filename = saveFileDialog1.FileName;
             try
             {
-                workbook.SaveAs(saveFileDialog1.FileName);
+                if (filename != "")
+                {
+                    sw = new StreamWriter(path, false, Encoding.Default);
+                    ExcelApp.SheetsInNewWorkbook = 1;
+                    workbook = ExcelApp.Workbooks.Add();
+                    workbook.SaveAs(filename);
+                    filename = saveFileDialog1.FileName;
+                    sw.Write(filename);
+                    sw.Close();
+                    ExcelApp.Quit();
+                }
             }
             catch { }
-            filename = saveFileDialog1.FileName;
-            sw.Write(filename);
-            sw.Close();
-            ExcelApp.Quit();
+            filename = "";
+            saveFileDialog1.FileName = "";
         }
 
-        public void OpenExcel(string path,OpenFileDialog openFileDialog1)
+        public void OpenExcel(string filename, string path, OpenFileDialog openFileDialog1)
         {
-            sw = new StreamWriter(path, false, Encoding.Default);
             openFileDialog1.ShowDialog();
             openFileDialog1.Filter = "Книга Excel 97-2003 |*.xls";
             filename = openFileDialog1.FileName;
-            sw.Write(filename);
-            sw.Close();
+            if (filename == "")
+            {
+                sr = new StreamReader(path, Encoding.Default);
+                filename = sr.ReadLine();
+                sr.Close();
+            }
+            else
+            {
+                filename = openFileDialog1.FileName;
+                sw = new StreamWriter(path, false, Encoding.Default);
+                sw.Write(filename);
+                sw.Close();
+            }
+            filename = "";
+            openFileDialog1.FileName = "";
         }
 
-        public void ExportToExcel(string path,string template, TextBox textBox1, DataGridView dataGridView1, SaveFileDialog saveFileDialog1)
+        public void ExportToExcel(string filename, string path, string template, TextBox textBox1, DataGridView dataGridView1, SaveFileDialog saveFileDialog1)
         {
             string worksheetname = textBox1.Text;
             sr = new StreamReader(path, Encoding.Default);
@@ -208,7 +225,7 @@ namespace Учёт_колёс
             UploadInExcel(ExcelApp, dataGridView1, saveFileDialog1);
         }
 
-        public void SearchInExcel(string path,TextBox textBox1, TextBox textBox2, RadioButton radioButton1, RadioButton radioButton2)
+        public void SearchInExcel(string filename, string path, TextBox textBox1, TextBox textBox2, RadioButton radioButton1, RadioButton radioButton2)
         {
             int n = 0;
             int vs = 0;

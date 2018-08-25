@@ -18,9 +18,10 @@ namespace Учёт_колёс
         _Excel _excel = new _Excel();
         string template = Path.GetFullPath("template.xls");
         string path = "file.txt";
+        public string filename = null;
         string side = null;
         int namber = 1;
-        
+
         public Form1()
         {
             InitializeComponent();
@@ -54,16 +55,18 @@ namespace Учёт_колёс
 
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _excel.OpenExcel(path,openFileDialog1);
+            _excel.OpenExcel(filename, path, openFileDialog1);
             sr = new StreamReader(path, Encoding.Default);
             Text = sr.ReadLine();
+            sr.Close();
         }
 
         private void CreateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _excel.CreateExcel(path,saveFileDialog1);
+            _excel.CreateExcel(filename, path, saveFileDialog1);
             sr = new StreamReader(path, Encoding.Default);
             Text = sr.ReadLine();
+            sr.Close();
         }
 
         private void EnterButton(object sender, EventArgs e)
@@ -127,19 +130,13 @@ namespace Учёт_колёс
 
         private void SaveButton(object sender, EventArgs e)
         {
-            _excel.ExportToExcel(path,template, meltingNumber,dataGridView1,saveFileDialog1);
+            _excel.ExportToExcel(filename, path, template, meltingNumber, dataGridView1, saveFileDialog1);
         }
 
         private void SaveToolStripMenuItemClick(object sender, EventArgs e)
         {
-            _excel.ExportToExcel(path,template, meltingNumber, dataGridView1,saveFileDialog1);
-        }
-
-        private void ExitToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            //CloseProcess();
-            this.Close();
-        }
+            _excel.ExportToExcel(filename, path, template, meltingNumber, dataGridView1, saveFileDialog1);
+        }    
 
         private void ComboBox1SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -158,7 +155,13 @@ namespace Учёт_колёс
 
         private void SearchButton(object sender, EventArgs e)
         {
-            _excel.SearchInExcel(path,meltingNumber, wheelNumber,VS,NS);
+            _excel.SearchInExcel(filename, path, meltingNumber, wheelNumber, VS, NS);
+        }
+
+        private void ExitToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // _close.CloseProcess();
+            this.Close();
         }
     }
 }
