@@ -8,16 +8,16 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Учёт_колёс
 {
-    class _Excel
+    internal class _Excel
     {
-        Excel.Application ExcelApp;
-        Excel.Workbook workbook;
-        Excel.Workbook workbookTemplate;
-        Excel.Worksheet worksheet;
-        _Close _close = new _Close();
-        StreamReader sr;
-        StreamWriter sw;
-        int iLastRow;
+        private Excel.Application ExcelApp;
+        private Excel.Workbook workbook;
+        private Excel.Workbook workbookTemplate;
+        private Excel.Worksheet worksheet;
+        private _Close _close = new _Close();
+        private StreamReader sr;
+        private StreamWriter sw;
+        private int iLastRow;
 
         public void UploadInExcel(Excel.Application ExcelApp, DataGridView dataGridView1, SaveFileDialog saveFileDialog1)
         {
@@ -79,7 +79,7 @@ namespace Учёт_колёс
                         }
                         else
                         {
-                            iLastRow = worksheet.Cells[worksheet.Rows.Count, 23].End[Excel.XlDirection.xlUp].Row;
+                            iLastRow = worksheet.Cells[worksheet.Rows.Count, 23].End[Excel.XlDirection.xlUp].Row;                            
                             ExcelApp.Cells[iLastRow + 1, 23] = n;
                             ExcelApp.Cells[iLastRow + 1, 24] = dataGridView1.Rows[i].Cells[3].Value.ToString();
                         }
@@ -123,7 +123,6 @@ namespace Учёт_колёс
             ExcelApp = new Excel.Application();
             saveFileDialog1.Title = "Создать";
             saveFileDialog1.InitialDirectory = @"D:\";
-            saveFileDialog1.Filter = "Книга Excel 97-2003 |*.xls";
             saveFileDialog1.ShowDialog();
             filename = saveFileDialog1.FileName;
             try
@@ -148,7 +147,6 @@ namespace Учёт_колёс
         public void OpenExcel(string filename, string path, OpenFileDialog openFileDialog1)
         {
             openFileDialog1.ShowDialog();
-            openFileDialog1.Filter = "Книга Excel 97-2003 |*.xls";
             filename = openFileDialog1.FileName;
             if (filename == "")
             {
@@ -158,7 +156,18 @@ namespace Учёт_колёс
             }
             else
             {
-                filename = openFileDialog1.FileName;
+                filename = openFileDialog1.FileName;                
+                for (int i = 0; i < filename.Length; i++)
+                {
+                    if (filename[i] == '.')
+                    {
+                        for (int j = i; j < filename.Length; j++)
+                        {
+                            filename = filename.Remove(i);
+                        }
+
+                    }
+                }
                 sw = new StreamWriter(path, false, Encoding.Default);
                 sw.Write(filename);
                 sw.Close();
@@ -236,19 +245,27 @@ namespace Учёт_колёс
             sr.Close();
             ExcelApp = new Excel.Application();
             workbook = ExcelApp.Workbooks.Open(filename);
-            //ExcelApp.Visible = true;
             try
             {
                 worksheet = (Excel.Worksheet)workbook.Sheets.get_Item(textBox1.Text);
             }
             catch
             {
-                MessageBox.Show("Плавка номер " + textBox1.Text + " не найдена :(");
+                MessageBox.Show("№ плавки " + textBox1.Text + " не найден :(");
                 _close.CloseProcess();
                 return;
             }
             worksheet.Activate();
-            n = Convert.ToInt32(textBox2.Text);
+            try
+            {
+                n = Convert.ToInt32(textBox2.Text);
+            }
+            catch
+            {
+                MessageBox.Show("Введите № колёса!");
+                return;
+            }
+            
             if (n <= 50)
             {
                 vs = 2;

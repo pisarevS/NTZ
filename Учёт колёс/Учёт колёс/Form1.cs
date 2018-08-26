@@ -29,7 +29,7 @@ namespace Учёт_колёс
             sr = new StreamReader(path, Encoding.Default);
             Text = sr.ReadLine();
             sr.Close();
-            openFileDialog1.FileName = "";
+            openFileDialog1.FileName = "";           
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -39,6 +39,7 @@ namespace Учёт_колёс
             while (!sr.EndOfStream)
                 oper.Items.Add(sr.ReadLine());
             sr.Close();
+            Application.UseWaitCursor = false;
         }
 
         public void EnabledButton()

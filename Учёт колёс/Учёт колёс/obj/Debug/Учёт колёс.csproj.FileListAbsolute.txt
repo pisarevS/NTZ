@@ -18,10 +18,11 @@ D:\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.exe
 D:\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.pdb
 D:\GitHubNTZ\Учёт колёс\Учёт колёс\bin\Debug\Учёт колёс.exe
 D:\GitHubNTZ\Учёт колёс\Учёт колёс\bin\Debug\Учёт колёс.pdb
-D:\GitHubNTZ\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.csprojAssemblyReference.cache
 D:\GitHubNTZ\Учёт колёс\Учёт колёс\obj\Debug\Учёт_колёс.Form1.resources
 D:\GitHubNTZ\Учёт колёс\Учёт колёс\obj\Debug\Учёт_колёс.Properties.Resources.resources
 D:\GitHubNTZ\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.csproj.GenerateResource.cache
 D:\GitHubNTZ\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.csproj.CoreCompileInputs.cache
 D:\GitHubNTZ\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.exe
 D:\GitHubNTZ\Учёт колёс\Учёт колёс\obj\Debug\Учёт колёс.pdb
+D:\GitHubNTZ\Учёт колёс\Учёт колёс\bin\Debug\Учёт колёс.exe.CodeAnalysisLog.xml
+D:\GitHubNTZ\Учёт колёс\Учёт колёс\bin\Debug\Учёт колёс.exe.lastcodeanalysissucceeded
