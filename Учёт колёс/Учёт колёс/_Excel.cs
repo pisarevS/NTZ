@@ -21,80 +21,82 @@ namespace Учёт_колёс
 
         public void UploadInExcel(Excel.Application ExcelApp, DataGridView dataGridView1, SaveFileDialog saveFileDialog1)
         {
-            int n = 0;
+            int namber = 0;
+            int namberDouble = 0;
             int vs = 0;
             int ns = 0;
             try
             {
                 for (int i = 0; i < dataGridView1.Rows.Count; i++)
                 {
-                    n = Convert.ToInt32(dataGridView1[1, i].Value.ToString());
-                    if (n <= 50)
+                    namber = Convert.ToInt32(dataGridView1[1, i].Value.ToString());
+                    namberDouble = namber;
+                    if (namber <= 50)
                     {
                         vs = 2;
                         ns = 3;
                     }
-                    if (n > 50 && n < 101)
+                    if (namber > 50 && namber < 101)
                     {
-                        n -= 50;
+                        namber -= 50;
                         vs = 5;
                         ns = 6;
                     }
-                    if (n > 100 && n < 151)
+                    if (namber > 100 && namber < 151)
                     {
-                        n -= 100;
+                        namber -= 100;
                         vs = 8;
                         ns = 9;
                     }
-                    if (n > 150 && n < 201)
+                    if (namber > 150 && namber < 201)
                     {
-                        n -= 150;
+                        namber -= 150;
                         vs = 11;
                         ns = 12;
                     }
-                    if (n > 200 && n < 251)
+                    if (namber > 200 && namber < 251)
                     {
-                        n -= 200;
+                        namber -= 200;
                         vs = 14;
                         ns = 15;
                     }
-                    if (n > 250 && n < 301)
+                    if (namber > 250 && namber < 301)
                     {
-                        n -= 250;
+                        namber -= 250;
                         vs = 17;
                         ns = 18;
                     }
-                    if (n > 300 && n < 351)
+                    if (namber > 300 && namber < 351)
                     {
-                        n -= 300;
+                        namber -= 300;
                         vs = 20;
                         ns = 21;
                     }
 
                     if (dataGridView1[2, i].Value.ToString() == "В/С")
                     {
-                        if (ExcelApp.Cells[n + 3, vs].Value2 == null)
+                        if (ExcelApp.Cells[namber + 3, vs].Value2 == null)
                         {
-                            ExcelApp.Cells[n + 3, vs] = dataGridView1.Rows[i].Cells[3].Value.ToString();
+                            ExcelApp.Cells[namber + 3, vs] = dataGridView1.Rows[i].Cells[3].Value.ToString();
                         }
                         else
                         {
                             iLastRow = worksheet.Cells[worksheet.Rows.Count, 23].End[Excel.XlDirection.xlUp].Row;                            
-                            ExcelApp.Cells[iLastRow + 1, 23] = n;
+                            ExcelApp.Cells[iLastRow + 1, 23] = namberDouble;
                             ExcelApp.Cells[iLastRow + 1, 24] = dataGridView1.Rows[i].Cells[3].Value.ToString();
                         }
                     }
 
                     if (dataGridView1[2, i].Value.ToString() == "Н/С")
                     {
-                        if (ExcelApp.Cells[n + 3, ns].Value2 == null)
+                        if (ExcelApp.Cells[namber + 3, ns].Value2 == null)
                         {
-                            ExcelApp.Cells[n + 3, ns] = dataGridView1.Rows[i].Cells[3].Value.ToString();
+                            ExcelApp.Cells[namber + 3, ns] = dataGridView1.Rows[i].Cells[3].Value.ToString();
                         }
                         else
                         {
                             iLastRow = worksheet.Cells[worksheet.Rows.Count, 23].End[Excel.XlDirection.xlUp].Row;
-                            ExcelApp.Cells[iLastRow + 1, 23] = n;
+                            ExcelApp.Cells[iLastRow + 1, 23] = namberDouble;
                             ExcelApp.Cells[iLastRow + 1, 25] = dataGridView1.Rows[i].Cells[3].Value.ToString();
                         }
                     }

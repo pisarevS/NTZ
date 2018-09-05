@@ -62,6 +62,8 @@
             // 
             // oper
             // 
+            this.oper.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.oper.FormattingEnabled = true;
             this.oper.Location = new System.Drawing.Point(118, 46);
             this.oper.Name = "oper";
@@ -72,6 +74,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.NS);
             this.groupBox1.Controls.Add(this.VS);
             this.groupBox1.Location = new System.Drawing.Point(252, 42);
@@ -108,6 +111,7 @@
             // 
             // enter
             // 
+            this.enter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.enter.Enabled = false;
             this.enter.Location = new System.Drawing.Point(118, 155);
             this.enter.Name = "enter";
@@ -120,6 +124,8 @@
             // 
             // meltingNumber
             // 
+            this.meltingNumber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.meltingNumber.Location = new System.Drawing.Point(118, 84);
             this.meltingNumber.Name = "meltingNumber";
             this.meltingNumber.Size = new System.Drawing.Size(100, 20);
@@ -130,6 +136,8 @@
             // 
             // wheelNumber
             // 
+            this.wheelNumber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.wheelNumber.Location = new System.Drawing.Point(118, 120);
             this.wheelNumber.Name = "wheelNumber";
             this.wheelNumber.Size = new System.Drawing.Size(100, 20);
@@ -170,6 +178,9 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column,
@@ -208,6 +219,7 @@
             // 
             // search
             // 
+            this.search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.search.Location = new System.Drawing.Point(252, 110);
             this.search.Name = "search";
             this.search.Size = new System.Drawing.Size(89, 30);
@@ -219,6 +231,7 @@
             // 
             // deleteAll
             // 
+            this.deleteAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.deleteAll.Location = new System.Drawing.Point(12, 623);
             this.deleteAll.Name = "deleteAll";
             this.deleteAll.Size = new System.Drawing.Size(100, 30);
@@ -230,6 +243,7 @@
             // 
             // deleteCell
             // 
+            this.deleteCell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.deleteCell.Location = new System.Drawing.Point(118, 623);
             this.deleteCell.Name = "deleteCell";
             this.deleteCell.Size = new System.Drawing.Size(100, 30);
@@ -241,8 +255,9 @@
             // 
             // save
             // 
+            this.save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.save.Enabled = false;
-            this.save.Location = new System.Drawing.Point(252, 623);
+            this.save.Location = new System.Drawing.Point(252, 155);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(89, 30);
             this.save.TabIndex = 12;
@@ -309,6 +324,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(354, 663);
             this.Controls.Add(this.save);
             this.Controls.Add(this.deleteCell);
@@ -324,8 +340,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.oper);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(370, 400);
             this.Name = "Form1";
             this.Text = "Учёт колес";
             this.UseWaitCursor = true;
