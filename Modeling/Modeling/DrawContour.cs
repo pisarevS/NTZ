@@ -13,46 +13,50 @@ namespace Modeling
         private PictureBox pictureBox1;
         private Bitmap img;
         private Graphics graphics;
-        private Point point;
+        private System.Drawing.Point coordinateZero;
         private Pen pen;
         private Pen pen2;
 
-
-        public DrawContour(PictureBox pictureBox1, Point point)
+        public DrawContour(PictureBox pictureBox1, Point coordinateZero)
         {
-           // this.point.X = point.X;
-            //this.point.Y = point.Y;
             this.pictureBox1 = pictureBox1;
             img = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             graphics = Graphics.FromImage(img);
             pen = new Pen(Color.Black);
-            pen2 = new Pen(Brushes.Black);
-            point = new Point();
+            pen2 = new Pen(Brushes.Gray);
+            this.coordinateZero = new System.Drawing.Point();
             pictureBox1.Image = img;
-            point.X = pictureBox1.Width / 2;
-            point.Y = pictureBox1.Height / 2;
+            this.coordinateZero.X = pictureBox1.Width / 2;
+            this.coordinateZero.Y = pictureBox1.Height / 2;
         }
 
-        public void SystemСoordinate(PictureBox pictureBox1, Point point)
+
+        public void SystemСoordinate(PictureBox pictureBox1, Point coordinateZero)
         {
             pen2.DashStyle = DashStyle.Dash;
-            graphics.DrawLine(pen2, point.X, 0, point.X, pictureBox1.Height); //горизонтальная
-            graphics.DrawLine(pen2, 0, point.Y, pictureBox1.Width, point.Y); //вертикальная
+            graphics.DrawLine(pen2, coordinateZero.X, 0, coordinateZero.X, pictureBox1.Height); //горизонтальная
+            graphics.DrawLine(pen2, 0, coordinateZero.Z, pictureBox1.Width, coordinateZero.Z); //вертикальная
         }
 
-        public void DrawLine(Point startPoint, Point endPoint)
+        public void DrawLine(Point coordinateZero,double zoom, Point startPoint, Point endPoint)
         {
-            if (startPoint.Y > 0) { startPoint.Y = -startPoint.Y; } else if (startPoint.Y < 0) { startPoint.Y = +startPoint.Y; }
-            if (endPoint.Y > 0) { endPoint.Y = -endPoint.Y; } else if (endPoint.Y < 0) { endPoint.Y = +endPoint.Y; }
+            startPoint.X =Convert.ToInt32( startPoint.X * zoom);
+            startPoint.Z = Convert.ToInt32(startPoint.Z * zoom);
+            endPoint.X = Convert.ToInt32(endPoint.X * zoom);
+            endPoint.Z = Convert.ToInt32(endPoint.Z * zoom);
+            if (startPoint.Z > 0) startPoint.Z = coordinateZero.Z - startPoint.Z;
+            else startPoint.Z = coordinateZero.Z + Math.Abs(startPoint.Z);
+            if (endPoint.Z > 0) endPoint.Z = coordinateZero.Z - endPoint.Z;
+            else endPoint.Z = coordinateZero.Z +Math.Abs(endPoint.Z);
 
-            graphics.DrawLine(pen, startPoint.X + point.X, startPoint.Y + point.Y, endPoint.X + point.X, endPoint.Y + point.Y);
+            graphics.DrawLine(pen, coordinateZero.X + startPoint.X, startPoint.Z, coordinateZero.X + endPoint.X, endPoint.Z);            
         }
 
-        public void DrawArc(Point point)
+        public void DrawArc(Point coordinateZero,double zoom, int radius)
         {
             Rectangle rectangle = new Rectangle();
-            rectangle.X = point.X + 100;
-            rectangle.Y = point.Y + 100;
+            rectangle.X = coordinateZero.X + 100;
+            rectangle.Y = coordinateZero.Z + 100;
             rectangle.Width = 50;
             rectangle.Height = 50;
             graphics.DrawArc(pen, rectangle, 0, 90);
