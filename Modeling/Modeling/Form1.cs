@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -13,15 +15,14 @@ namespace Modeling
     {
         private DrawContour drawContour;
         private Point coordinateZero;
-
         private Point startPoint, endPoint;
-        private int radius;
         private bool movable = false;
         private bool isButtonClickebl = false;
-        private int mousDownX, mousDownY,mousMoveX,mousMoveY;
-        private double zoomDefalt=10;
-        private double zoom=1;
-
+        private int mousDownX, mousDownY, mousMoveX, mousMoveY;
+        private double zoomDefalt = 10;
+        private double zoom = 1;
+        private Graphics g;
+        private string fileName;
 
         public Form1()
         {
@@ -40,7 +41,7 @@ namespace Modeling
                     if (zoomDefalt > 20)
                         zoomDefalt = 20;
                     zoom = zoomDefalt / 10;
-                    label1.Text = Convert.ToString(zoom*100+"%");
+                    label1.Text = Convert.ToString(zoom * 100 + "%");
                     Manager();
                 }
                 else
@@ -49,11 +50,11 @@ namespace Modeling
                     if (zoomDefalt < 1)
                         zoomDefalt = 1;
                     zoom = zoomDefalt / 10;
-                    label1.Text = Convert.ToString(zoom * 100+"%");
+                    label1.Text = Convert.ToString(zoom * 100 + "%");
                     Manager();
                 }
             }
-            
+
 
         }
 
@@ -65,8 +66,8 @@ namespace Modeling
             startPoint.X = 20;
             startPoint.Z = 20;
             endPoint.X = 100;
-            endPoint.Z = 100;                      
-            drawContour.DrawLine(coordinateZero,zoom, startPoint, endPoint);
+            endPoint.Z = 100;
+            drawContour.DrawLine(coordinateZero, zoom, startPoint, endPoint);
 
             startPoint.X = -20;
             startPoint.Z = -20;
@@ -99,7 +100,7 @@ namespace Modeling
 
         private void ButtonStart_Click(object sender, EventArgs e)
         {
-            isButtonClickebl = true;          
+            isButtonClickebl = true;
             Manager();
         }
 
@@ -113,6 +114,29 @@ namespace Modeling
             label1.Text = "100%";
         }
 
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void OpenFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {        
+            openFileDialog1.FileName = "";
+            openFileDialog1 .DefaultExt = "*.txt";
+            openFileDialog1.InitialDirectory = @"D:\";
+            openFileDialog1.ShowDialog();
+            fileName = openFileDialog1.FileName;
+            richTextBox1.LoadFile(fileName, RichTextBoxStreamType.PlainText);    
+            Text = (Convert.ToInt32(richTextBox1.Lines.Length) - 6).ToString();
+        }
+
+        private void SaveFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {           
+            saveFileDialog1.InitialDirectory = @"D:\";
+            saveFileDialog1.FileName = "";
+            saveFileDialog1.ShowDialog();
+        }
+
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             movable = true;
@@ -124,14 +148,14 @@ namespace Modeling
         {
             movable = false;
         }
-        
+
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             if (movable)
             {
                 drawContour = new DrawContour(pictureBox1, coordinateZero);
                 mousMoveX = coordinateZero.X - mousDownX;
-                mousMoveY = coordinateZero.Z - mousDownY;             
+                mousMoveY = coordinateZero.Z - mousDownY;
                 coordinateZero.X = Convert.ToInt32(e.X);
                 coordinateZero.Z = Convert.ToInt32(e.Y);
                 coordinateZero.X += mousMoveX;
@@ -143,7 +167,7 @@ namespace Modeling
                 if (isButtonClickebl)
                 {
                     Manager();
-                }            
+                }
             }
         }
 

@@ -13,7 +13,7 @@ namespace Modeling
         private PictureBox pictureBox1;
         private Bitmap img;
         private Graphics graphics;
-        private System.Drawing.Point coordinateZero;
+        private Point coordinateZero;
         private Pen pen;
         private Pen pen2;
 
@@ -24,12 +24,11 @@ namespace Modeling
             graphics = Graphics.FromImage(img);
             pen = new Pen(Color.Black);
             pen2 = new Pen(Brushes.Gray);
-            this.coordinateZero = new System.Drawing.Point();
+            this.coordinateZero = new Point();
             pictureBox1.Image = img;
             this.coordinateZero.X = pictureBox1.Width / 2;
-            this.coordinateZero.Y = pictureBox1.Height / 2;
+            this.coordinateZero.Z = pictureBox1.Height / 2;
         }
-
 
         public void SystemСoordinate(PictureBox pictureBox1, Point coordinateZero)
         {
@@ -38,21 +37,21 @@ namespace Modeling
             graphics.DrawLine(pen2, 0, coordinateZero.Z, pictureBox1.Width, coordinateZero.Z); //вертикальная
         }
 
-        public void DrawLine(Point coordinateZero,double zoom, Point startPoint, Point endPoint)
+        public void DrawLine(Point coordinateZero, double zoom, Point startPoint, Point endPoint)
         {
-            startPoint.X =Convert.ToInt32( startPoint.X * zoom);
+            startPoint.X = Convert.ToInt32(startPoint.X * zoom);
             startPoint.Z = Convert.ToInt32(startPoint.Z * zoom);
             endPoint.X = Convert.ToInt32(endPoint.X * zoom);
             endPoint.Z = Convert.ToInt32(endPoint.Z * zoom);
             if (startPoint.Z > 0) startPoint.Z = coordinateZero.Z - startPoint.Z;
             else startPoint.Z = coordinateZero.Z + Math.Abs(startPoint.Z);
             if (endPoint.Z > 0) endPoint.Z = coordinateZero.Z - endPoint.Z;
-            else endPoint.Z = coordinateZero.Z +Math.Abs(endPoint.Z);
+            else endPoint.Z = coordinateZero.Z + Math.Abs(endPoint.Z);
 
-            graphics.DrawLine(pen, coordinateZero.X + startPoint.X, startPoint.Z, coordinateZero.X + endPoint.X, endPoint.Z);            
+            graphics.DrawLine(pen, coordinateZero.X + startPoint.X, startPoint.Z, coordinateZero.X + endPoint.X, endPoint.Z);
         }
 
-        public void DrawArc(Point coordinateZero,double zoom, int radius)
+        public void DrawArc(Point coordinateZero, double zoom, int radius)
         {
             Rectangle rectangle = new Rectangle();
             rectangle.X = coordinateZero.X + 100;

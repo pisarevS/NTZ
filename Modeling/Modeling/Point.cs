@@ -19,5 +19,5 @@ namespace Modeling
 
         public int X { get; set; } = 0;
         public int Z { get; set; } = 0;
-    }   
+    }
 }
