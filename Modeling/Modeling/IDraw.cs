@@ -11,6 +11,6 @@ namespace Modeling
     {
         void SystemСoordinate(PictureBox pictureBox1, Point coordinateZero);
         void DrawLine(Point coordinateZero, double zoom, Point startLine, Point endLine);
-        void DrawArc(Point coordinateZero, double zoom, int radius);
+        void DrawArc(Point coordinateZero, double zoom, double radius, Point startPoint, Point endPoint);
     }
 }

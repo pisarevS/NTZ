@@ -14,6 +14,7 @@ namespace Modeling
     public partial class Form1 : Form
     {
         private DrawContour drawContour;
+        private MyCollection myCollection;
         private Point coordinateZero;
         private Point startPoint, endPoint;
         private bool movable = false;
@@ -22,7 +23,6 @@ namespace Modeling
         private double zoomDefalt = 10;
         private double zoom = 1;
         private Graphics g;
-        private string fileName;
 
         public Form1()
         {
@@ -60,33 +60,21 @@ namespace Modeling
 
         private void Manager()
         {
+            myCollection = new MyCollection();
             drawContour = new DrawContour(pictureBox1, coordinateZero);
             drawContour.SystemСoordinate(pictureBox1, coordinateZero);
-
-            startPoint.X = 20;
-            startPoint.Z = 20;
-            endPoint.X = 100;
-            endPoint.Z = 100;
-            drawContour.DrawLine(coordinateZero, zoom, startPoint, endPoint);
-
-            startPoint.X = -20;
-            startPoint.Z = -20;
-            endPoint.X = -100;
-            endPoint.Z = -100;
-            drawContour.DrawLine(coordinateZero, zoom, startPoint, endPoint);
-
-            startPoint.X = -20;
-            startPoint.Z = 20;
-            endPoint.X = -100;
-            endPoint.Z = 100;
-            drawContour.DrawLine(coordinateZero, zoom, startPoint, endPoint);
-
-            startPoint.X = 20;
-            startPoint.Z = -20;
-            endPoint.X = 100;
-            endPoint.Z = -100;
-            drawContour.DrawLine(coordinateZero, zoom, startPoint, endPoint);
-
+            for (int i = 0; i < richTextBox1.Lines.Length; i++)
+            {
+                myCollection.Add(richTextBox1.Lines[i]);
+            }                     
+                /*startPoint.X = Convert.ToInt32(myCollection.List[0]);
+                startPoint.Z = Convert.ToInt32(myCollection.List[1]);
+                endPoint.X = Convert.ToInt32(myCollection.List[2]);
+                endPoint.Z = Convert.ToInt32(myCollection.List[3]);*/
+                drawContour.DrawLine(coordinateZero, zoom, startPoint, endPoint);
+            myCollection.ReadVariables();
+            int f= myCollection.Variables["HHH"];
+            Text = f.ToString();
         }
 
         public void Init()
@@ -101,6 +89,7 @@ namespace Modeling
         private void ButtonStart_Click(object sender, EventArgs e)
         {
             isButtonClickebl = true;
+
             Manager();
         }
 
@@ -120,14 +109,16 @@ namespace Modeling
         }
 
         private void OpenFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {        
+        {
+          
             openFileDialog1.FileName = "";
             openFileDialog1 .DefaultExt = "*.txt";
             openFileDialog1.InitialDirectory = @"D:\";
             openFileDialog1.ShowDialog();
-            fileName = openFileDialog1.FileName;
-            richTextBox1.LoadFile(fileName, RichTextBoxStreamType.PlainText);    
-            Text = (Convert.ToInt32(richTextBox1.Lines.Length) - 6).ToString();
+            if (openFileDialog1.FileName != "")
+            {
+                richTextBox1.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
+            }                                        
         }
 
         private void SaveFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -135,6 +126,11 @@ namespace Modeling
             saveFileDialog1.InitialDirectory = @"D:\";
             saveFileDialog1.FileName = "";
             saveFileDialog1.ShowDialog();
+            if(saveFileDialog1.FileName != "")
+            {
+                richTextBox1.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.PlainText);
+            }
+            
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)

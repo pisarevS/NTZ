@@ -7,7 +7,7 @@ namespace Modeling
 {
     interface IMyCollectoin
     {
-        void Add();
-        void Replace();
+        void Add(string cadr);
+        void ReadVariables();
     }
 }

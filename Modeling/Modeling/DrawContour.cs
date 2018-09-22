@@ -51,8 +51,23 @@ namespace Modeling
             graphics.DrawLine(pen, coordinateZero.X + startPoint.X, startPoint.Z, coordinateZero.X + endPoint.X, endPoint.Z);
         }
 
-        public void DrawArc(Point coordinateZero, double zoom, int radius)
+        public void DrawArc(Point coordinateZero, double zoom, double radius, Point startPoint, Point endPoint)
         {
+            startPoint.X = 30;
+            startPoint.Z = 30;
+            endPoint.X = 40;
+            endPoint.Z= 20;
+            radius = 12.5;
+            double hord = Math.Sqrt(Math.Pow(startPoint.X - endPoint.X, 2) + Math.Pow(startPoint.Z - endPoint.Z, 2));
+            double h = Math.Sqrt(radius * radius - (hord / 2) * (hord / 2));
+
+            double x01 = startPoint.X + (endPoint.X - startPoint.X) / 2 + h * (endPoint.Z - startPoint.Z) / hord;
+            double y01 = startPoint.Z + (endPoint.Z - startPoint.Z) / 2 - h * (endPoint.X - startPoint.X) / hord;
+
+            double x02 = startPoint.X + (endPoint.X - startPoint.X) / 2 - h * (endPoint.Z - startPoint.Z) / hord;
+            double y02 = startPoint.Z + (endPoint.Z - startPoint.Z) / 2 + h * (endPoint.X - startPoint.X) / hord;
+
+
             Rectangle rectangle = new Rectangle();
             rectangle.X = coordinateZero.X + 100;
             rectangle.Y = coordinateZero.Z + 100;
