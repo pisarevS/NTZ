@@ -8,6 +8,6 @@ namespace Modeling
     interface IMyCollectoin
     {
         void Add(string cadr);
-        void ReadVariables();
+        void ReplaceVariables();
     }
 }

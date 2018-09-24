@@ -13,7 +13,7 @@ namespace Modeling
 {
     public partial class Form1 : Form
     {
-        private DrawContour drawContour;
+        private Draw draw;
         private MyCollection myCollection;
         private Point coordinateZero;
         private Point startPoint, endPoint;
@@ -54,27 +54,41 @@ namespace Modeling
                     Manager();
                 }
             }
-
-
         }
 
         private void Manager()
         {
             myCollection = new MyCollection();
-            drawContour = new DrawContour(pictureBox1, coordinateZero);
-            drawContour.SystemСoordinate(pictureBox1, coordinateZero);
+            draw = new Draw(pictureBox1, coordinateZero);
+            draw.SystemСoordinate(pictureBox1, coordinateZero);
             for (int i = 0; i < richTextBox1.Lines.Length; i++)
             {
                 myCollection.Add(richTextBox1.Lines[i]);
-            }                     
-                /*startPoint.X = Convert.ToInt32(myCollection.List[0]);
-                startPoint.Z = Convert.ToInt32(myCollection.List[1]);
-                endPoint.X = Convert.ToInt32(myCollection.List[2]);
-                endPoint.Z = Convert.ToInt32(myCollection.List[3]);*/
-                drawContour.DrawLine(coordinateZero, zoom, startPoint, endPoint);
-            myCollection.ReadVariables();
-            int f= myCollection.Variables["HHH"];
-            Text = f.ToString();
+            }
+            myCollection.ReplaceVariables();
+            //Text = Convert.ToInt32(12.5 + 15).ToString();
+            draw.DrawСontour();
+            startPoint.X = 60;
+            startPoint.Z =88;
+            endPoint.X = 90;
+            endPoint.Z =62;
+          
+            draw.DrawArc(coordinateZero,true, zoom ,35,startPoint,endPoint);
+            startPoint.X = 60;
+            startPoint.Z = 88;
+            endPoint.X = 10;
+            endPoint.Z = 88;
+            draw.DrawLine(coordinateZero, zoom, startPoint, endPoint);
+            startPoint.X = 90;
+            startPoint.Z = 62;
+            endPoint.X = 90;
+            endPoint.Z = 10;
+            draw.DrawLine(coordinateZero, zoom, startPoint, endPoint);
+            /*startPoint.X = Convert.ToInt32(myCollection.List[0]);
+            startPoint.Z = Convert.ToInt32(myCollection.List[1]);
+            endPoint.X = Convert.ToInt32(myCollection.List[2]);
+            endPoint.Z = Convert.ToInt32(myCollection.List[3]);*/
+            // draw.DrawLine(coordinateZero, zoom, startPoint, endPoint);
         }
 
         public void Init()
@@ -82,8 +96,8 @@ namespace Modeling
             coordinateZero = new Point(pictureBox1.Width / 2, pictureBox1.Height / 2);
             startPoint = new Point();
             endPoint = new Point();
-            drawContour = new DrawContour(pictureBox1, coordinateZero);
-            drawContour.SystemСoordinate(pictureBox1, coordinateZero);
+            draw = new Draw(pictureBox1, coordinateZero);
+            draw.SystemСoordinate(pictureBox1, coordinateZero);
         }
 
         private void ButtonStart_Click(object sender, EventArgs e)
@@ -96,8 +110,8 @@ namespace Modeling
         private void ButtonRestart_Click(object sender, EventArgs e)
         {
             coordinateZero = new Point(pictureBox1.Width / 2, pictureBox1.Height / 2);
-            drawContour = new DrawContour(pictureBox1, coordinateZero);
-            drawContour.SystemСoordinate(pictureBox1, coordinateZero);
+            draw = new Draw(pictureBox1, coordinateZero);
+            draw.SystemСoordinate(pictureBox1, coordinateZero);
             isButtonClickebl = false;
             zoom = 1;
             label1.Text = "100%";
@@ -110,27 +124,27 @@ namespace Modeling
 
         private void OpenFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-          
+
             openFileDialog1.FileName = "";
-            openFileDialog1 .DefaultExt = "*.txt";
+            openFileDialog1.DefaultExt = "*.txt";
             openFileDialog1.InitialDirectory = @"D:\";
             openFileDialog1.ShowDialog();
             if (openFileDialog1.FileName != "")
             {
                 richTextBox1.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
-            }                                        
+            }
         }
 
         private void SaveFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {           
+        {
             saveFileDialog1.InitialDirectory = @"D:\";
             saveFileDialog1.FileName = "";
             saveFileDialog1.ShowDialog();
-            if(saveFileDialog1.FileName != "")
+            if (saveFileDialog1.FileName != "")
             {
                 richTextBox1.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.PlainText);
             }
-            
+
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -149,7 +163,7 @@ namespace Modeling
         {
             if (movable)
             {
-                drawContour = new DrawContour(pictureBox1, coordinateZero);
+                draw = new Draw(pictureBox1, coordinateZero);
                 mousMoveX = coordinateZero.X - mousDownX;
                 mousMoveY = coordinateZero.Z - mousDownY;
                 coordinateZero.X = Convert.ToInt32(e.X);
@@ -159,7 +173,7 @@ namespace Modeling
                 mousDownX = Convert.ToInt32(e.X);
                 mousDownY = Convert.ToInt32(e.Y);
 
-                drawContour.SystemСoordinate(pictureBox1, coordinateZero);
+                draw.SystemСoordinate(pictureBox1, coordinateZero);
                 if (isButtonClickebl)
                 {
                     Manager();
@@ -171,8 +185,8 @@ namespace Modeling
         {
             coordinateZero.X = pictureBox1.Width / 2;
             coordinateZero.Z = pictureBox1.Height / 2;
-            drawContour = new DrawContour(pictureBox1, coordinateZero);
-            drawContour.SystemСoordinate(pictureBox1, coordinateZero);
+            draw = new Draw(pictureBox1, coordinateZero);
+            draw.SystemСoordinate(pictureBox1, coordinateZero);
             if (isButtonClickebl)
             {
                 Manager();
