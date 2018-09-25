@@ -7,7 +7,7 @@ namespace Modeling
 {
     class MyCollection : IMyCollectoin
     {
-        private string gCode = "REAL";
+        private string gCode = "DEF REAL";
         public List<string> ListCadrs { get; set; } = new List<string>();
         public Dictionary<string, string> ListVariables { get; set; } = new Dictionary<string, string>();
 

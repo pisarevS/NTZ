@@ -65,30 +65,8 @@ namespace Modeling
             {
                 myCollection.Add(richTextBox1.Lines[i]);
             }
-            myCollection.ReplaceVariables();
-            //Text = Convert.ToInt32(12.5 + 15).ToString();
-            draw.DrawСontour();
-            startPoint.X = 60;
-            startPoint.Z =88;
-            endPoint.X = 90;
-            endPoint.Z =62;
-          
-            draw.DrawArc(coordinateZero,true, zoom ,35,startPoint,endPoint);
-            startPoint.X = 60;
-            startPoint.Z = 88;
-            endPoint.X = 10;
-            endPoint.Z = 88;
-            draw.DrawLine(coordinateZero, zoom, startPoint, endPoint);
-            startPoint.X = 90;
-            startPoint.Z = 62;
-            endPoint.X = 90;
-            endPoint.Z = 10;
-            draw.DrawLine(coordinateZero, zoom, startPoint, endPoint);
-            /*startPoint.X = Convert.ToInt32(myCollection.List[0]);
-            startPoint.Z = Convert.ToInt32(myCollection.List[1]);
-            endPoint.X = Convert.ToInt32(myCollection.List[2]);
-            endPoint.Z = Convert.ToInt32(myCollection.List[3]);*/
-            // draw.DrawLine(coordinateZero, zoom, startPoint, endPoint);
+            myCollection.ReplaceVariables();                      
+            draw.DrawСontour(coordinateZero, true, zoom, 30, startPoint, endPoint);                         
         }
 
         public void Init()
