@@ -47,8 +47,8 @@ namespace Modeling
                 else
                 {
                     zoomDefalt--;
-                    if (zoomDefalt < 1)
-                        zoomDefalt = 1;
+                    if (zoomDefalt < 5)
+                        zoomDefalt = 5;
                     zoom = zoomDefalt / 10;
                     label1.Text = Convert.ToString(zoom * 100 + "%");
                     Manager();
@@ -66,7 +66,7 @@ namespace Modeling
                 myCollection.Add(richTextBox1.Lines[i]);
             }
             myCollection.ReplaceVariables();                      
-            draw.DrawСontour(coordinateZero, true, zoom, 30, startPoint, endPoint);                         
+            draw.DrawСontour(coordinateZero, zoom);                         
         }
 
         public void Init()

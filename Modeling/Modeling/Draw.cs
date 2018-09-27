@@ -52,91 +52,155 @@ namespace Modeling
             graphics.DrawLine(pen, coordinateZero.X + startPoint.X, startPoint.Z, coordinateZero.X + endPoint.X, endPoint.Z);
         }
 
-        public void DrawArc(Point coordinateZero, bool clockwise, double zoom, double radius, Point startPoint, Point endPoint)
-        {    
+        public void DrawArcClockwise(Point coordinateZero, double zoom, double radius, Point startPoint, Point endPoint)
+        {
             Point square = new Point();
             Rectangle rectangle = new Rectangle();
-            startPoint.X = Convert.ToInt32(startPoint.X * zoom);
-            startPoint.Z = Convert.ToInt32(startPoint.Z * zoom);
-            endPoint.X = Convert.ToInt32(endPoint.X * zoom);
-            endPoint.Z = Convert.ToInt32(endPoint.Z * zoom);
-            radius = Convert.ToInt32(radius * zoom);    
-            int startAngle = 0;
-            int sweepAngle = 0;
-            double catet;
+            startPoint.X = (int)(startPoint.X * zoom);
+            startPoint.Z = (int)(startPoint.Z * zoom);
+            endPoint.X = (int)(endPoint.X * zoom);
+            endPoint.Z = (int)(endPoint.Z * zoom);
+            radius = (int)(radius * zoom);
+            float startAngle = 0;
+            float sweepAngle = 0;
+            int catet;
             double hord = Math.Sqrt(Math.Pow(startPoint.X - endPoint.X, 2) + Math.Pow(startPoint.Z - endPoint.Z, 2));
             double h = Math.Sqrt(radius * radius - (hord / 2) * (hord / 2));
-            if (clockwise)
+            int x01 =(int) (startPoint.X + (endPoint.X - startPoint.X) / 2 + h * (endPoint.Z - startPoint.Z) / hord);
+            int z01 =(int) (startPoint.Z + (endPoint.Z - startPoint.Z) / 2 - h * (endPoint.X - startPoint.X) / hord);
+            if (startPoint.X > x01 && startPoint.Z >= z01)
             {
-                double x01 = startPoint.X + (endPoint.X - startPoint.X) / 2 + h * (endPoint.Z - startPoint.Z) / hord;
-                double z01 = startPoint.Z + (endPoint.Z - startPoint.Z) / 2 - h * (endPoint.X - startPoint.X) / hord;
-                if (startPoint.X > x01 && startPoint.Z >= z01)
+                catet =(int) (startPoint.X - x01);
+                if (startPoint.Z == z01)
                 {
-                    catet = startPoint.X - x01;
-                    if (startPoint.Z == z01)
-                    {
-                        startAngle = 0;
-                    }
-                    else { startAngle = Convert.ToInt32(360 - Math.Acos(catet / radius) * (180 / Math.PI)); }
+                    startAngle = 0;
                 }
-               
-                if (startPoint.X >= x01 && startPoint.Z < z01)
-                {
-                    catet = startPoint.X - x01;
-                    if (startPoint.X == x01)
-                    {
-                        startAngle = 90;
-                    }
-                    else { startAngle = Convert.ToInt32(Math.Acos(catet / radius) * (180 / Math.PI)); }
-                }
-               
-                if (startPoint.X < x01 && startPoint.Z <= z01)
-                {
-                    catet =   x01- startPoint.X;
-                    if (startPoint.Z == z01)
-                    {
-                        startAngle = 180;
-                    }
-                    else { startAngle = Convert.ToInt32(180 - Math.Acos(catet / radius) * (180 / Math.PI)); }
-                }
-               
-                if (startPoint.X <= x01 && startPoint.Z > z01)
-                {
-                    catet = x01 - startPoint.X;
-                    if (startPoint.X == x01)
-                    {
-                        startAngle = 270;
-                    }
-                    else { startAngle = Convert.ToInt32(180 + Math.Acos(catet / radius) * (180 / Math.PI)); }
-                }
-                square.X = Convert.ToInt32(x01 - radius);
-                square.Z = Convert.ToInt32(z01 + radius);
-                sweepAngle = Convert.ToInt32(2 * Math.Asin(hord / (2 * radius)) * (180 / Math.PI));
-                rectangle.X = Convert.ToInt32(coordinateZero.X + square.X);
-                rectangle.Y = Convert.ToInt32(coordinateZero.Z - square.Z);
-                rectangle.Width = Convert.ToInt32(radius * 2);
-                rectangle.Height = Convert.ToInt32(radius * 2);
-                graphics.DrawArc(pen, rectangle, startAngle, sweepAngle);
+                else { startAngle = (float)(360 - Math.Acos(catet / radius) * (180 / Math.PI)); }
             }
-            if (!clockwise)
+            if (startPoint.X >= x01 && startPoint.Z < z01)
             {
-                double x02 = startPoint.X + (endPoint.X - startPoint.X) / 2 - h * (endPoint.Z - startPoint.Z) / hord;
-                double z02 = startPoint.Z + (endPoint.Z - startPoint.Z) / 2 + h * (endPoint.X - startPoint.X) / hord;                
-            }           
+                catet =(int) (startPoint.X - x01);
+                if (startPoint.X == x01)
+                {
+                    startAngle = 90;
+                }
+                else { startAngle = (float)(Math.Acos(catet / radius) * (180 / Math.PI)); }
+            }
+            if (startPoint.X < x01 && startPoint.Z <= z01)
+            {
+                catet =(int) (x01 - startPoint.X);
+                if (startPoint.Z == z01)
+                {
+                    startAngle = 180;
+                }
+                else { startAngle = (float)(180 - Math.Acos(catet / radius) * (180 / Math.PI)); }
+            }
+            if (startPoint.X <= x01 && startPoint.Z > z01)
+            {
+                catet =(int) (x01 - startPoint.X);
+                if (startPoint.X == x01)
+                {
+                    startAngle = 270;
+                }
+                else { startAngle = (float)(180 + Math.Acos(catet / radius) * (180 / Math.PI)); }
+            }
+            square.X = (int)(x01 - radius);
+            square.Z = (int)(z01 + radius);
+            sweepAngle = (float)(2 * Math.Asin(hord / (2 * radius)) * (180 / Math.PI));
+            rectangle.X = (coordinateZero.X + square.X);
+            rectangle.Y = (coordinateZero.Z - square.Z);
+            rectangle.Width = (int)(radius * 2);
+            rectangle.Height = (int)(radius * 2);
+            graphics.DrawArc(pen, rectangle, startAngle, sweepAngle);
         }
 
-        public void DrawСontour(Point coordinateZero, bool clockwise, double zoom, double radius, Point startPoint, Point endPoint)
+        public void DrawArcCounterclockwise(Point coordinateZero, double zoom, double radius, Point startPoint, Point endPoint)
         {
+            Point square = new Point();
+            Rectangle rectangle = new Rectangle();
+            startPoint.X = (int)(startPoint.X * zoom);
+            startPoint.Z = (int)(startPoint.Z * zoom);
+            endPoint.X = (int)(endPoint.X * zoom);
+            endPoint.Z = (int)(endPoint.Z * zoom);
+            radius = (int)(radius * zoom);
+            float startAngle = 0;
+            float sweepAngle = 0;
+            int catet;
+            double hord = Math.Sqrt(Math.Pow(startPoint.X - endPoint.X, 2) + Math.Pow(startPoint.Z - endPoint.Z, 2));
+            double h = Math.Sqrt(radius * radius - (hord / 2) * (hord / 2));
+            int x02 = (int)(startPoint.X + (endPoint.X - startPoint.X) / 2 - h * (endPoint.Z - startPoint.Z) / hord);
+            int z02 = (int)(startPoint.Z + (endPoint.Z - startPoint.Z) / 2 + h * (endPoint.X - startPoint.X) / hord);
+            if (endPoint.X > x02 && endPoint.Z >= z02)
+            {
+                catet =(int) (endPoint.X - x02);
+                if (startPoint.Z == z02)
+                {
+                    startAngle = 0;
+                }
+                else { startAngle = (float)(360 - Math.Acos(catet / radius) * (180 / Math.PI)); }
+            }
+            if (endPoint.X >= x02 && endPoint.Z < z02)
+            {
+                catet =(int) (endPoint.X - x02);
+                if (startPoint.X == x02)
+                {
+                    startAngle = 90;
+                }
+                else { startAngle = (float)(Math.Acos(catet / radius) * (180 / Math.PI)); }
+            }
+            if (endPoint.X < x02 && endPoint.Z <= z02)
+            {
+                catet =(int) (x02 - endPoint.X);
+                if (startPoint.Z == z02)
+                {
+                    startAngle = 180;
+                }
+                else { startAngle = (float)(180 - Math.Acos(catet / radius) * (180 / Math.PI)); }
+            }
+            if (endPoint.X <= x02 && endPoint.Z > z02)
+            {
+                catet =(int) (x02 - endPoint.X);
+                if (endPoint.X == x02)
+                {
+                    startAngle = 270;
+                }
+                else { startAngle = (float)(180 + Math.Acos(catet / radius) * (180 / Math.PI)); }
+            }
+            square.X = (int)(x02 - radius);
+            square.Z = (int)(z02 + radius);
+            sweepAngle = (float)(2 * Math.Asin(hord / (2 * radius)) * (180 / Math.PI));
+            rectangle.X = (coordinateZero.X + square.X);
+            rectangle.Y = (coordinateZero.Z - square.Z);
+            rectangle.Width = (int)(radius * 2);
+            rectangle.Height = (int)(radius * 2);
+            graphics.DrawArc(pen, rectangle, startAngle, sweepAngle);
+        }
+
+        public void DrawСontour(Point coordinateZero, double zoom)
+        {
+            Point startPoint = new Point();
+            Point endPoint = new Point();
+            double radius = 50;
             myCollection = new MyCollection();
-            startPoint.X = 70;
-            startPoint.Z = 88;
-            endPoint.X = 89;
-            endPoint.Z = 62;
-            DrawArc(coordinateZero,true, zoom,radius,startPoint,endPoint);
-            startPoint.X = 20;
+            startPoint.X = 120;
             startPoint.Z = 50;
+            endPoint.X = 70;
+            endPoint.Z = 100;
+            DrawArcClockwise(coordinateZero, zoom, radius, startPoint, endPoint);
+            startPoint.X = 120;
+            startPoint.Z = 50;
+            endPoint.X = 70;
+            endPoint.Z = 100;
+            DrawArcCounterclockwise(coordinateZero, zoom, radius, startPoint, endPoint);
+            startPoint.X = 120;
+            startPoint.Z = 50;
+            endPoint.X = 120;
+            endPoint.Z = 0;
+            DrawLine(coordinateZero, zoom, startPoint, endPoint);
+            startPoint.X = 70;
+            startPoint.Z = 100;
             endPoint.X = 0;
-            endPoint.Z = 50;
+            endPoint.Z = 100;
             DrawLine(coordinateZero, zoom, startPoint, endPoint);
         }
     }
