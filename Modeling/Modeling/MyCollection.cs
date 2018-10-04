@@ -8,7 +8,7 @@ namespace Modeling
     class MyCollection : IMyCollectoin
     {
         private string gCode = "DEF REAL";
-        public List<string> ListCadrs { get; set; } = new List<string>();
+        public static List<string> ListCadrs { get; set; } = new List<string>();
         public Dictionary<string, string> ListVariables { get; set; } = new Dictionary<string, string>();
 
         public void Add(string cadr) => ListCadrs.Add(cadr);
@@ -18,6 +18,7 @@ namespace Modeling
             string key = "";
             string value = "";
             string cadr = "";
+
             for (int i = 0; i < ListCadrs.Count; i++)
             {
                 cadr = ListCadrs[i];
@@ -34,9 +35,14 @@ namespace Modeling
                         value += cadr[g];
                         value = value.Replace(" ", "");
                     }
-                    ListVariables.Add(key, value);
-                    key = null;
-                    value = null;
+                    try
+                    {
+                        ListVariables.Add(key, value);
+                        key = null;
+                        value = null;
+                    }
+                    catch { }
+                                                              
                 }
             }
             foreach (KeyValuePair<string, string> keyValue in ListVariables)

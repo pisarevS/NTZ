@@ -17,7 +17,7 @@ namespace Modeling
             this.Z = z;
         }
 
-        public int X { get; set; } = 0;
-        public int Z { get; set; } = 0;
+        public float X { get; set; } = 0;
+        public float Z { get; set; } = 0;
     }
 }

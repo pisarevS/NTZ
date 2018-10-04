@@ -19,17 +19,19 @@ namespace Modeling
         private Point startPoint, endPoint;
         private bool movable = false;
         private bool isButtonClickebl = false;
-        private int mousDownX, mousDownY, mousMoveX, mousMoveY;
-        private double zoomDefalt = 10;
-        private double zoom = 1;
+        private float mousDownX, mousDownY, mousMoveX, mousMoveY;
+        private float zoomDefalt = 10;
+        private float zoom = 1;
         private Graphics g;
+        private float x;
+        private float z;
 
         public Form1()
         {
             InitializeComponent();
             Init();
             pictureBox1.MouseWheel += new MouseEventHandler(pictureBox1_MouseWheel);
-        }
+        }          
 
         private void pictureBox1_MouseWheel(object sender, MouseEventArgs e)
         {
@@ -58,14 +60,9 @@ namespace Modeling
 
         private void Manager()
         {
-            myCollection = new MyCollection();
+           
             draw = new Draw(pictureBox1, coordinateZero);
-            draw.SystemСoordinate(pictureBox1, coordinateZero);
-            for (int i = 0; i < richTextBox1.Lines.Length; i++)
-            {
-                myCollection.Add(richTextBox1.Lines[i]);
-            }
-            myCollection.ReplaceVariables();                      
+            draw.SystemСoordinate(pictureBox1, coordinateZero);                                          
             draw.DrawСontour(coordinateZero, zoom);                         
         }
 
@@ -87,12 +84,14 @@ namespace Modeling
 
         private void ButtonRestart_Click(object sender, EventArgs e)
         {
+            myCollection = new MyCollection();
             coordinateZero = new Point(pictureBox1.Width / 2, pictureBox1.Height / 2);
             draw = new Draw(pictureBox1, coordinateZero);
             draw.SystemСoordinate(pictureBox1, coordinateZero);
             isButtonClickebl = false;
             zoom = 1;
             label1.Text = "100%";
+            
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -125,6 +124,18 @@ namespace Modeling
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            myCollection = new MyCollection();
+            myCollection.ListVariables.Clear();
+            MyCollection.ListCadrs.Clear();
+            for (int i = 0; i < richTextBox1.Lines.Length; i++)
+            {
+                myCollection.Add(richTextBox1.Lines[i]);
+            }
+            myCollection.ReplaceVariables();
+        }
+
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             movable = true;
@@ -138,7 +149,8 @@ namespace Modeling
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
-        {
+        { 
+            
             if (movable)
             {
                 draw = new Draw(pictureBox1, coordinateZero);
@@ -157,6 +169,19 @@ namespace Modeling
                     Manager();
                 }
             }
+            x = (float)(e.X)-coordinateZero.X;
+            z = (float)(e.Y)-coordinateZero.Z;
+            x /= zoom;
+            z /= zoom;           
+            if (z > 0) z = -z;
+            else
+            {
+                labelX.Text = "X " +Math.Round(x).ToString();
+                labelZ.Text = "Z " +Math.Round(Math.Abs(z)).ToString();
+                return;
+            }      
+            labelX.Text ="X "+Math.Round(x).ToString();
+            labelZ.Text ="Z "+Math.Round(z).ToString();
         }
 
         private void pictureBox1_SizeChanged(object sender, EventArgs e)
