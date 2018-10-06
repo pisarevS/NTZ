@@ -90,8 +90,7 @@ namespace Modeling
             draw.SystemСoordinate(pictureBox1, coordinateZero);
             isButtonClickebl = false;
             zoom = 1;
-            label1.Text = "100%";
-            
+            label1.Text = "100%";            
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)

@@ -10,21 +10,28 @@ namespace Modeling
 {
     internal class Draw : IDraw
     {
-        private MyCollection myCollection;
+        //private MyCollection myCollection;
         private PictureBox pictureBox1;
         private Bitmap img;
         private Graphics graphics;
         private Point coordinateZero;
-        private Pen pen;
-        private Pen pen2;
+        private Pen solidLine;
+        private Pen dottedLine;
+        private Pen line;
 
         public Draw(PictureBox pictureBox1, Point coordinateZero)
         {
             this.pictureBox1 = pictureBox1;
-            img = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            graphics = Graphics.FromImage(img);
-            pen = new Pen(Color.Black);
-            pen2 = new Pen(Brushes.Gray);
+            try
+            {
+                img = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+                graphics = Graphics.FromImage(img);
+            }
+            catch { }           
+            
+            solidLine = new Pen(Color.Black);
+            dottedLine = new Pen(Brushes.Gray);
+            dottedLine.DashPattern = new float[] { 5f, 5f };
             this.coordinateZero = new Point();
             pictureBox1.Image = img;
             this.coordinateZero.X = pictureBox1.Width / 2;
@@ -33,12 +40,17 @@ namespace Modeling
 
         public void SystemСoordinate(PictureBox pictureBox1, Point coordinateZero)
         {
-            pen2.DashStyle = DashStyle.Dash;
-            graphics.DrawLine(pen2, coordinateZero.X, 0, coordinateZero.X, pictureBox1.Height); //горизонтальная
-            graphics.DrawLine(pen2, 0, coordinateZero.Z, pictureBox1.Width, coordinateZero.Z); //вертикальная
+            dottedLine.DashPattern = new float[] { 5f, 5f };
+            try
+            {
+                graphics.DrawLine(dottedLine, coordinateZero.X, 0, coordinateZero.X, pictureBox1.Height); //горизонтальная
+                graphics.DrawLine(dottedLine, 0, coordinateZero.Z, pictureBox1.Width, coordinateZero.Z); //вертикальная
+            }
+            catch { }
+            
         }
 
-        public void DrawLine(Point coordinateZero, float zoom, Point startPoint, Point endPoint)
+        public void DrawLine(Pen pen, Point coordinateZero, float zoom, Point startPoint, Point endPoint)
         {
             startPoint.X = Convert.ToInt32(startPoint.X * zoom);
             startPoint.Z = Convert.ToInt32(startPoint.Z * zoom);
@@ -48,8 +60,11 @@ namespace Modeling
             else startPoint.Z = coordinateZero.Z + Math.Abs(startPoint.Z);
             if (endPoint.Z > 0) endPoint.Z = coordinateZero.Z - endPoint.Z;
             else endPoint.Z = coordinateZero.Z + Math.Abs(endPoint.Z);
-
-            graphics.DrawLine(pen, coordinateZero.X + startPoint.X, startPoint.Z, coordinateZero.X + endPoint.X, endPoint.Z);
+            try
+            {
+                graphics.DrawLine(pen, coordinateZero.X + startPoint.X, startPoint.Z, coordinateZero.X + endPoint.X, endPoint.Z);
+            }
+            catch { }            
         }
 
         public void DrawArcClockwise(Point coordinateZero, float zoom, float radius, Point startPoint, Point endPoint)
@@ -111,7 +126,7 @@ namespace Modeling
             rectangle.Y = coordinateZero.Z - square.Z;
             rectangle.Width = radius * 2;
             rectangle.Height = radius * 2;
-            graphics.DrawArc(pen, rectangle, startAngle, sweepAngle);
+            graphics.DrawArc(solidLine, rectangle, startAngle, sweepAngle);
         }
 
         public void DrawArcCounterclockwise(Point coordinateZero, float zoom, float radius, Point startPoint, Point endPoint)
@@ -173,10 +188,10 @@ namespace Modeling
             rectangle.Y = coordinateZero.Z - square.Z;
             rectangle.Width = radius * 2;
             rectangle.Height = radius * 2;
-            graphics.DrawArc(pen, rectangle, startAngle, sweepAngle);
+            graphics.DrawArc(solidLine, rectangle, startAngle, sweepAngle);
         }
 
-        private float ConvertToFloat(string str)
+        public float ConvertToFloat(string str)
         {
             float num = 0;
             float num2 = 0;
@@ -290,14 +305,30 @@ namespace Modeling
             string strVertical = "";
             string horizontal = "X";
             string vertical = "Z";
-            int x1 = 0;
-            int x2 = 0;
+            startPoint.X = 650f;
+            startPoint.Z = 250f;
+            endPoint.X = 650f;
+            endPoint.Z = 250f;
+            bool isHorizontal = false;
+            bool isVertical = false;
 
             for (int i = 0; i < MyCollection.ListCadrs.Count; i++)
             {
+                dottedLine = new Pen(Brushes.Black);
+                dottedLine.DashPattern = new float[] { 5f, 5f };
+                cadr = MyCollection.ListCadrs[i];
+                if (cadr.Contains("G1"))
+                {
+                    line = solidLine;
+                }
+                if (cadr.Contains("G0"))
+                {
+                    line = dottedLine; 
+                }
                 if (MyCollection.ListCadrs[i].Contains(horizontal))
                 {
-                    cadr = MyCollection.ListCadrs[i];
+                    isHorizontal = true;
+                  
                     int n = cadr.IndexOf(horizontal, 0);
                     for (int j = n; j < cadr.Length; j++)
                     {
@@ -309,24 +340,16 @@ namespace Modeling
                                 string s = strHorizontal.Replace("=", "").Replace(horizontal, "").Replace(" ", "");
                                 strHorizontal = null;
                                 strHorizontal = s;
-                                x1++;
-                                if (x2 % 2 != 0)
-                                {
-                                    startPoint.X = ConvertToFloat(strHorizontal);
-                                }
-                                else
-                                {
-                                    endPoint.X = ConvertToFloat(strHorizontal);
-                                }
-                                strHorizontal = null;
-                                
                             }
                         }
                         else { break; }
                     }
+                    endPoint.X = ConvertToFloat(strHorizontal);
+                    strHorizontal = null;
                 }
                 if (MyCollection.ListCadrs[i].Contains(vertical))
                 {
+                    isVertical = true;
                     int n = cadr.IndexOf(vertical, 0);
                     for (int j = n; j < cadr.Length; j++)
                     {
@@ -338,27 +361,35 @@ namespace Modeling
                                 string s = strVertical.Replace("=", "").Replace(vertical, "").Replace(" ", "");
                                 strVertical = null;
                                 strVertical = s;
-                                x2++;
-                                if (x1 % 2 != 0)
-                                {
-                                    startPoint.Z = ConvertToFloat(strVertical);
-                                }
-                                else
-                                {
-                                    endPoint.Z = ConvertToFloat(strVertical);
-                                }
-                                strVertical = null;
-                                                              
                             }
                         }
                         else { break; }
                     }
+                    endPoint.Z = ConvertToFloat(strVertical);
+                    strVertical = null;
                 }
 
-                DrawLine(coordinateZero, zoom, startPoint, endPoint);
+                if(isHorizontal||isVertical)
+                {
+                    float startX = startPoint.X;
+                    float startZ = startPoint.Z;
+                    float endX = endPoint.X;
+                    float endZ = endPoint.Z;
+                    DrawLine(line,coordinateZero, zoom, startPoint, endPoint);
+                    startPoint.X = startX;
+                    startPoint.Z = startZ;
+                    endPoint.X = endX;
+                    endPoint.Z = endZ;
+                    startPoint.X = 0;
+                    startPoint.X = endPoint.X;
+                    startPoint.Z = 0;
+                    startPoint.Z = endPoint.Z;
+                    
+                }                             
             }
-
         }
+
+        
     }
 }
 
