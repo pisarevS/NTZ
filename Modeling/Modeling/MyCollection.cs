@@ -7,7 +7,7 @@ namespace Modeling
 {
     class MyCollection : IMyCollectoin
     {
-        private string gCode = "DEF REAL";
+        private string[] gCode = { "DEF REAL", "DEF INT" };
         public static List<string> ListCadrs { get; set; } = new List<string>();
         public Dictionary<string, string> ListVariables { get; set; } = new Dictionary<string, string>();
 
@@ -19,31 +19,36 @@ namespace Modeling
             string value = "";
             string cadr = "";
 
+
             for (int i = 0; i < ListCadrs.Count; i++)
             {
                 cadr = ListCadrs[i];
-                if (cadr.Contains(gCode))
+                for (int h = 0; h < gCode.Length; h++)
                 {
-                    int n = cadr.IndexOf(gCode, 0) + gCode.Length;
-                    for (int j = n; j < cadr.IndexOf('=', 0); j++)
+                    if (cadr.Contains(gCode[h]))
                     {
-                        key += cadr[j];
-                        key = key.Replace(" ", "");
+                        int n = cadr.IndexOf(gCode[h], 0) + gCode[h].Length;
+                        for (int j = n; j < cadr.IndexOf('=', 0); j++)
+                        {
+                            key += cadr[j];
+                            key = key.Replace(" ", "");
+                        }
+                        for (int g = cadr.IndexOf('=', 0) + 1; g < cadr.Length; g++)
+                        {
+                            value += cadr[g];
+                            value = value.Replace(" ", "");
+                        }
+                        try
+                        {
+                            ListVariables.Add(key, value);
+                            key = null;
+                            value = null;
+                        }
+                        catch { }
+
                     }
-                    for (int g = cadr.IndexOf('=', 0) + 1; g < cadr.Length; g++)
-                    {
-                        value += cadr[g];
-                        value = value.Replace(" ", "");
-                    }
-                    try
-                    {
-                        ListVariables.Add(key, value);
-                        key = null;
-                        value = null;
-                    }
-                    catch { }
-                                                              
                 }
+
             }
             foreach (KeyValuePair<string, string> keyValue in ListVariables)
             {
@@ -51,18 +56,24 @@ namespace Modeling
                 value = keyValue.Value;
                 for (int i = 0; i < ListCadrs.Count; i++)
                 {
-                    if (!ListCadrs[i].Contains(gCode))
+                    for(int h = 0; h < gCode.Length; h++)
                     {
-                        if (ListCadrs[i].Contains(key))
+                        if (!ListCadrs[i].Contains(gCode[h]))
                         {
-                            string str = ListCadrs[i].Replace(key, value);
-                            ListCadrs[i] = null;
-                            ListCadrs[i] = str;
-                            str = null;
+                            if (ListCadrs[i].Contains(key))
+                            {
+                                string str = ListCadrs[i].Replace(key, value);
+                                ListCadrs[i] = null;
+                                ListCadrs[i] = str;
+                                str = null;
+                            }
                         }
                     }
+                   
                 }
             }
+
+
         }
     }
 }
