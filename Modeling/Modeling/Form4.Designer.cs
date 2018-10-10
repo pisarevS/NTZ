@@ -44,14 +44,14 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(94, 28);
+            this.textBox1.Location = new System.Drawing.Point(78, 28);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(75, 20);
             this.textBox1.TabIndex = 1;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(94, 67);
+            this.button1.Location = new System.Drawing.Point(78, 71);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;

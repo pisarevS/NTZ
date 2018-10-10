@@ -10,8 +10,20 @@ namespace Modeling
         private string[] gCode = { "DEF REAL", "DEF INT" };
         public static List<string> ListCadrs { get; set; } = new List<string>();
         public Dictionary<string, string> ListVariables { get; set; } = new Dictionary<string, string>();
+        
 
-        public void Add(string cadr) => ListCadrs.Add(cadr);
+        public void Add(string cadr)
+        {
+
+            if (cadr.Contains(".")||cadr.Contains(";"))
+            {                
+                cadr= cadr.Replace(".", ",");
+                if (cadr.IndexOf(';') != -1)
+                cadr = cadr.Remove(cadr.IndexOf(';'));
+                ListCadrs.Add(cadr);                
+            }
+            else { ListCadrs.Add(cadr); }                                                            
+        }
 
         public void ReplaceVariables()
         {
@@ -45,10 +57,9 @@ namespace Modeling
                             value = null;
                         }
                         catch { }
-
                     }
-                }
 
+                }
             }
             foreach (KeyValuePair<string, string> keyValue in ListVariables)
             {
@@ -68,12 +79,9 @@ namespace Modeling
                                 str = null;
                             }
                         }
-                    }
-                   
+                    }                  
                 }
             }
-
-
         }
     }
 }

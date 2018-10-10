@@ -11,8 +11,7 @@ namespace Modeling
     {
         void SystemСoordinate(PictureBox pictureBox1, Point coordinateZero);
         void DrawLine(Pen pen, Point coordinateZero, float zoom, Point startLine, Point endLine);
-        void DrawArc(Pen pen, Point coordinateZero,bool clockwise, float zoom, float radius, Point startPoint, Point endPoint);    
-        void DrawСontour(Point coordinateZero,float zoom);
-        float ConvertToFloat(string str);
+        void DrawArc(Pen pen, Point coordinateZero,bool clockwise, float zoom, float radius, Point startPoint, Point endPoint);
+        void DrawСontour(Point coordinateZero, float zoom);
     }
 }

@@ -38,17 +38,20 @@ namespace Modeling
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.найтиИЗаменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.перенумероватьКадрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выйтиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.labelZ = new System.Windows.Forms.Label();
             this.labelX = new System.Windows.Forms.Label();
-            this.buttonInitialization = new System.Windows.Forms.Button();
-            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.найтиИЗаменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.перенумероватьКадрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonBlock = new System.Windows.Forms.Button();
+            this.N = new System.Windows.Forms.Label();
+            this.coorX = new System.Windows.Forms.Label();
+            this.coorZ = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -76,9 +79,9 @@ namespace Modeling
             this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTextBox1.Location = new System.Drawing.Point(12, 420);
+            this.richTextBox1.Location = new System.Drawing.Point(12, 437);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(597, 213);
+            this.richTextBox1.Size = new System.Drawing.Size(640, 196);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
@@ -86,17 +89,15 @@ namespace Modeling
             // buttonStart
             // 
             this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonStart.AutoSize = true;
-            this.buttonStart.BackColor = System.Drawing.Color.LimeGreen;
+            this.buttonStart.BackColor = System.Drawing.Color.LightGreen;
             this.buttonStart.Enabled = false;
-            this.buttonStart.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonStart.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStart.Location = new System.Drawing.Point(635, 422);
+            this.buttonStart.Location = new System.Drawing.Point(699, 437);
             this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(75, 30);
+            this.buttonStart.Size = new System.Drawing.Size(75, 35);
             this.buttonStart.TabIndex = 2;
-            this.buttonStart.Text = "Start";
+            this.buttonStart.Text = "CYCLE START";
             this.buttonStart.UseVisualStyleBackColor = false;
             this.buttonStart.Click += new System.EventHandler(this.ButtonStart_Click);
             // 
@@ -104,13 +105,12 @@ namespace Modeling
             // 
             this.buttonReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonReset.AutoSize = true;
-            this.buttonReset.BackColor = System.Drawing.Color.Brown;
-            this.buttonReset.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.buttonReset.BackColor = System.Drawing.Color.IndianRed;
             this.buttonReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonReset.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonReset.Location = new System.Drawing.Point(635, 468);
+            this.buttonReset.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonReset.Location = new System.Drawing.Point(699, 519);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(75, 30);
+            this.buttonReset.Size = new System.Drawing.Size(75, 35);
             this.buttonReset.TabIndex = 3;
             this.buttonReset.Text = "Reset";
             this.buttonReset.UseVisualStyleBackColor = false;
@@ -142,23 +142,52 @@ namespace Modeling
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.открытьToolStripMenuItem.Text = "Открыть";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.OpenFileToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.SaveFileToolStripMenuItem_Click);
+            // 
+            // найтиИЗаменитьToolStripMenuItem
+            // 
+            this.найтиИЗаменитьToolStripMenuItem.Name = "найтиИЗаменитьToolStripMenuItem";
+            this.найтиИЗаменитьToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.найтиИЗаменитьToolStripMenuItem.Text = "Найти и заменить";
+            this.найтиИЗаменитьToolStripMenuItem.Click += new System.EventHandler(this.найтиИЗаменитьToolStripMenuItem_Click);
+            // 
+            // перенумероватьКадрыToolStripMenuItem
+            // 
+            this.перенумероватьКадрыToolStripMenuItem.Name = "перенумероватьКадрыToolStripMenuItem";
+            this.перенумероватьКадрыToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.перенумероватьКадрыToolStripMenuItem.Text = "Перенумеровать кадры";
+            this.перенумероватьКадрыToolStripMenuItem.Click += new System.EventHandler(this.перенумероватьКадрыToolStripMenuItem_Click);
             // 
             // выйтиToolStripMenuItem
             // 
             this.выйтиToolStripMenuItem.Name = "выйтиToolStripMenuItem";
-            this.выйтиToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.выйтиToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.выйтиToolStripMenuItem.Text = "Выйти";
             this.выйтиToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            // 
+            // справкаToolStripMenuItem
+            // 
+            this.справкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.оПрограммеToolStripMenuItem});
+            this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
+            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.справкаToolStripMenuItem.Text = "Справка";
+            // 
+            // оПрограммеToolStripMenuItem
+            // 
+            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.оПрограммеToolStripMenuItem.Text = "О программе";
+            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
             // label1
             // 
@@ -195,51 +224,49 @@ namespace Modeling
             this.labelX.TabIndex = 7;
             this.labelX.Text = "X";
             // 
-            // buttonInitialization
+            // buttonBlock
             // 
-            this.buttonInitialization.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonInitialization.AutoSize = true;
-            this.buttonInitialization.BackColor = System.Drawing.Color.Gold;
-            this.buttonInitialization.Enabled = false;
-            this.buttonInitialization.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.buttonInitialization.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonInitialization.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.buttonInitialization.Location = new System.Drawing.Point(732, 422);
-            this.buttonInitialization.Name = "buttonInitialization";
-            this.buttonInitialization.Size = new System.Drawing.Size(75, 30);
-            this.buttonInitialization.TabIndex = 8;
-            this.buttonInitialization.Text = "Initialize";
-            this.buttonInitialization.UseVisualStyleBackColor = false;
-            this.buttonInitialization.Click += new System.EventHandler(this.ButtonInitialization_Click);
+            this.buttonBlock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonBlock.BackColor = System.Drawing.Color.GhostWhite;
+            this.buttonBlock.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonBlock.Location = new System.Drawing.Point(699, 478);
+            this.buttonBlock.Name = "buttonBlock";
+            this.buttonBlock.Size = new System.Drawing.Size(75, 35);
+            this.buttonBlock.TabIndex = 8;
+            this.buttonBlock.Text = "SINGLE BLOCK";
+            this.buttonBlock.UseVisualStyleBackColor = false;
+            this.buttonBlock.Click += new System.EventHandler(this.Block_Click);
             // 
-            // справкаToolStripMenuItem
+            // N
             // 
-            this.справкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.оПрограммеToolStripMenuItem});
-            this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.справкаToolStripMenuItem.Text = "Справка";
+            this.N.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.N.AutoSize = true;
+            this.N.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.N.Location = new System.Drawing.Point(12, 417);
+            this.N.Name = "N";
+            this.N.Size = new System.Drawing.Size(18, 17);
+            this.N.TabIndex = 9;
+            this.N.Text = "N";
             // 
-            // оПрограммеToolStripMenuItem
+            // coorX
             // 
-            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.оПрограммеToolStripMenuItem.Text = "О программе";
-            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
+            this.coorX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.coorX.AutoSize = true;
+            this.coorX.Location = new System.Drawing.Point(33, 385);
+            this.coorX.Name = "coorX";
+            this.coorX.Size = new System.Drawing.Size(14, 13);
+            this.coorX.TabIndex = 10;
+            this.coorX.Text = "X";
             // 
-            // найтиИЗаменитьToolStripMenuItem
+            // coorZ
             // 
-            this.найтиИЗаменитьToolStripMenuItem.Name = "найтиИЗаменитьToolStripMenuItem";
-            this.найтиИЗаменитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.найтиИЗаменитьToolStripMenuItem.Text = "Найти и заменить";
-            this.найтиИЗаменитьToolStripMenuItem.Click += new System.EventHandler(this.найтиИЗаменитьToolStripMenuItem_Click);
-            // 
-            // перенумероватьКадрыToolStripMenuItem
-            // 
-            this.перенумероватьКадрыToolStripMenuItem.Name = "перенумероватьКадрыToolStripMenuItem";
-            this.перенумероватьКадрыToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.перенумероватьКадрыToolStripMenuItem.Text = "Перенумеровать кадры";
-            this.перенумероватьКадрыToolStripMenuItem.Click += new System.EventHandler(this.перенумероватьКадрыToolStripMenuItem_Click);
+            this.coorZ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.coorZ.AutoSize = true;
+            this.coorZ.Location = new System.Drawing.Point(110, 385);
+            this.coorZ.Name = "coorZ";
+            this.coorZ.Size = new System.Drawing.Size(14, 13);
+            this.coorZ.TabIndex = 11;
+            this.coorZ.Text = "Z";
             // 
             // Form1
             // 
@@ -247,7 +274,10 @@ namespace Modeling
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(819, 645);
-            this.Controls.Add(this.buttonInitialization);
+            this.Controls.Add(this.coorZ);
+            this.Controls.Add(this.coorX);
+            this.Controls.Add(this.N);
+            this.Controls.Add(this.buttonBlock);
             this.Controls.Add(this.labelX);
             this.Controls.Add(this.labelZ);
             this.Controls.Add(this.label1);
@@ -283,13 +313,14 @@ namespace Modeling
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Label labelZ;
         private System.Windows.Forms.Label labelX;
-        private System.Windows.Forms.Button buttonInitialization;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem найтиИЗаменитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem перенумероватьКадрыToolStripMenuItem;
-
-        
+        private Button buttonBlock;
+        private Label N;
+        private Label coorX;
+        private Label coorZ;
     }
 }
 

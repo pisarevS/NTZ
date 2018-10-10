@@ -17,6 +17,9 @@ namespace Modeling
         private Pen solidLine;
         private Pen dottedLine;
         private Pen line;
+        private string cadr = "";
+        public static Point startPoint;
+        public static Point endPoint;
 
         public Draw(PictureBox pictureBox1, Point coordinateZero)
         {
@@ -127,7 +130,12 @@ namespace Modeling
                 rectangle.Y = coordinateZero.Z - square.Z;
                 rectangle.Width = radius * 2;
                 rectangle.Height = radius * 2;
-                graphics.DrawArc(solidLine, rectangle, startAngle, sweepAngle);
+                try
+                {
+                    graphics.DrawArc(solidLine, rectangle, startAngle, sweepAngle);
+                }
+                catch { }
+                
             }
             if (!clockwise)
             {
@@ -188,7 +196,12 @@ namespace Modeling
                 rectangle.Y = coordinateZero.Z - square.Z;
                 rectangle.Width = radius * 2;
                 rectangle.Height = radius * 2;
-                graphics.DrawArc(solidLine, rectangle, startAngle, sweepAngle);
+                try
+                {
+                    graphics.DrawArc(solidLine, rectangle, startAngle, sweepAngle);
+                }
+                catch { }
+               
             }
         }
        
@@ -372,7 +385,14 @@ namespace Modeling
                     {
                         if (!array[i].Equals(""))
                         {
-                            num += float.Parse(array[i]);
+                            try
+                            {
+                                num += float.Parse(array[i]);
+                            }
+                            catch
+                            {
+                                MessageBox.Show(cadr);                                
+                            }                            
                         }
                     }
                 }
@@ -388,9 +408,9 @@ namespace Modeling
 
         public void DrawСontour(Point coordinateZero, float zoom)
         {
-            Point startPoint = new Point();
-            Point endPoint = new Point();
-            string cadr = "";
+            startPoint = new Point();
+            endPoint = new Point();
+            
             string strHorizontal = "";
             string strVertical = "";
             string strCR = "";
@@ -408,6 +428,7 @@ namespace Modeling
             bool clockwise=true;
             int x = 0;
             int u = 0;
+         
 
             for(int i = 0; i < MyCollection.ListCadrs.Count; i++)
             {

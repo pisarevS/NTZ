@@ -24,6 +24,8 @@ namespace Modeling
         private float zoom = 1;
         private float x;
         private float z;
+        private bool isButtonPauce = false;
+        public static int index = 0;
 
         public Form1()
         {
@@ -71,27 +73,74 @@ namespace Modeling
             startPoint = new Point();
             endPoint = new Point();
             draw = new Draw(pictureBox1, coordinateZero);
-            draw.SystemСoordinate(pictureBox1, coordinateZero);
+            draw.SystemСoordinate(pictureBox1, coordinateZero);          
         }
 
         private void ButtonStart_Click(object sender, EventArgs e)
-        {
-            buttonStart.Enabled = false;
+        {           
             isButtonClickebl = true;
 
+            myCollection = new MyCollection();
+            myCollection.ListVariables.Clear();
+            MyCollection.ListCadrs.Clear();
+            if (isButtonPauce)
+            {
+                if (index < richTextBox1.Lines.Length)
+                {
+                    index++;
+                    richTextBox1.Select(richTextBox1.GetFirstCharIndexFromLine(index-1), richTextBox1.Lines[index-1].Length);
+                    richTextBox1.SelectionColor = Color.Blue;
+                    richTextBox1.ScrollToCaret();
+                    
+                }
+                else
+                {
+                    index = richTextBox1.Lines.Length;
+                }               
+                buttonStart.Enabled = true;
+            }
+            else
+            {
+                buttonStart.Enabled = false;
+                index = richTextBox1.Lines.Length;
+            }
+            for (int i = 0; i <index ; i++)
+            {                               
+                 myCollection.Add(richTextBox1.Lines[i]);                
+            }
+            myCollection.ReplaceVariables();
+
             Manager();
+            N.Text = MyCollection.ListCadrs[index-1];
+            coorX.Text ="X "+ Draw.endPoint.X.ToString();
+            coorZ.Text ="Z "+ Draw.endPoint.Z.ToString();
         }
 
         private void ButtonReset_Click(object sender, EventArgs e)
         {
-            buttonStart.Enabled = false;
+            if (richTextBox1.Lines.Length != 0)
+            {
+                buttonStart.Enabled = true;
+            }
+            else
+            {
+                buttonStart.Enabled = false;
+            }
+
             myCollection = new MyCollection();
             coordinateZero = new Point(pictureBox1.Width / 2, pictureBox1.Height / 2);
             draw = new Draw(pictureBox1, coordinateZero);
             draw.SystemСoordinate(pictureBox1, coordinateZero);
             isButtonClickebl = false;
             zoom = 1;
-            label1.Text = "100%";            
+            label1.Text = "100%";
+            isButtonPauce = false;
+            buttonBlock.Enabled = true;
+            index = 0;
+            richTextBox1.SelectAll();
+            richTextBox1.SelectionColor = Color.Black;
+            richTextBox1.ScrollToCaret();
+            N.Text = "N";
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -123,33 +172,16 @@ namespace Modeling
             }
 
         }
-
-        private void ButtonInitialization_Click(object sender, EventArgs e)
-        {
-            buttonStart.Enabled = true;
-            myCollection = new MyCollection();
-            myCollection.ListVariables.Clear();
-            MyCollection.ListCadrs.Clear();
-            for (int i = 0; i < richTextBox1.Lines.Length; i++)
-            {
-                if (!richTextBox1.Lines[i].Contains(";"))
-                {
-                    myCollection.Add(richTextBox1.Lines[i]);
-                }
-                
-            }
-            myCollection.ReplaceVariables();
-        }
-
+        
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
             if (richTextBox1.Lines.Length != 0)
             {
-                buttonInitialization.Enabled = true;
+                buttonStart.Enabled = true;
             }
             else
             {
-                buttonInitialization.Enabled = false;
+                buttonStart.Enabled = false;
             }
         }
 
@@ -186,6 +218,14 @@ namespace Modeling
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             movable = false;
+        }
+
+        private void Block_Click(object sender, EventArgs e)
+        {
+            isButtonPauce = true;
+            buttonBlock.Enabled = false;
+            richTextBox1.ScrollToCaret();
+            richTextBox1.Select(0, 0);
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
@@ -243,8 +283,12 @@ namespace Modeling
             {
                 if (richTextBox1.Lines[i].Contains(Form3.Find))
                 {
-                    string s = richTextBox1.Lines[i].Replace(Form3.Find,Form3.Replace);
-                    list.Add(s);
+                    try
+                    {
+                        string s = richTextBox1.Lines[i].Replace(Form3.Find, Form3.Replace);
+                        list.Add(s);
+                    }
+                    catch { }                    
                 }
                 else
                 {
