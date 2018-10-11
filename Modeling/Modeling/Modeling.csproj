@@ -73,6 +73,7 @@
     <Compile Include="IMyCollectoin.cs" />
     <Compile Include="MyCollection.cs" />
     <Compile Include="Point.cs" />
+    <Compile Include="PostfixNotationExpression.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

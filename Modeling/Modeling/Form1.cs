@@ -73,13 +73,13 @@ namespace Modeling
             startPoint = new Point();
             endPoint = new Point();
             draw = new Draw(pictureBox1, coordinateZero);
-            draw.SystemСoordinate(pictureBox1, coordinateZero);          
+            draw.SystemСoordinate(pictureBox1, coordinateZero);
+            PostfixNotationExpression postfix = new PostfixNotationExpression();            
         }
 
         private void ButtonStart_Click(object sender, EventArgs e)
         {           
             isButtonClickebl = true;
-
             myCollection = new MyCollection();
             myCollection.ListVariables.Clear();
             MyCollection.ListCadrs.Clear();
@@ -111,6 +111,7 @@ namespace Modeling
             myCollection.ReplaceVariables();
 
             Manager();
+
             N.Text = MyCollection.ListCadrs[index-1];
             coorX.Text ="X "+ Draw.endPoint.X.ToString();
             coorZ.Text ="Z "+ Draw.endPoint.Z.ToString();

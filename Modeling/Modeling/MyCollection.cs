@@ -58,7 +58,6 @@ namespace Modeling
                         }
                         catch { }
                     }
-
                 }
             }
             foreach (KeyValuePair<string, string> keyValue in ListVariables)
