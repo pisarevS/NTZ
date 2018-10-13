@@ -64,27 +64,27 @@ namespace Modeling
             this.pictureBox1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 30);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 27);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(795, 384);
+            this.pictureBox1.Size = new System.Drawing.Size(942, 383);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.SizeChanged += new System.EventHandler(this.pictureBox1_SizeChanged);
-            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
-            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
+            this.pictureBox1.SizeChanged += new System.EventHandler(this.PictureBox1_SizeChanged);
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseDown);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseUp);
             // 
             // richTextBox1
             // 
             this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTextBox1.Location = new System.Drawing.Point(12, 437);
+            this.richTextBox1.Location = new System.Drawing.Point(12, 440);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(640, 196);
-            this.richTextBox1.TabIndex = 1;
+            this.richTextBox1.Size = new System.Drawing.Size(787, 197);
+            this.richTextBox1.TabIndex = 12;
             this.richTextBox1.Text = "";
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            this.richTextBox1.TextChanged += new System.EventHandler(this.RichTextBox1_TextChanged);
             // 
             // buttonStart
             // 
@@ -93,7 +93,7 @@ namespace Modeling
             this.buttonStart.Enabled = false;
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonStart.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStart.Location = new System.Drawing.Point(699, 437);
+            this.buttonStart.Location = new System.Drawing.Point(846, 440);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(75, 35);
             this.buttonStart.TabIndex = 2;
@@ -108,7 +108,7 @@ namespace Modeling
             this.buttonReset.BackColor = System.Drawing.Color.IndianRed;
             this.buttonReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonReset.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonReset.Location = new System.Drawing.Point(699, 519);
+            this.buttonReset.Location = new System.Drawing.Point(847, 522);
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(75, 35);
             this.buttonReset.TabIndex = 3;
@@ -123,7 +123,7 @@ namespace Modeling
             this.справкаToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(819, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(965, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -158,14 +158,14 @@ namespace Modeling
             this.найтиИЗаменитьToolStripMenuItem.Name = "найтиИЗаменитьToolStripMenuItem";
             this.найтиИЗаменитьToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.найтиИЗаменитьToolStripMenuItem.Text = "Найти и заменить";
-            this.найтиИЗаменитьToolStripMenuItem.Click += new System.EventHandler(this.найтиИЗаменитьToolStripMenuItem_Click);
+            this.найтиИЗаменитьToolStripMenuItem.Click += new System.EventHandler(this.FindAndReplaceToolStripMenuItem_Click);
             // 
             // перенумероватьКадрыToolStripMenuItem
             // 
             this.перенумероватьКадрыToolStripMenuItem.Name = "перенумероватьКадрыToolStripMenuItem";
             this.перенумероватьКадрыToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.перенумероватьКадрыToolStripMenuItem.Text = "Перенумеровать кадры";
-            this.перенумероватьКадрыToolStripMenuItem.Click += new System.EventHandler(this.перенумероватьКадрыToolStripMenuItem_Click);
+            this.перенумероватьКадрыToolStripMenuItem.Click += new System.EventHandler(this.RenumberFramesToolStripMenuItem_Click);
             // 
             // выйтиToolStripMenuItem
             // 
@@ -187,14 +187,14 @@ namespace Modeling
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
             this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
-            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
+            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.AboutTheProgramToolStripMenuItem_Click);
             // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(752, 42);
+            this.label1.Location = new System.Drawing.Point(900, 38);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 17);
             this.label1.TabIndex = 5;
@@ -208,7 +208,7 @@ namespace Modeling
             // 
             this.labelZ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelZ.AutoSize = true;
-            this.labelZ.Location = new System.Drawing.Point(752, 385);
+            this.labelZ.Location = new System.Drawing.Point(876, 378);
             this.labelZ.Name = "labelZ";
             this.labelZ.Size = new System.Drawing.Size(14, 13);
             this.labelZ.TabIndex = 6;
@@ -218,7 +218,7 @@ namespace Modeling
             // 
             this.labelX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelX.AutoSize = true;
-            this.labelX.Location = new System.Drawing.Point(696, 385);
+            this.labelX.Location = new System.Drawing.Point(794, 378);
             this.labelX.Name = "labelX";
             this.labelX.Size = new System.Drawing.Size(14, 13);
             this.labelX.TabIndex = 7;
@@ -229,43 +229,43 @@ namespace Modeling
             this.buttonBlock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBlock.BackColor = System.Drawing.Color.GhostWhite;
             this.buttonBlock.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonBlock.Location = new System.Drawing.Point(699, 478);
+            this.buttonBlock.Location = new System.Drawing.Point(846, 481);
             this.buttonBlock.Name = "buttonBlock";
             this.buttonBlock.Size = new System.Drawing.Size(75, 35);
             this.buttonBlock.TabIndex = 8;
             this.buttonBlock.Text = "SINGLE BLOCK";
             this.buttonBlock.UseVisualStyleBackColor = false;
-            this.buttonBlock.Click += new System.EventHandler(this.Block_Click);
+            this.buttonBlock.Click += new System.EventHandler(this.ButtonSingleBlock_Click);
             // 
             // N
             // 
             this.N.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.N.AutoSize = true;
             this.N.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.N.Location = new System.Drawing.Point(12, 417);
+            this.N.Location = new System.Drawing.Point(13, 417);
             this.N.Name = "N";
             this.N.Size = new System.Drawing.Size(18, 17);
-            this.N.TabIndex = 9;
+            this.N.TabIndex = 13;
             this.N.Text = "N";
             // 
             // coorX
             // 
             this.coorX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.coorX.AutoSize = true;
-            this.coorX.Location = new System.Drawing.Point(33, 385);
+            this.coorX.Location = new System.Drawing.Point(27, 377);
             this.coorX.Name = "coorX";
             this.coorX.Size = new System.Drawing.Size(14, 13);
-            this.coorX.TabIndex = 10;
+            this.coorX.TabIndex = 14;
             this.coorX.Text = "X";
             // 
             // coorZ
             // 
             this.coorZ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.coorZ.AutoSize = true;
-            this.coorZ.Location = new System.Drawing.Point(110, 385);
+            this.coorZ.Location = new System.Drawing.Point(110, 377);
             this.coorZ.Name = "coorZ";
             this.coorZ.Size = new System.Drawing.Size(14, 13);
-            this.coorZ.TabIndex = 11;
+            this.coorZ.TabIndex = 15;
             this.coorZ.Text = "Z";
             // 
             // Form1
@@ -273,7 +273,7 @@ namespace Modeling
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(819, 645);
+            this.ClientSize = new System.Drawing.Size(965, 645);
             this.Controls.Add(this.coorZ);
             this.Controls.Add(this.coorX);
             this.Controls.Add(this.N);
@@ -287,6 +287,7 @@ namespace Modeling
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(981, 684);
             this.Name = "Form1";
             this.Text = "Modeling";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

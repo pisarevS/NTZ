@@ -7,6 +7,8 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Modeling
@@ -31,11 +33,11 @@ namespace Modeling
         {
             InitializeComponent();
             Init();
-            pictureBox1.MouseWheel += new MouseEventHandler(pictureBox1_MouseWheel);
+            pictureBox1.MouseWheel += new MouseEventHandler(PictureBox1_MouseWheel);
             this.StartPosition = FormStartPosition.CenterScreen;
         }          
 
-        private void pictureBox1_MouseWheel(object sender, MouseEventArgs e)
+        private void PictureBox1_MouseWheel(object sender, MouseEventArgs e)
         {
             if (isButtonClickebl)
             {
@@ -61,10 +63,10 @@ namespace Modeling
         }
 
         private void Manager()
-        {          
+        {
             draw = new Draw(pictureBox1, coordinateZero);
-            draw.SystemСoordinate(pictureBox1, coordinateZero);                                          
-            draw.DrawСontour(coordinateZero, zoom);                         
+            draw.SystemСoordinate(pictureBox1, coordinateZero);                    
+            draw.DrawСontour(coordinateZero, zoom);                                                               
         }
 
         public void Init()
@@ -74,7 +76,6 @@ namespace Modeling
             endPoint = new Point();
             draw = new Draw(pictureBox1, coordinateZero);
             draw.SystemСoordinate(pictureBox1, coordinateZero);
-            PostfixNotationExpression postfix = new PostfixNotationExpression();            
         }
 
         private void ButtonStart_Click(object sender, EventArgs e)
@@ -90,8 +91,7 @@ namespace Modeling
                     index++;
                     richTextBox1.Select(richTextBox1.GetFirstCharIndexFromLine(index-1), richTextBox1.Lines[index-1].Length);
                     richTextBox1.SelectionColor = Color.Blue;
-                    richTextBox1.ScrollToCaret();
-                    
+                    richTextBox1.ScrollToCaret();        
                 }
                 else
                 {
@@ -174,7 +174,7 @@ namespace Modeling
 
         }
         
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        private void RichTextBox1_TextChanged(object sender, EventArgs e)
         {
             if (richTextBox1.Lines.Length != 0)
             {
@@ -186,14 +186,14 @@ namespace Modeling
             }
         }
 
-        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutTheProgramToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();
             form2.Owner = this;
             form2.Show();         
         }
 
-        private void найтиИЗаменитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FindAndReplaceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form3 form3 = new Form3();
             form3.Owner = this;
@@ -201,7 +201,7 @@ namespace Modeling
             FindAndReplace();
         }
 
-        private void перенумероватьКадрыToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RenumberFramesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form4 form4 = new Form4();
             form4.Owner = this;
@@ -209,19 +209,19 @@ namespace Modeling
             ReplaceStep();
         }
 
-        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        private void PictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             movable = true;
             mousDownX = Convert.ToInt32(e.X);
             mousDownY = Convert.ToInt32(e.Y);
         }
 
-        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        private void PictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             movable = false;
         }
 
-        private void Block_Click(object sender, EventArgs e)
+        private void ButtonSingleBlock_Click(object sender, EventArgs e)
         {
             isButtonPauce = true;
             buttonBlock.Enabled = false;
@@ -229,7 +229,7 @@ namespace Modeling
             richTextBox1.Select(0, 0);
         }
 
-        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        private void PictureBox1_MouseMove(object sender, MouseEventArgs e)
         { 
             
             if (movable)
@@ -265,7 +265,7 @@ namespace Modeling
             labelZ.Text ="Z "+Math.Round(z).ToString();
         }
 
-        private void pictureBox1_SizeChanged(object sender, EventArgs e)
+        private void PictureBox1_SizeChanged(object sender, EventArgs e)
         {
             coordinateZero.X = pictureBox1.Width / 2;
             coordinateZero.Z = pictureBox1.Height / 2;
