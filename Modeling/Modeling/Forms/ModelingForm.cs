@@ -44,8 +44,8 @@ namespace Modeling
                 if (e.Delta > 0)
                 {
                     zoomDefalt++;
-                    if (zoomDefalt > 20)
-                        zoomDefalt = 20;
+                    if (zoomDefalt > 30)
+                        zoomDefalt = 30;
                     zoom = zoomDefalt / 10;
                     label1.Text = Convert.ToString(zoom * 100 + "%");
                     Manager();
@@ -84,6 +84,12 @@ namespace Modeling
             myCollection = new MyCollection();
             myCollection.ListVariables.Clear();
             MyCollection.ListCadrs.Clear();
+            MyCollection.ListParameter.Clear();
+            for(int i = 0; i < richTextBox2.Lines.Length; i++)
+            {
+                myCollection.Add(richTextBox2.Lines[i], MyCollection.ListParameter);
+            }
+            myCollection.ReadParametrVariables();
             if (isButtonPauce)
             {
                 if (index < richTextBox1.Lines.Length)
@@ -104,11 +110,13 @@ namespace Modeling
                 buttonStart.Enabled = false;
                 index = richTextBox1.Lines.Length;
             }
+
             for (int i = 0; i <index ; i++)
             {                               
-                 myCollection.Add(richTextBox1.Lines[i]);                
+                 myCollection.Add(richTextBox1.Lines[i],MyCollection.ListCadrs);                
             }
-            myCollection.ReplaceVariables();
+
+            myCollection.ReadProgramVariables();
 
             Manager();
 
@@ -147,31 +155,6 @@ namespace Modeling
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void OpenFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            openFileDialog1.FileName = "";
-            openFileDialog1.DefaultExt = "*.txt";
-            openFileDialog1.InitialDirectory = @"D:\";
-            openFileDialog1.ShowDialog();
-            if (openFileDialog1.FileName != "")
-            {
-                richTextBox1.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
-            }
-        }
-
-        private void SaveFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            saveFileDialog1.InitialDirectory = @"D:\";
-            saveFileDialog1.FileName = "";
-            saveFileDialog1.ShowDialog();
-            if (saveFileDialog1.FileName != "")
-            {
-                richTextBox1.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.PlainText);
-            }
-
         }
         
         private void RichTextBox1_TextChanged(object sender, EventArgs e)
@@ -227,6 +210,54 @@ namespace Modeling
             buttonBlock.Enabled = false;
             richTextBox1.ScrollToCaret();
             richTextBox1.Select(0, 0);
+        }
+
+        private void ProgramOpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.FileName = "";
+            openFileDialog1.DefaultExt = "*.txt";
+            openFileDialog1.InitialDirectory = @"D:\";
+            openFileDialog1.ShowDialog();
+            if (openFileDialog1.FileName != "")
+            {
+                richTextBox1.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
+            }
+        }
+
+        private void ParameterOpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.FileName = "";
+            openFileDialog1.DefaultExt = "*.txt";
+            openFileDialog1.InitialDirectory = @"D:\";
+            openFileDialog1.ShowDialog();
+            if (openFileDialog1.FileName != "")
+            {
+                richTextBox2.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
+            }
+        }
+
+        private void ProgramSaveToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.InitialDirectory = @"D:\";
+            saveFileDialog1.FileName = "";
+            saveFileDialog1.Filter = "|*.MPF||*.SPF||*.*";
+            saveFileDialog1.ShowDialog();
+            if (saveFileDialog1.FileName != "")
+            {
+                richTextBox1.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.PlainText);
+            }
+        }
+
+        private void ParameterSaveToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.InitialDirectory = @"D:\";
+            saveFileDialog1.FileName = "";
+            saveFileDialog1.Filter = "|*.MPF||*.SPF||*.*";
+            saveFileDialog1.ShowDialog();
+            if (saveFileDialog1.FileName != "")
+            {
+                richTextBox1.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.PlainText);
+            }
         }
 
         private void PictureBox1_MouseMove(object sender, MouseEventArgs e)

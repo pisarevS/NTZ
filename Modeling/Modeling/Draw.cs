@@ -22,6 +22,7 @@ namespace Modeling
         public static Point startPoint;
         public static Point endPoint;
         public static string strS = "+";
+        public bool clockwise = true;
 
         public Draw(PictureBox pictureBox1, Point coordinateZero)
         {
@@ -211,9 +212,11 @@ namespace Modeling
             bool isHorizontal = false;
             bool isVertical = false;
             bool isCR = false;
-            bool clockwise = true;
+            
             int x = 0;
             int u = 0;
+            bool icHorizantal = false;
+            bool icVertical = false;
 
             for (int i = 0; i < MyCollection.ListCadrs.Count; i++)
             {
@@ -243,62 +246,7 @@ namespace Modeling
                 dottedLine.DashPattern = new float[] { 5f, 5f };
                 cadr = MyCollection.ListCadrs[i];
 
-                if (cadr.Contains("G"))
-                {
-                    string G = "G";
-                    int n = cadr.IndexOf("G", 0);
-                    for (int j = n + 1; j < cadr.Length; j++)
-                    {
-                        if (Check.isDigit(cadr[j]))
-                        {
-                            G += cadr[j];
-                        }
-                        else { break; }
-                    }
-                    switch (G)
-                    {
-                        case "G0":
-                            line = dottedLine;
-                            break;
-                        case "G00":
-                            line = dottedLine;
-                            break;
-                        case "G1":
-                            line = solidLine;
-                            break;
-                        case "G01":
-                            line = solidLine;
-                            break;
-                        case "G2":
-                            if (Check.isG17())
-                            {
-                                clockwise = true;
-                            }
-                            else { clockwise = false; }
-                            break;
-                        case "G02":
-                            if (Check.isG17())
-                            {
-                                clockwise = true;
-                            }
-                            else { clockwise = false; }
-                            break;
-                        case "G3":
-                            if (Check.isG17())
-                            {
-                                clockwise = false;
-                            }
-                            else { clockwise = true; }
-                            break;
-                        case "G03":
-                            if (Check.isG17())
-                            {
-                                clockwise = false;
-                            }
-                            else { clockwise = true; }
-                            break;
-                    }
-                }
+                CheckG();
 
                 if (cadr.Contains(horizontal))
                 {
@@ -322,16 +270,26 @@ namespace Modeling
                         }
                         try
                         {
+                            if (strHorizontal.Contains("IC("))
+                            {
+                                icHorizantal = true;
+                                string d = "";
+                                int a = strHorizontal.IndexOf("IC(", 0);                              
+                                d= strHorizontal.Substring(a+3, strHorizontal.Length-4);
+                                strHorizontal = null;
+                                strHorizontal = d;
+                            }
                             float res;
                             bool isFloat = float.TryParse(strHorizontal, out res);
                             endPoint.X = res;
                             if (!isFloat)
-                            {
+                            {                              
                                 if (strHorizontal[0] == '-')
                                 {
                                     strS = strHorizontal;
                                     strHorizontal = strHorizontal.Remove(0, 1);
                                 }
+                               
                                 endPoint.X = rnd.Calculate(strHorizontal);
                                 strHorizontal = null;
                                 strS = "+";
@@ -372,6 +330,15 @@ namespace Modeling
                         }
                         try
                         {
+                            if (strVertical.Contains("IC("))
+                            {
+                                icVertical = true;
+                                string d = "";
+                                int a = strVertical.IndexOf("IC(", 0);
+                                d = strVertical.Substring(a + 3, strVertical.Length - 4);
+                                strVertical = null;
+                                strVertical = d;
+                            }
                             float res;
                             bool isFloat = float.TryParse(strVertical, out res);
                             endPoint.Z = res;
@@ -382,6 +349,7 @@ namespace Modeling
                                     strS = strVertical;
                                     strVertical = strVertical.Remove(0, 1);
                                 }
+                                
                                 endPoint.Z = rnd.Calculate(strVertical);
                                 strVertical = null;
                                 strS = "+";
@@ -425,12 +393,16 @@ namespace Modeling
                     }
                     else
                     {
-                        if (strCR.Contains("(") && strCR.Contains(")"))
+                        try
                         {
-                            strCR = strCR.Replace("(", "").Replace(")", "");
+                            if (strCR.Contains("(") && strCR.Contains(")"))
+                            {
+                                strCR = strCR.Replace("(", "").Replace(")", "");
+                            }
+                            radius = float.Parse(strCR);
+                            strCR = null;
                         }
-                        radius = float.Parse(strCR);
-                        strCR = null;
+                        catch { MessageBox.Show(cadr); return; }
                     }
                 }
 
@@ -448,6 +420,14 @@ namespace Modeling
 
                 if (isHorizontal || isVertical)
                 {
+                    if (icHorizantal)
+                    {
+                        endPoint.X = startPoint.X + endPoint.X;
+                    }
+                    if (icVertical)
+                    {
+                        endPoint.Z = startPoint.Z + endPoint.Z;
+                    }
                     DrawLine(line, coordinateZero, zoom, startPoint, endPoint);
                     startPoint.X = 0;
                     startPoint.X = endPoint.X;
@@ -455,6 +435,8 @@ namespace Modeling
                     startPoint.Z = endPoint.Z;
                     isHorizontal = false;
                     isVertical = false;
+                    icHorizantal = false;
+                    icVertical = false;
                 }
             }
             DrawPoint(coordinateZero, endPoint, 3, zoom);
@@ -472,7 +454,72 @@ namespace Modeling
             rectangle.Y = coordinateZero.Z - startZ - radius;
             rectangle.Width = radius * 2;
             rectangle.Height = radius * 2;
-            graphics.FillEllipse(brush1, rectangle);
+            try
+            {
+                graphics.FillEllipse(brush1, rectangle);
+            }
+            catch { }          
+        }
+
+        public void CheckG()
+        {
+            if (cadr.Contains("G"))
+            {              
+                string G = "G";
+                int n = cadr.IndexOf("G", 0);
+
+                for (int j = n + 1; j < cadr.Length; j++)
+                {
+                    if (Check.isDigit(cadr[j]))
+                    {
+                        G += cadr[j];
+                    }
+                    else { break; }
+                }
+                switch (G)
+                {
+                    case "G0":
+                        line = dottedLine;
+                        break;
+                    case "G00":
+                        line = dottedLine;
+                        break;
+                    case "G1":
+                        line = solidLine;
+                        break;
+                    case "G01":
+                        line = solidLine;
+                        break;
+                    case "G2":
+                        if (Check.isG17())
+                        {
+                            clockwise = true;
+                        }
+                        else { clockwise = false; }
+                        break;
+                    case "G02":
+                        if (Check.isG17())
+                        {
+                            clockwise = true;
+                        }
+                        else { clockwise = false; }
+                        break;
+                    case "G3":
+                        if (Check.isG17())
+                        {
+                            clockwise = false;
+                        }
+                        else { clockwise = true; }
+                        break;
+                    case "G03":
+                        if (Check.isG17())
+                        {
+                            clockwise = false;
+                        }
+                        else { clockwise = true; }
+                        break;
+                }               
+            }
         }
     }
 }

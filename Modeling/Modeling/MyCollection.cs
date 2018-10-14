@@ -9,29 +9,57 @@ namespace Modeling
     {
         private string[] gCode = { "DEF REAL", "DEF INT" };
         public static List<string> ListCadrs { get; set; } = new List<string>();
-        public Dictionary<string, string> ListVariables { get; set; } = new Dictionary<string, string>();
-        
+        public static List<string> ListParameter { get; set; } = new List<string>();
+        public Dictionary<string, string> ListVariables { get; set; } = new Dictionary<string, string>();       
 
-        public void Add(string cadr)
+        public void Add(string cadr, List<string> List)
         {
-
             if (cadr.Contains(".")||cadr.Contains(";"))
             {                
                 cadr= cadr.Replace(".", ",");
                 if (cadr.IndexOf(';') != -1)
                 cadr = cadr.Remove(cadr.IndexOf(';'));
-                ListCadrs.Add(cadr);                
+                List.Add(cadr);                
             }
-            else { ListCadrs.Add(cadr); }                                                            
+            else { List.Add(cadr); }                                                            
         }
 
-        public void ReplaceVariables()
+        public void ReadParametrVariables()
+        {
+            string key = "";
+            string value = "";
+            string parametr = "";
+            for(int i = 0; i < ListParameter.Count; i++)
+            {
+                parametr = ListParameter[i];
+                if (parametr.Contains("="))
+                {
+                    for (int j = 0; j < parametr.IndexOf('=', 0); j++)
+                    {
+                        key += parametr[j];
+                        key = key.Replace(" ", "");
+                    }
+                    for (int g = parametr.IndexOf('=', 0) + 1; g < parametr.Length; g++)
+                    {
+                        value += parametr[g];
+                        value = value.Replace(" ", "");
+                    }
+                    try
+                    {
+                        ListVariables.Add(key, value);
+                        key = null;
+                        value = null;
+                    }
+                    catch { }
+                }
+            }
+        }
+
+        public void ReadProgramVariables()
         {
             string key = "";
             string value = "";
             string cadr = "";
-
-
             for (int i = 0; i < ListCadrs.Count; i++)
             {
                 cadr = ListCadrs[i];
@@ -58,8 +86,16 @@ namespace Modeling
                         }
                         catch { }
                     }
-                }
+                }                                                         
             }
+            ReplaceVariables();
+        }
+
+        public void ReplaceVariables()
+        {
+            string key = "";
+            string value = "";
+           
             foreach (KeyValuePair<string, string> keyValue in ListVariables)
             {
                 key = keyValue.Key;
