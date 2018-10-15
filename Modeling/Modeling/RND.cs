@@ -137,14 +137,13 @@ namespace Modeling
                 {
                     //Берем два последних значения из стека
 
-
-                    float a = temp.Pop();
-                    float b = temp.Pop();
-
-                    if (Draw.strS[0] == '-' && temp.Count == 0)
+                   float a = temp.Pop();                                      
+                   float b = temp.Pop();
+                                                                         
+                   /* if (Draw.strS[0] == '-' && temp.Count == 0)
                     {
                         b=- b;
-                    }
+                    }*/
 
                     switch (input[i]) //И производим над ними действие, согласно оператору
                     {

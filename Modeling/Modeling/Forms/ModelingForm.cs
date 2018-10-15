@@ -256,7 +256,7 @@ namespace Modeling
             saveFileDialog1.ShowDialog();
             if (saveFileDialog1.FileName != "")
             {
-                richTextBox1.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.PlainText);
+                richTextBox2.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.PlainText);
             }
         }
 

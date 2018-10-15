@@ -9,6 +9,6 @@ namespace Modeling
     {
         void Add(string cadr, List<string> List);
         void ReadProgramVariables();
-        void ReplaceVariables();
+        void ReplaceVariables(List<string> List);
     }
 }

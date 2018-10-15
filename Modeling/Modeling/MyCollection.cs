@@ -29,7 +29,12 @@ namespace Modeling
             string key = "";
             string value = "";
             string parametr = "";
-            for(int i = 0; i < ListParameter.Count; i++)
+            ListVariables.Add("N_GANTRYPOS_X", "650");
+            ListVariables.Add("N_GANTRYPOS_Z", "250");
+            ListVariables.Add("N_GANTRYPOS_U", "650");
+            ListVariables.Add("N_GANTRYPOS_W", "250");
+
+            for (int i = 0; i < ListParameter.Count; i++)
             {
                 parametr = ListParameter[i];
                 if (parametr.Contains("="))
@@ -52,6 +57,7 @@ namespace Modeling
                     }
                     catch { }
                 }
+                ReplaceVariables(ListParameter);
             }
         }
 
@@ -88,10 +94,10 @@ namespace Modeling
                     }
                 }                                                         
             }
-            ReplaceVariables();
+            ReplaceVariables(ListCadrs);
         }
 
-        public void ReplaceVariables()
+        public void ReplaceVariables(List<string> List)
         {
             string key = "";
             string value = "";
@@ -100,17 +106,17 @@ namespace Modeling
             {
                 key = keyValue.Key;
                 value = keyValue.Value;
-                for (int i = 0; i < ListCadrs.Count; i++)
+                for (int i = 0; i < List.Count; i++)
                 {
                     for(int h = 0; h < gCode.Length; h++)
                     {
-                        if (!ListCadrs[i].Contains(gCode[h]))
+                        if (!List[i].Contains(gCode[h]))
                         {
-                            if (ListCadrs[i].Contains(key))
+                            if (List[i].Contains(key))
                             {
-                                string str = ListCadrs[i].Replace(key, value);
-                                ListCadrs[i] = null;
-                                ListCadrs[i] = str;
+                                string str = List[i].Replace(key, value);
+                                List[i] = null;
+                                List[i] = str;
                                 str = null;
                             }
                         }
