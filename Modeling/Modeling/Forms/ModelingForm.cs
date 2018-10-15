@@ -35,7 +35,7 @@ namespace Modeling
             Init();
             pictureBox1.MouseWheel += new MouseEventHandler(PictureBox1_MouseWheel);
             this.StartPosition = FormStartPosition.CenterScreen;
-        }          
+        }
 
         private void PictureBox1_MouseWheel(object sender, MouseEventArgs e)
         {
@@ -65,8 +65,8 @@ namespace Modeling
         private void Manager()
         {
             draw = new Draw(pictureBox1, coordinateZero);
-            draw.SystemСoordinate(pictureBox1, coordinateZero);                    
-            draw.DrawСontour(coordinateZero, zoom);                                                               
+            draw.SystemСoordinate(pictureBox1, coordinateZero);
+            draw.DrawСontour(coordinateZero, zoom);
         }
 
         public void Init()
@@ -79,13 +79,13 @@ namespace Modeling
         }
 
         private void ButtonStart_Click(object sender, EventArgs e)
-        {           
+        {
             isButtonClickebl = true;
             myCollection = new MyCollection();
             myCollection.ListVariables.Clear();
             MyCollection.ListCadrs.Clear();
             MyCollection.ListParameter.Clear();
-            for(int i = 0; i < richTextBox2.Lines.Length; i++)
+            for (int i = 0; i < richTextBox2.Lines.Length; i++)
             {
                 myCollection.Add(richTextBox2.Lines[i], MyCollection.ListParameter);
             }
@@ -95,14 +95,14 @@ namespace Modeling
                 if (index < richTextBox1.Lines.Length)
                 {
                     index++;
-                    richTextBox1.Select(richTextBox1.GetFirstCharIndexFromLine(index-1), richTextBox1.Lines[index-1].Length);
+                    richTextBox1.Select(richTextBox1.GetFirstCharIndexFromLine(index - 1), richTextBox1.Lines[index - 1].Length);
                     richTextBox1.SelectionColor = Color.Blue;
-                    richTextBox1.ScrollToCaret();        
+                    richTextBox1.ScrollToCaret();
                 }
                 else
                 {
                     index = richTextBox1.Lines.Length;
-                }               
+                }
                 buttonStart.Enabled = true;
             }
             else
@@ -111,22 +111,23 @@ namespace Modeling
                 index = richTextBox1.Lines.Length;
             }
 
-            for (int i = 0; i <index ; i++)
-            {                               
-                 myCollection.Add(richTextBox1.Lines[i],MyCollection.ListCadrs);                
+            for (int i = 0; i < index; i++)
+            {
+                myCollection.Add(richTextBox1.Lines[i], MyCollection.ListCadrs);
             }
 
             myCollection.ReadProgramVariables();
 
             Manager();
 
-            N.Text = MyCollection.ListCadrs[index-1];
-            coorX.Text ="X "+ Draw.endPoint.X.ToString();
-            coorZ.Text ="Z "+ Draw.endPoint.Z.ToString();
+            N.Text = MyCollection.ListCadrs[index - 1];
+            coorX.Text = "X " + Draw.endPoint.X.ToString();
+            coorZ.Text = "Z " + Draw.endPoint.Z.ToString();
         }
 
         private void ButtonReset_Click(object sender, EventArgs e)
         {
+            buttonRefresh.Enabled = false;
             if (richTextBox1.Lines.Length != 0)
             {
                 buttonStart.Enabled = true;
@@ -144,7 +145,7 @@ namespace Modeling
             zoom = 1;
             label1.Text = "100%";
             isButtonPauce = false;
-            buttonBlock.Enabled = true;
+            buttonSingleBlock.Enabled = true;
             index = 0;
             richTextBox1.SelectAll();
             richTextBox1.SelectionColor = Color.Black;
@@ -156,7 +157,7 @@ namespace Modeling
         {
             this.Close();
         }
-        
+
         private void RichTextBox1_TextChanged(object sender, EventArgs e)
         {
             if (richTextBox1.Lines.Length != 0)
@@ -173,7 +174,7 @@ namespace Modeling
         {
             Form2 form2 = new Form2();
             form2.Owner = this;
-            form2.Show();         
+            form2.Show();
         }
 
         private void FindAndReplaceToolStripMenuItem_Click(object sender, EventArgs e)
@@ -206,8 +207,9 @@ namespace Modeling
 
         private void ButtonSingleBlock_Click(object sender, EventArgs e)
         {
+            buttonRefresh.Enabled = true;
             isButtonPauce = true;
-            buttonBlock.Enabled = false;
+            buttonSingleBlock.Enabled = false;
             richTextBox1.ScrollToCaret();
             richTextBox1.Select(0, 0);
         }
@@ -260,9 +262,25 @@ namespace Modeling
             }
         }
 
+        private void ButtonRefresh_Click(object sender, EventArgs e)
+        {
+            //buttonRefresh.Enabled = true;
+            myCollection.ListVariables.Clear();
+            MyCollection.ListCadrs.Clear();
+            MyCollection.ListParameter.Clear();
+            for (int i = 0; i < index; i++)
+            {
+                myCollection.Add(richTextBox1.Lines[i], MyCollection.ListCadrs);
+            }
+
+            myCollection.ReadProgramVariables();
+
+            Manager();
+        }
+
         private void PictureBox1_MouseMove(object sender, MouseEventArgs e)
-        { 
-            
+        {
+
             if (movable)
             {
                 draw = new Draw(pictureBox1, coordinateZero);
@@ -281,19 +299,19 @@ namespace Modeling
                     Manager();
                 }
             }
-            x = (float)(e.X)-coordinateZero.X;
-            z = (float)(e.Y)-coordinateZero.Z;
+            x = (float)(e.X) - coordinateZero.X;
+            z = (float)(e.Y) - coordinateZero.Z;
             x /= zoom;
-            z /= zoom;           
+            z /= zoom;
             if (z > 0) z = -z;
             else
             {
-                labelX.Text = "X " +Math.Round(x).ToString();
-                labelZ.Text = "Z " +Math.Round(Math.Abs(z)).ToString();
+                labelX.Text = "X " + Math.Round(x).ToString();
+                labelZ.Text = "Z " + Math.Round(Math.Abs(z)).ToString();
                 return;
-            }      
-            labelX.Text ="X "+Math.Round(x).ToString();
-            labelZ.Text ="Z "+Math.Round(z).ToString();
+            }
+            labelX.Text = "X " + Math.Round(x).ToString();
+            labelZ.Text = "Z " + Math.Round(z).ToString();
         }
 
         private void PictureBox1_SizeChanged(object sender, EventArgs e)
@@ -311,7 +329,7 @@ namespace Modeling
         private void FindAndReplace()
         {
             List<string> list = new List<string>();
-            for(int i = 0; i < richTextBox1.Lines.Length; i++)
+            for (int i = 0; i < richTextBox1.Lines.Length; i++)
             {
                 if (richTextBox1.Lines[i].Contains(Form3.Find))
                 {
@@ -320,7 +338,7 @@ namespace Modeling
                         string s = richTextBox1.Lines[i].Replace(Form3.Find, Form3.Replace);
                         list.Add(s);
                     }
-                    catch { }                    
+                    catch { }
                 }
                 else
                 {
@@ -328,7 +346,7 @@ namespace Modeling
                 }
             }
             richTextBox1.Clear();
-            for(int i = 0; i < list.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 if (i == 0)
                 {
@@ -337,60 +355,53 @@ namespace Modeling
                 else
                 {
                     richTextBox1.AppendText("\n" + list[i]);
-                }                                   
+                }
             }
             list.Clear();
         }
 
         private void ReplaceStep()
         {
+            int t = 1;
             string str = "";
             List<string> list = new List<string>();
             for (int i = 0; i < richTextBox1.Lines.Length; i++)
             {
                 list.Add(richTextBox1.Lines[i]);
             }
-            for(int i = 0; i < list.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
-                string s = list[i];
-                if (s != "")
+                string cadr = list[i];
+                if (cadr != "")
                 {
-                    if (s[0] == 'N'|| s[1] == 'N')
+                    if (cadr.Contains("N"))
                     {
-                        if (!s.Contains(";"))
+                        int n = cadr.IndexOf("N");
+                        for (int j = n + 1; j < cadr.Length; j++)
                         {
-                            int n = s.IndexOf("N");
-                            for (int j = n; j < s.Length; j++)
+                            if (Check.isDigit(cadr[j]))
                             {
-                                if (s[j] != ' ')
-                                {
-                                    str += s[j];
-                                }
-                                else { break; }
+                                str += cadr[j];
                             }
-                            string d = s.Replace(str, "");
-                            string g = (int.Parse(Form4.Step) * (i + 1)).ToString();
-                            list[i] = null;
-                            list[i] = "N" + g + d;
-                            d = null;
-                            str = null;
-                        }                        
+                            else { break; }
+                        }
+                        string d = cadr.Replace("N" + str, "");
+                        string g = (int.Parse(Form4.Step) * (t)).ToString() + " ";
+                        list[i] = null;
+                        list[i] = "N" + g + d;
+                        d = null;
+                        str = null;
+                        t++;
                     }
                     else
                     {
-                        if (!s.Contains(";"))
-                        {
-                            try
-                            {
-                                string g = (int.Parse(Form4.Step) * (i + 1)).ToString();
-                                list[i] = null;
-                                list[i] = "N" + g + " " + s;
-                            }
-                            catch { }                          
-                        }                        
+                        string g = (int.Parse(Form4.Step) * (t)).ToString() + "  ";
+                        list[i] = null;
+                        list[i] = "N" + g + cadr;
+                        t++;
                     }
-                    s = null;                  
-                } 
+                    cadr = null;
+                }
             }
             richTextBox1.Clear();
             for (int i = 0; i < list.Count; i++)

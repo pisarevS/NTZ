@@ -52,7 +52,7 @@ namespace Modeling
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.labelZ = new System.Windows.Forms.Label();
             this.labelX = new System.Windows.Forms.Label();
-            this.buttonBlock = new System.Windows.Forms.Button();
+            this.buttonSingleBlock = new System.Windows.Forms.Button();
             this.N = new System.Windows.Forms.Label();
             this.coorX = new System.Windows.Forms.Label();
             this.coorZ = new System.Windows.Forms.Label();
@@ -60,6 +60,7 @@ namespace Modeling
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.buttonRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -117,13 +118,13 @@ namespace Modeling
             this.buttonReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonReset.AutoSize = true;
             this.buttonReset.BackColor = System.Drawing.Color.IndianRed;
-            this.buttonReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonReset.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.buttonReset.Location = new System.Drawing.Point(846, 501);
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(75, 35);
             this.buttonReset.TabIndex = 3;
-            this.buttonReset.Text = "Reset";
+            this.buttonReset.Text = "RESET";
             this.buttonReset.UseVisualStyleBackColor = false;
             this.buttonReset.Click += new System.EventHandler(this.ButtonReset_Click);
             // 
@@ -185,14 +186,14 @@ namespace Modeling
             // programToolStripMenuItem1
             // 
             this.programToolStripMenuItem1.Name = "programToolStripMenuItem1";
-            this.programToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.programToolStripMenuItem1.Size = new System.Drawing.Size(128, 22);
             this.programToolStripMenuItem1.Text = "Program";
             this.programToolStripMenuItem1.Click += new System.EventHandler(this.ProgramSaveToolStripMenuItem1_Click);
             // 
             // parameterToolStripMenuItem1
             // 
             this.parameterToolStripMenuItem1.Name = "parameterToolStripMenuItem1";
-            this.parameterToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.parameterToolStripMenuItem1.Size = new System.Drawing.Size(128, 22);
             this.parameterToolStripMenuItem1.Text = "Parameter";
             this.parameterToolStripMenuItem1.Click += new System.EventHandler(this.ParameterSaveToolStripMenuItem1_Click);
             // 
@@ -269,16 +270,16 @@ namespace Modeling
             // 
             // buttonBlock
             // 
-            this.buttonBlock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBlock.BackColor = System.Drawing.Color.GhostWhite;
-            this.buttonBlock.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonBlock.Location = new System.Drawing.Point(846, 460);
-            this.buttonBlock.Name = "buttonBlock";
-            this.buttonBlock.Size = new System.Drawing.Size(75, 35);
-            this.buttonBlock.TabIndex = 8;
-            this.buttonBlock.Text = "SINGLE BLOCK";
-            this.buttonBlock.UseVisualStyleBackColor = false;
-            this.buttonBlock.Click += new System.EventHandler(this.ButtonSingleBlock_Click);
+            this.buttonSingleBlock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSingleBlock.BackColor = System.Drawing.Color.GhostWhite;
+            this.buttonSingleBlock.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonSingleBlock.Location = new System.Drawing.Point(846, 460);
+            this.buttonSingleBlock.Name = "buttonBlock";
+            this.buttonSingleBlock.Size = new System.Drawing.Size(75, 35);
+            this.buttonSingleBlock.TabIndex = 8;
+            this.buttonSingleBlock.Text = "SINGLE BLOCK";
+            this.buttonSingleBlock.UseVisualStyleBackColor = false;
+            this.buttonSingleBlock.Click += new System.EventHandler(this.ButtonSingleBlock_Click);
             // 
             // N
             // 
@@ -356,17 +357,30 @@ namespace Modeling
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = "";
             // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRefresh.Enabled = false;
+            this.buttonRefresh.Location = new System.Drawing.Point(846, 559);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(75, 35);
+            this.buttonRefresh.TabIndex = 17;
+            this.buttonRefresh.Text = "REFRESH";
+            this.buttonRefresh.UseVisualStyleBackColor = false;
+            this.buttonRefresh.Click += new System.EventHandler(this.ButtonRefresh_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(965, 645);
+            this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.coorZ);
             this.Controls.Add(this.coorX);
             this.Controls.Add(this.N);
-            this.Controls.Add(this.buttonBlock);
+            this.Controls.Add(this.buttonSingleBlock);
             this.Controls.Add(this.labelX);
             this.Controls.Add(this.labelZ);
             this.Controls.Add(this.label1);
@@ -409,7 +423,7 @@ namespace Modeling
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem найтиИЗаменитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem перенумероватьКадрыToolStripMenuItem;
-        private Button buttonBlock;
+        private Button buttonSingleBlock;
         private Label N;
         private Label coorX;
         private Label coorZ;
@@ -421,6 +435,7 @@ namespace Modeling
         private ToolStripMenuItem parameterToolStripMenuItem;
         private ToolStripMenuItem programToolStripMenuItem1;
         private ToolStripMenuItem parameterToolStripMenuItem1;
+        private Button buttonRefresh;
     }
 }
 
