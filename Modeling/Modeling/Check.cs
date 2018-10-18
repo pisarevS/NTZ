@@ -41,34 +41,28 @@ namespace Modeling
             return false;
         }
 
-        public static bool ReadUp(char input)
-        {
-            switch (input)
-            {
-                case ' ':
-                    return false;
-                case 'Z':
-                    return false;
-                case 'W':
-                    return false;
-                case 'F':
-                    return false;
-                case 'M':
-                    return false;
-                case 'G':
-                    return false;
-                case 'X':
-                    return false;
-                case 'U':
-                    return false;
-            }
-            return true;
-        }
+        
 
         public static bool isDigit(char input)
         {
             switch (input)
             {
+                case '=':
+                    return true;
+                case ')':
+                    return true;
+                case '(':
+                    return true;
+                case '/':
+                    return true;
+                case '*':
+                    return true;
+                case '+':
+                    return true;
+                case '-':
+                    return true;
+                case ',':
+                    return true;
                 case '0':
                     return true;
                 case '1':
@@ -104,7 +98,5 @@ namespace Modeling
             }
             return false;
         }
-
-
     }
 }

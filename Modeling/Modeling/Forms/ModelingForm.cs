@@ -34,7 +34,7 @@ namespace Modeling
             InitializeComponent();
             Init();
             pictureBox1.MouseWheel += new MouseEventHandler(PictureBox1_MouseWheel);
-            this.StartPosition = FormStartPosition.CenterScreen;
+            this.StartPosition = FormStartPosition.CenterScreen;      
         }
 
         private void PictureBox1_MouseWheel(object sender, MouseEventArgs e)
@@ -264,18 +264,59 @@ namespace Modeling
 
         private void ButtonRefresh_Click(object sender, EventArgs e)
         {
-            //buttonRefresh.Enabled = true;
             myCollection.ListVariables.Clear();
             MyCollection.ListCadrs.Clear();
             MyCollection.ListParameter.Clear();
+            for (int i = 0; i < richTextBox2.Lines.Length; i++)
+            {
+                myCollection.Add(richTextBox2.Lines[i], MyCollection.ListParameter);
+            }
+            myCollection.ReadParametrVariables(); ;
             for (int i = 0; i < index; i++)
             {
                 myCollection.Add(richTextBox1.Lines[i], MyCollection.ListCadrs);
             }
-
+           
             myCollection.ReadProgramVariables();
 
             Manager();
+
+            N.Text = MyCollection.ListCadrs[index - 1];
+            coorX.Text = "X " + Draw.endPoint.X.ToString();
+            coorZ.Text = "Z " + Draw.endPoint.Z.ToString();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (isButtonClickebl)
+            {
+                zoomDefalt++;
+                if (zoomDefalt > 30)
+                    zoomDefalt = 30;
+                zoom = zoomDefalt / 10;
+                label1.Text = Convert.ToString(zoom * 100 + "%");
+                Manager();
+            }
+              
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (isButtonClickebl)
+            {
+                zoomDefalt--;
+                if (zoomDefalt < 5)
+                    zoomDefalt = 5;
+                zoom = zoomDefalt / 10;
+                label1.Text = Convert.ToString(zoom * 100 + "%");
+                Manager();
+            }
+               
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void PictureBox1_MouseMove(object sender, MouseEventArgs e)

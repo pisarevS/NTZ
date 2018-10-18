@@ -256,7 +256,7 @@ namespace Modeling
                     {
                         for (int j = n + 1; j < cadr.Length; j++)
                         {
-                            if (Check.ReadUp(cadr[j]))
+                            if (Check.isDigit(cadr[j]))
                             {
                                 strHorizontal += cadr[j];
                                 if (strHorizontal.Contains("=") || strHorizontal.Contains(horizontal) || strHorizontal.Contains(" "))
@@ -324,7 +324,7 @@ namespace Modeling
                     {
                         for (int j = n + 1; j < cadr.Length; j++)
                         {
-                            if (Check.ReadUp(cadr[j]))
+                            if (Check.isDigit(cadr[j]))
                             {
                                 strVertical += cadr[j];
                                 if (strVertical.Contains("=") || strVertical.Contains(vertical) || strVertical.Contains(" "))
@@ -392,7 +392,7 @@ namespace Modeling
                     int n = cadr.IndexOf(CR, 0);
                     for (int j = n + 2; j < cadr.Length; j++)
                     {
-                        if (Check.ReadUp(cadr[j]))
+                        if (Check.isDigit(cadr[j]))
                         {
                             strCR += cadr[j];
                             if (strCR.Contains("=") || strCR.Contains(strCR) || strCR.Contains(" "))

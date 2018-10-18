@@ -61,6 +61,8 @@ namespace Modeling
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.buttonRefresh = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -93,7 +95,7 @@ namespace Modeling
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.richTextBox1.Location = new System.Drawing.Point(-1, 0);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(789, 210);
+            this.richTextBox1.Size = new System.Drawing.Size(824, 210);
             this.richTextBox1.TabIndex = 12;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.RichTextBox1_TextChanged);
@@ -105,7 +107,7 @@ namespace Modeling
             this.buttonStart.Enabled = false;
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonStart.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStart.Location = new System.Drawing.Point(846, 419);
+            this.buttonStart.Location = new System.Drawing.Point(868, 426);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(75, 35);
             this.buttonStart.TabIndex = 2;
@@ -120,7 +122,7 @@ namespace Modeling
             this.buttonReset.BackColor = System.Drawing.Color.IndianRed;
             this.buttonReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonReset.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonReset.Location = new System.Drawing.Point(846, 501);
+            this.buttonReset.Location = new System.Drawing.Point(868, 508);
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(75, 35);
             this.buttonReset.TabIndex = 3;
@@ -238,7 +240,7 @@ namespace Modeling
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(900, 38);
+            this.label1.Location = new System.Drawing.Point(899, 39);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 17);
             this.label1.TabIndex = 5;
@@ -252,7 +254,7 @@ namespace Modeling
             // 
             this.labelZ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelZ.AutoSize = true;
-            this.labelZ.Location = new System.Drawing.Point(876, 364);
+            this.labelZ.Location = new System.Drawing.Point(829, 364);
             this.labelZ.Name = "labelZ";
             this.labelZ.Size = new System.Drawing.Size(14, 13);
             this.labelZ.TabIndex = 6;
@@ -262,19 +264,19 @@ namespace Modeling
             // 
             this.labelX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelX.AutoSize = true;
-            this.labelX.Location = new System.Drawing.Point(794, 364);
+            this.labelX.Location = new System.Drawing.Point(756, 364);
             this.labelX.Name = "labelX";
             this.labelX.Size = new System.Drawing.Size(14, 13);
             this.labelX.TabIndex = 7;
             this.labelX.Text = "X";
             // 
-            // buttonBlock
+            // buttonSingleBlock
             // 
             this.buttonSingleBlock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSingleBlock.BackColor = System.Drawing.Color.GhostWhite;
             this.buttonSingleBlock.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonSingleBlock.Location = new System.Drawing.Point(846, 460);
-            this.buttonSingleBlock.Name = "buttonBlock";
+            this.buttonSingleBlock.Location = new System.Drawing.Point(868, 467);
+            this.buttonSingleBlock.Name = "buttonSingleBlock";
             this.buttonSingleBlock.Size = new System.Drawing.Size(75, 35);
             this.buttonSingleBlock.TabIndex = 8;
             this.buttonSingleBlock.Text = "SINGLE BLOCK";
@@ -321,7 +323,7 @@ namespace Modeling
             this.tabControl1.Location = new System.Drawing.Point(12, 397);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(796, 236);
+            this.tabControl1.Size = new System.Drawing.Size(831, 236);
             this.tabControl1.TabIndex = 16;
             // 
             // tabPage1
@@ -330,7 +332,7 @@ namespace Modeling
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(788, 210);
+            this.tabPage1.Size = new System.Drawing.Size(823, 210);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Program";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -341,7 +343,7 @@ namespace Modeling
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(788, 210);
+            this.tabPage2.Size = new System.Drawing.Size(823, 210);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Parameter";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -353,7 +355,7 @@ namespace Modeling
             this.richTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.richTextBox2.Location = new System.Drawing.Point(0, 0);
             this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(788, 210);
+            this.richTextBox2.Size = new System.Drawing.Size(823, 210);
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = "";
             // 
@@ -361,7 +363,7 @@ namespace Modeling
             // 
             this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRefresh.Enabled = false;
-            this.buttonRefresh.Location = new System.Drawing.Point(846, 559);
+            this.buttonRefresh.Location = new System.Drawing.Point(868, 563);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 35);
             this.buttonRefresh.TabIndex = 17;
@@ -369,12 +371,36 @@ namespace Modeling
             this.buttonRefresh.UseVisualStyleBackColor = false;
             this.buttonRefresh.Click += new System.EventHandler(this.ButtonRefresh_Click);
             // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(923, 359);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(20, 20);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "+";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(897, 360);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(20, 20);
+            this.button2.TabIndex = 19;
+            this.button2.Text = "-";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(965, 645);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.coorZ);
@@ -436,6 +462,8 @@ namespace Modeling
         private ToolStripMenuItem programToolStripMenuItem1;
         private ToolStripMenuItem parameterToolStripMenuItem1;
         private Button buttonRefresh;
+        private Button button1;
+        private Button button2;
     }
 }
 
