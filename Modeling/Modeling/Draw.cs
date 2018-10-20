@@ -21,7 +21,7 @@ namespace Modeling
         private string cadr = "";
         public static Point startPoint;
         public static Point endPoint;
-        
+
         public bool clockwise = true;
 
         public Draw(PictureBox pictureBox1, Point coordinateZero)
@@ -256,7 +256,7 @@ namespace Modeling
                     {
                         for (int j = n + 1; j < cadr.Length; j++)
                         {
-                            if (Check.isDigit(cadr[j]))
+                            if (Check.ReadUp(cadr[j]))
                             {
                                 strHorizontal += cadr[j];
                                 if (strHorizontal.Contains("=") || strHorizontal.Contains(horizontal) || strHorizontal.Contains(" "))
@@ -286,7 +286,12 @@ namespace Modeling
                             {
                                 if (strHorizontal.Contains("-") && strHorizontal[0] != '-')
                                 {
-                                    if (!Check.isDigit(strHorizontal[strHorizontal.IndexOf("-", 0) - 1]))
+                                    if (strHorizontal[strHorizontal.IndexOf("-", 0) - 1] == '('|| strHorizontal[strHorizontal.IndexOf("-", 0) - 1] == ' ')
+                                    {
+                                        string strS = strHorizontal.Replace("-", "0-");
+                                        strHorizontal = null;
+                                        strHorizontal = strS;
+                                    }else if(!Check.isDigit(strHorizontal[strHorizontal.IndexOf("-", 0) - 1])&& strHorizontal[strHorizontal.IndexOf("-", 0) - 1] != ')')
                                     {
                                         string strS = strHorizontal.Replace("-", "0-");
                                         strHorizontal = null;
@@ -324,7 +329,7 @@ namespace Modeling
                     {
                         for (int j = n + 1; j < cadr.Length; j++)
                         {
-                            if (Check.isDigit(cadr[j]))
+                            if (Check.ReadUp(cadr[j]))
                             {
                                 strVertical += cadr[j];
                                 if (strVertical.Contains("=") || strVertical.Contains(vertical) || strVertical.Contains(" "))
@@ -355,7 +360,12 @@ namespace Modeling
 
                                 if (strVertical.Contains("-") && strVertical[0] != '-')
                                 {
-                                    if (!Check.isDigit(strVertical[strVertical.IndexOf("-", 0) - 1]))
+                                    if ( strVertical[strVertical.IndexOf("-", 0) - 1] == '(' || strVertical[strVertical.IndexOf("-", 0) - 1] == ' ')
+                                    {
+                                        string strS = strVertical.Replace("-", "0-");
+                                        strVertical = null;
+                                        strVertical = strS;
+                                    }else if(!Check.isDigit(strVertical[strVertical.IndexOf("-", 0) - 1]) && strVertical[strVertical.IndexOf("-", 0) - 1] != ')')
                                     {
                                         string strS = strVertical.Replace("-", "0-");
                                         strVertical = null;
@@ -392,7 +402,7 @@ namespace Modeling
                     int n = cadr.IndexOf(CR, 0);
                     for (int j = n + 2; j < cadr.Length; j++)
                     {
-                        if (Check.isDigit(cadr[j]))
+                        if (Check.ReadUp(cadr[j]))
                         {
                             strCR += cadr[j];
                             if (strCR.Contains("=") || strCR.Contains(strCR) || strCR.Contains(" "))
@@ -495,7 +505,7 @@ namespace Modeling
                                 G += cadr[j];
                             }
                             else { break; }
-                            
+
                         }
                         switch (G)
                         {
@@ -541,9 +551,9 @@ namespace Modeling
                                 break;
                         }
                         G = "G";
-                    }                 
-                }               
-                
+                    }
+                }
+
             }
         }
     }

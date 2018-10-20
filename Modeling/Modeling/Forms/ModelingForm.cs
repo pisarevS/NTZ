@@ -420,7 +420,7 @@ namespace Modeling
                         int n = cadr.IndexOf("N");
                         for (int j = n + 1; j < cadr.Length; j++)
                         {
-                            if (Check.isDigit(cadr[j]))
+                            if (Check.ReadUp(cadr[j]))
                             {
                                 str += cadr[j];
                             }
