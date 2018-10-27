@@ -76,6 +76,7 @@
     <Compile Include="Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadFile.cs" />
     <Compile Include="RND.cs" />
     <EmbeddedResource Include="Forms\ModelingForm.resx">
       <DependentUpon>ModelingForm.cs</DependentUpon>

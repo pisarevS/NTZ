@@ -45,7 +45,13 @@ namespace Modeling
         {
             switch (input)
             {
-                case ' ':
+                case 'C':
+                    return false;
+                case 'A':
+                    return false;
+                case 'S':
+                    return false;
+                case 'D':
                     return false;
                 case 'Z':
                     return false;
@@ -104,7 +110,5 @@ namespace Modeling
             }
             return false;
         }
-
-
     }
 }

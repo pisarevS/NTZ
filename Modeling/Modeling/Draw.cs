@@ -11,7 +11,7 @@ namespace Modeling
 {
     internal class Draw : IDraw
     {
-        private PictureBox pictureBox1;
+        private readonly PictureBox pictureBox1;
         private readonly Bitmap img;
         private Graphics graphics;
         private readonly Point coordinateZero;
@@ -21,7 +21,11 @@ namespace Modeling
         private string cadr = "";
         public static Point startPoint;
         public static Point endPoint;
-
+        private const float FIBO = 01123581321345589144f;
+        private bool isHorizontal = false;
+        private bool isVertical = false;
+        private bool icHorizantal = false;
+        private bool icVertical = false;
         public bool clockwise = true;
 
         public Draw(PictureBox pictureBox1, Point coordinateZero)
@@ -33,7 +37,6 @@ namespace Modeling
                 graphics = Graphics.FromImage(img);
             }
             catch { }
-
             solidLine = new Pen(Color.Green);
             dottedLine = new Pen(Brushes.Gray);
             dottedLine.DashPattern = new float[] { 5f, 5f };
@@ -53,6 +56,25 @@ namespace Modeling
             }
             catch { }
 
+        }
+
+        public void DrawPoint(Point coordinateZero, Point startPoint, int radius, float zoom)
+        {
+            RectangleF rectangle = new RectangleF();
+            SolidBrush brush1 = new SolidBrush(Color.Brown);
+            float startX = startPoint.X;
+            float startZ = startPoint.Z;
+            startX = startX * zoom;
+            startZ = startZ * zoom;
+            rectangle.X = coordinateZero.X + startX - radius;
+            rectangle.Y = coordinateZero.Z - startZ - radius;
+            rectangle.Width = radius * 2;
+            rectangle.Height = radius * 2;
+            try
+            {
+                graphics.FillEllipse(brush1, rectangle);
+            }
+            catch { }
         }
 
         public void DrawLine(Pen pen, Point coordinateZero, float zoom, Point startPoint, Point endPoint)
@@ -198,8 +220,6 @@ namespace Modeling
             startPoint = new Point();
             endPoint = new Point();
             RND rnd = new RND();
-            string strHorizontal = "";
-            string strVertical = "";
             string strCR = "";
             string horizontal = "X";
             string vertical = "Z";
@@ -209,14 +229,9 @@ namespace Modeling
             startPoint.Z = 250f;
             endPoint.X = 650f;
             endPoint.Z = 250f;
-            bool isHorizontal = false;
-            bool isVertical = false;
             bool isCR = false;
-
             int x = 0;
             int u = 0;
-            bool icHorizantal = false;
-            bool icVertical = false;
 
             for (int i = 0; i < MyCollection.ListCadrs.Count; i++)
             {
@@ -228,6 +243,7 @@ namespace Modeling
                 {
                     u++;
                 }
+
             }
             if (x > u)
             {
@@ -245,157 +261,25 @@ namespace Modeling
                 dottedLine = new Pen(Brushes.Black);
                 dottedLine.DashPattern = new float[] { 5f, 5f };
                 cadr = MyCollection.ListCadrs[i];
-
+                if (cadr.Contains("IC("))
+                {
+                    string s = cadr.Replace("IC", "|");
+                    cadr = null;
+                    cadr = s;
+                }
                 ContainsGcod(cadr);
-
                 if (cadr.Contains(horizontal))
                 {
+                    if (CoordinateSearch(cadr, horizontal) == FIBO) return;
+                    endPoint.X = CoordinateSearch(cadr, horizontal);
                     isHorizontal = true;
-                    int n = cadr.IndexOf(horizontal, 0);
-                    if (Check.CheckSymbol(cadr[n + 1]))
-                    {
-                        for (int j = n + 1; j < cadr.Length; j++)
-                        {
-                            if (Check.ReadUp(cadr[j]))
-                            {
-                                strHorizontal += cadr[j];
-                                if (strHorizontal.Contains("=") || strHorizontal.Contains(horizontal) || strHorizontal.Contains(" "))
-                                {
-                                    string s = strHorizontal.Replace("=", "").Replace(horizontal, "").Replace(" ", "");
-                                    strHorizontal = null;
-                                    strHorizontal = s;
-                                }
-                            }
-                            else { break; }
-                        }
-                        try
-                        {
-                            if (strHorizontal.Contains("IC"))
-                            {
-                                icHorizantal = true;
-                                string d = "";
-                                int a = strHorizontal.IndexOf("IC", 0);
-                                d = strHorizontal.Substring(a + 3, strHorizontal.Length - 4);
-                                strHorizontal = null;
-                                strHorizontal = d;
-                            }
-                            float res;
-                            bool isFloat = float.TryParse(strHorizontal, out res);
-                            endPoint.X = res;
-                            if (!isFloat)
-                            {
-                                if (strHorizontal.Contains("-") && strHorizontal[0] != '-')
-                                {
-                                    if (strHorizontal[strHorizontal.IndexOf("-", 0) - 1] == '('|| strHorizontal[strHorizontal.IndexOf("-", 0) - 1] == ' ')
-                                    {
-                                        string strS = strHorizontal.Replace("-", "0-");
-                                        strHorizontal = null;
-                                        strHorizontal = strS;
-                                    }else if(!Check.isDigit(strHorizontal[strHorizontal.IndexOf("-", 0) - 1])&& strHorizontal[strHorizontal.IndexOf("-", 0) - 1] != ')')
-                                    {
-                                        string strS = strHorizontal.Replace("-", "0-");
-                                        strHorizontal = null;
-                                        strHorizontal = strS;
-                                    }
-                                }
-                                else if (strHorizontal.Contains("-") && strHorizontal[0] == '-')
-                                {
-                                    string strS = "0" + strHorizontal;
-                                    strHorizontal = null;
-                                    strHorizontal = strS;
-                                }
-                                endPoint.X = rnd.Calculate(strHorizontal);
-                                strHorizontal = null;
-                            }
-                            else
-                            {
-                                if (strHorizontal.Contains("(") && strHorizontal.Contains(")"))
-                                {
-                                    strHorizontal = strHorizontal.Replace("(", "").Replace(")", "");
-                                }
-                                endPoint.X = float.Parse(strHorizontal);
-                                strHorizontal = null;
-                            }
-                        }
-                        catch { MessageBox.Show(cadr); return; }
-                    }
                 }
-
                 if (cadr.Contains(vertical))
                 {
+                    if (CoordinateSearch(cadr, vertical) == FIBO) return;
+                    endPoint.Z = CoordinateSearch(cadr, vertical);
                     isVertical = true;
-                    int n = cadr.IndexOf(vertical, 0);
-                    if (Check.CheckSymbol(cadr[n + 1]))
-                    {
-                        for (int j = n + 1; j < cadr.Length; j++)
-                        {
-                            if (Check.ReadUp(cadr[j]))
-                            {
-                                strVertical += cadr[j];
-                                if (strVertical.Contains("=") || strVertical.Contains(vertical) || strVertical.Contains(" "))
-                                {
-                                    string s = strVertical.Replace("=", "").Replace(vertical, "").Replace(" ", "");
-                                    strVertical = null;
-                                    strVertical = s;
-                                }
-                            }
-                            else { break; }
-                        }
-                        try
-                        {
-                            if (strVertical.Contains("IC"))
-                            {
-                                icVertical = true;
-                                string d = "";
-                                int a = strVertical.IndexOf("IC", 0);
-                                d = strVertical.Substring(a + 3, strVertical.Length - 4);
-                                strVertical = null;
-                                strVertical = d;
-                            }
-                            float res;
-                            bool isFloat = float.TryParse(strVertical, out res);
-                            endPoint.Z = res;
-                            if (!isFloat)
-                            {
-
-                                if (strVertical.Contains("-") && strVertical[0] != '-')
-                                {
-                                    if ( strVertical[strVertical.IndexOf("-", 0) - 1] == '(' || strVertical[strVertical.IndexOf("-", 0) - 1] == ' ')
-                                    {
-                                        string strS = strVertical.Replace("-", "0-");
-                                        strVertical = null;
-                                        strVertical = strS;
-                                    }else if(!Check.isDigit(strVertical[strVertical.IndexOf("-", 0) - 1]) && strVertical[strVertical.IndexOf("-", 0) - 1] != ')')
-                                    {
-                                        string strS = strVertical.Replace("-", "0-");
-                                        strVertical = null;
-                                        strVertical = strS;
-                                    }
-                                }
-                                else if (strVertical.Contains("-") && strVertical[0] == '-')
-                                {
-                                    string strS = "0" + strVertical;
-                                    strVertical = null;
-                                    strVertical = strS;
-                                }
-
-                                endPoint.Z = rnd.Calculate(strVertical);
-                                strVertical = null;
-                            }
-                            else
-                            {
-                                if (strVertical.Contains("(") && strVertical.Contains(")"))
-                                {
-                                    strVertical = strVertical.Replace("(", "").Replace(")", "");
-                                }
-                                endPoint.Z = float.Parse(strVertical);
-                                strVertical = null;
-                            }
-                        }
-                        catch { MessageBox.Show(cadr); return; }
-                    }
                 }
-
                 if (cadr.Contains(CR))
                 {
                     isCR = true;
@@ -433,7 +317,6 @@ namespace Modeling
                         catch { MessageBox.Show(cadr); return; }
                     }
                 }
-
                 if (isHorizontal && isVertical && isCR)
                 {
                     DrawArc(line, coordinateZero, clockwise, zoom, radius, startPoint, endPoint);
@@ -445,7 +328,6 @@ namespace Modeling
                     isVertical = false;
                     isCR = false;
                 }
-
                 if (isHorizontal || isVertical)
                 {
                     if (icHorizantal)
@@ -470,26 +352,87 @@ namespace Modeling
             DrawPoint(coordinateZero, endPoint, 3, zoom);
         }
 
-        public void DrawPoint(Point coordinateZero, Point startPoint, int radius, float zoom)
+        private float CoordinateSearch(string cadr, string axis)
         {
-            RectangleF rectangle = new RectangleF();
-            SolidBrush brush1 = new SolidBrush(Color.Brown);
-            float startX = startPoint.X;
-            float startZ = startPoint.Z;
-            startX = startX * zoom;
-            startZ = startZ * zoom;
-            rectangle.X = coordinateZero.X + startX - radius;
-            rectangle.Y = coordinateZero.Z - startZ - radius;
-            rectangle.Width = radius * 2;
-            rectangle.Height = radius * 2;
-            try
+            RND rnd = new RND();
+            string strAxis = "";
+            int n = cadr.IndexOf(axis, 0);
+            if (Check.CheckSymbol(cadr[n + 1]))
             {
-                graphics.FillEllipse(brush1, rectangle);
+                for (int j = n + 1; j < cadr.Length; j++)
+                {
+                    if (Check.ReadUp(cadr[j]))
+                    {
+                        strAxis += cadr[j];
+                        if (strAxis.Contains("=") || strAxis.Contains(axis) || strAxis.Contains(" "))
+                        {
+                            string s = strAxis.Replace("=", "").Replace(axis, "").Replace(" ", "");
+                            strAxis = null;
+                            strAxis = s;
+                        }
+                    }
+                    else { break; }
+                }
+                try
+                {
+                    if (strAxis.Contains("|"))
+                    {
+                        if (axis == "X" || axis == "U") icHorizantal = true;
+                        if (axis == "Z" || axis == "W") icVertical = true;
+                        string d = "";
+                        int a = strAxis.IndexOf("|", 0);
+                        d = strAxis.Substring(a + 2, strAxis.Length - 3);
+                        strAxis = null;
+                        strAxis = d;
+                    }
+                    bool isFloat = float.TryParse(strAxis, out float res);
+                    if (!isFloat)
+                    {
+                        if (strAxis.Contains("-") && strAxis[0] != '-')
+                        {
+                            if (strAxis[strAxis.IndexOf("-", 0) - 1] == '(' || strAxis[strAxis.IndexOf("-", 0) - 1] == ' ')
+                            {
+                                string strS = strAxis.Replace("-", "0-");
+                                strAxis = null;
+                                strAxis = strS;
+                            }
+                            else if (!Check.isDigit(strAxis[strAxis.IndexOf("-", 0) - 1]) && strAxis[strAxis.IndexOf("-", 0) - 1] != ')')
+                            {
+                                string strS = strAxis.Replace("-", "0-");
+                                strAxis = null;
+                                strAxis = strS;
+                            }
+                        }
+                        else if (strAxis.Contains("-") && strAxis[0] == '-')
+                        {
+                            string strS = "0" + strAxis;
+                            strAxis = null;
+                            strAxis = strS;
+                        }
+                        return rnd.Calculate(strAxis);
+                    }
+                    else
+                    {
+                        if (strAxis.Contains("(") && strAxis.Contains(")"))
+                        {
+                            strAxis = strAxis.Replace("(", "").Replace(")", "");
+                            return float.Parse(strAxis);
+                        }
+                        return res;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show(cadr);
+                    return FIBO;
+                }
             }
-            catch { }
+            if (axis == "X" || axis == "U") return endPoint.X;
+            if (axis == "Z" || axis == "W") return endPoint.Z;
+            return FIBO;
         }
 
-        public void ContainsGcod(string cadr)
+        private void ContainsGcod(string cadr)
         {
             if (cadr.Contains("G"))
             {
@@ -505,7 +448,6 @@ namespace Modeling
                                 G += cadr[j];
                             }
                             else { break; }
-
                         }
                         switch (G)
                         {
@@ -553,7 +495,6 @@ namespace Modeling
                         G = "G";
                     }
                 }
-
             }
         }
     }

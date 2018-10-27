@@ -99,7 +99,6 @@ namespace Modeling
                                 output += operStack.Pop().ToString() + " "; //То добавляем последний оператор из стека в строку с выражением
 
                         operStack.Push(char.Parse(input[i].ToString())); //Если стек пуст, или же приоритет оператора выше - добавляем операторов на вершину стека
-
                     }
                 }
             }
@@ -110,7 +109,6 @@ namespace Modeling
 
             return output; //Возвращаем выражение в постфиксной записи
         }
-
 
         static private float Counting(string input)
         {
@@ -137,13 +135,8 @@ namespace Modeling
                 {
                     //Берем два последних значения из стека
 
-                   float a = temp.Pop();                                      
-                   float b = temp.Pop();
-                                                                         
-                   /* if (Draw.strS[0] == '-' && temp.Count == 0)
-                    {
-                        b=- b;
-                    }*/
+                    float a = temp.Pop();
+                    float b = temp.Pop();
 
                     switch (input[i]) //И производим над ними действие, согласно оператору
                     {

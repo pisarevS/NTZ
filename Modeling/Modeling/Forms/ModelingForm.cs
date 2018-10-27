@@ -28,13 +28,14 @@ namespace Modeling
         private float z;
         private bool isButtonPauce = false;
         public static int index = 0;
+        private ReadFile readFile;
 
         public Form1()
         {
             InitializeComponent();
             Init();
             pictureBox1.MouseWheel += new MouseEventHandler(PictureBox1_MouseWheel);
-            this.StartPosition = FormStartPosition.CenterScreen;      
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void PictureBox1_MouseWheel(object sender, MouseEventArgs e)
@@ -76,6 +77,7 @@ namespace Modeling
             endPoint = new Point();
             draw = new Draw(pictureBox1, coordinateZero);
             draw.SystemСoordinate(pictureBox1, coordinateZero);
+            readFile = new ReadFile();
         }
 
         private void ButtonStart_Click(object sender, EventArgs e)
@@ -110,10 +112,22 @@ namespace Modeling
                 buttonStart.Enabled = false;
                 index = richTextBox1.Lines.Length;
             }
-
+            string cadr = "";
             for (int i = 0; i < index; i++)
             {
-                myCollection.Add(richTextBox1.Lines[i], MyCollection.ListCadrs);
+                cadr = richTextBox1.Lines[i];
+                for (int l = 0; l < ReadFile.Ignor.Count; l++)
+                {
+                    if (cadr.Contains(ReadFile.Ignor[l]))
+                    {
+                        string s = cadr.Replace(ReadFile.Ignor[l], "");
+                        cadr = null;
+                        cadr = s;
+                        break;
+                    }
+                }
+                myCollection.Add(cadr, MyCollection.ListCadrs);
+                cadr = "";
             }
 
             myCollection.ReadProgramVariables();
@@ -125,7 +139,7 @@ namespace Modeling
             coorZ.Text = "Z " + Draw.endPoint.Z.ToString();
         }
 
-        private void ButtonReset_Click(object sender, EventArgs e)
+        public void ButtonReset_Click(object sender, EventArgs e)
         {
             buttonRefresh.Enabled = false;
             if (richTextBox1.Lines.Length != 0)
@@ -276,7 +290,7 @@ namespace Modeling
             {
                 myCollection.Add(richTextBox1.Lines[i], MyCollection.ListCadrs);
             }
-           
+
             myCollection.ReadProgramVariables();
 
             Manager();
@@ -297,7 +311,7 @@ namespace Modeling
                 label1.Text = Convert.ToString(zoom * 100 + "%");
                 Manager();
             }
-              
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -311,7 +325,7 @@ namespace Modeling
                 label1.Text = Convert.ToString(zoom * 100 + "%");
                 Manager();
             }
-               
+
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -321,7 +335,6 @@ namespace Modeling
 
         private void PictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-
             if (movable)
             {
                 draw = new Draw(pictureBox1, coordinateZero);

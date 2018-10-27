@@ -10,18 +10,18 @@ namespace Modeling
         private string[] gCode = { "DEF REAL", "DEF INT" };
         public static List<string> ListCadrs { get; set; } = new List<string>();
         public static List<string> ListParameter { get; set; } = new List<string>();
-        public Dictionary<string, string> ListVariables { get; set; } = new Dictionary<string, string>();       
+        public Dictionary<string, string> ListVariables { get; set; } = new Dictionary<string, string>();
 
         public void Add(string cadr, List<string> List)
         {
-            if (cadr.Contains(".")||cadr.Contains(";"))
-            {                
-                cadr= cadr.Replace(".", ",");
+            if (cadr.Contains(".") || cadr.Contains(";"))
+            {
+                cadr = cadr.Replace(".", ",");
                 if (cadr.IndexOf(';') != -1)
-                cadr = cadr.Remove(cadr.IndexOf(';'));
-                List.Add(cadr);                
+                    cadr = cadr.Remove(cadr.IndexOf(';'));
+                List.Add(cadr);
             }
-            else { List.Add(cadr); }                                                            
+            else { List.Add(cadr); }
         }
 
         public void ReadParametrVariables()
@@ -33,6 +33,7 @@ namespace Modeling
             ListVariables.Add("N_GANTRYPOS_Z", "250");
             ListVariables.Add("N_GANTRYPOS_U", "650");
             ListVariables.Add("N_GANTRYPOS_W", "250");
+            ListVariables.Add("$P_TOOLR", "16");
 
             for (int i = 0; i < ListParameter.Count; i++)
             {
@@ -92,7 +93,7 @@ namespace Modeling
                         }
                         catch { }
                     }
-                }                                                         
+                }
             }
             ReplaceVariables(ListCadrs);
         }
@@ -101,14 +102,14 @@ namespace Modeling
         {
             string key = "";
             string value = "";
-           
+
             foreach (KeyValuePair<string, string> keyValue in ListVariables)
             {
                 key = keyValue.Key;
                 value = keyValue.Value;
                 for (int i = 0; i < List.Count; i++)
                 {
-                    for(int h = 0; h < gCode.Length; h++)
+                    for (int h = 0; h < gCode.Length; h++)
                     {
                         if (!List[i].Contains(gCode[h]))
                         {
@@ -120,7 +121,7 @@ namespace Modeling
                                 str = null;
                             }
                         }
-                    }                  
+                    }
                 }
             }
         }
