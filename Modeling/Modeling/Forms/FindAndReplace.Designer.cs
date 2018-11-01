@@ -1,6 +1,6 @@
 ﻿namespace Modeling
 {
-    partial class Form3
+    partial class FindAndReplace
     {
         /// <summary>
         /// Required designer variable.

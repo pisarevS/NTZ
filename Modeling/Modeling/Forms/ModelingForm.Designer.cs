@@ -2,7 +2,7 @@
 
 namespace Modeling
 {
-    partial class Form1
+    partial class ModelingForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -30,7 +30,8 @@ namespace Modeling
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModelingForm));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.buttonStart = new System.Windows.Forms.Button();
@@ -64,11 +65,14 @@ namespace Modeling
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -106,9 +110,10 @@ namespace Modeling
             this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonStart.BackColor = System.Drawing.Color.LightGreen;
             this.buttonStart.Enabled = false;
+            this.buttonStart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonStart.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStart.Location = new System.Drawing.Point(868, 426);
+            this.buttonStart.Location = new System.Drawing.Point(868, 455);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(75, 35);
             this.buttonStart.TabIndex = 2;
@@ -121,9 +126,11 @@ namespace Modeling
             this.buttonReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonReset.AutoSize = true;
             this.buttonReset.BackColor = System.Drawing.Color.IndianRed;
+            this.buttonReset.Enabled = false;
+            this.buttonReset.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonReset.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonReset.Location = new System.Drawing.Point(868, 508);
+            this.buttonReset.Location = new System.Drawing.Point(868, 537);
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(75, 35);
             this.buttonReset.TabIndex = 3;
@@ -274,9 +281,11 @@ namespace Modeling
             // buttonSingleBlock
             // 
             this.buttonSingleBlock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSingleBlock.BackColor = System.Drawing.Color.GhostWhite;
-            this.buttonSingleBlock.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonSingleBlock.Location = new System.Drawing.Point(868, 467);
+            this.buttonSingleBlock.BackColor = System.Drawing.Color.AliceBlue;
+            this.buttonSingleBlock.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonSingleBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSingleBlock.ForeColor = System.Drawing.Color.Black;
+            this.buttonSingleBlock.Location = new System.Drawing.Point(868, 496);
             this.buttonSingleBlock.Name = "buttonSingleBlock";
             this.buttonSingleBlock.Size = new System.Drawing.Size(75, 35);
             this.buttonSingleBlock.TabIndex = 8;
@@ -364,7 +373,8 @@ namespace Modeling
             // 
             this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRefresh.Enabled = false;
-            this.buttonRefresh.Location = new System.Drawing.Point(868, 563);
+            this.buttonRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonRefresh.Location = new System.Drawing.Point(868, 594);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 35);
             this.buttonRefresh.TabIndex = 17;
@@ -394,12 +404,40 @@ namespace Modeling
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown1.Location = new System.Drawing.Point(868, 419);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(75, 20);
+            this.numericUpDown1.TabIndex = 20;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(965, 645);
+            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonRefresh);
@@ -426,6 +464,7 @@ namespace Modeling
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -466,6 +505,8 @@ namespace Modeling
         private Button buttonRefresh;
         private Button button1;
         private Button button2;
+        private Timer timer1;
+        private NumericUpDown numericUpDown1;
     }
 }
 

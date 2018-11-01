@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace Modeling
 {
-    public partial class Form2 : Form
+    public partial class AboutTheProgram : Form
     {
-        public Form2()
+        public AboutTheProgram()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;

@@ -9,12 +9,12 @@ using System.Windows.Forms;
 
 namespace Modeling
 {
-    public partial class Form3 : Form
+    public partial class FindAndReplace : Form
     {
         private static string find="";
         private static string replace = "";
 
-        public Form3()
+        public FindAndReplace()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;

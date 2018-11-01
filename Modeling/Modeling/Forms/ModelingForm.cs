@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Modeling
 {
-    public partial class Form1 : Form
+    public partial class ModelingForm : Form
     {
         private Draw draw;
         private MyCollection myCollection;
@@ -25,10 +25,10 @@ namespace Modeling
         private float x;
         private float z;
         private bool isButtonPauce = false;
-        public static int index = 0;
+        public static int index = 1;
         private ReadFile readFile;
 
-        public Form1()
+        public ModelingForm()
         {
             InitializeComponent();
             Init();
@@ -76,10 +76,14 @@ namespace Modeling
             draw = new Draw(pictureBox1, coordinateZero);
             draw.SystemСoordinate(pictureBox1, coordinateZero);
             readFile = new ReadFile();
+            buttonSingleBlock.Enabled = false;
+            buttonSingleBlock.BackColor = DefaultBackColor;
         }
 
         private void ButtonStart_Click(object sender, EventArgs e)
         {
+            timer1.Interval=int.Parse(numericUpDown1.Value.ToString());          
+            //buttonSingleBlock.Enabled = false;
             isButtonClickebl = true;
             myCollection = new MyCollection();
             myCollection.ListVariables.Clear();
@@ -106,9 +110,12 @@ namespace Modeling
                 buttonStart.Enabled = true;
             }
             else
-            {
-                buttonStart.Enabled = false;
-                index = richTextBox1.Lines.Length;
+            {                
+               // buttonStart.Enabled = false;
+                timer1.Enabled = true;
+                richTextBox1.Select(richTextBox1.GetFirstCharIndexFromLine(index - 1), richTextBox1.Lines[index - 1].Length);
+                richTextBox1.SelectionColor = Color.Blue;
+                richTextBox1.ScrollToCaret(); 
             }
             string cadr = "";
             for (int i = 0; i < index; i++)
@@ -135,10 +142,17 @@ namespace Modeling
             N.Text = MyCollection.ListCadrs[index - 1];
             coorX.Text = "X " + Draw.endPoint.X.ToString();
             coorZ.Text = "Z " + Draw.endPoint.Z.ToString();
+            if (index == richTextBox1.Lines.Length)
+            {
+                timer1.Enabled = false;
+                buttonStart.Enabled = true;
+                //index = 1;
+            }
         }
 
         public void ButtonReset_Click(object sender, EventArgs e)
-        {
+        {            
+            timer1.Enabled = false;
             buttonRefresh.Enabled = false;
             if (richTextBox1.Lines.Length != 0)
             {
@@ -157,8 +171,7 @@ namespace Modeling
             zoom = 1;
             label1.Text = "100%";
             isButtonPauce = false;
-            buttonSingleBlock.Enabled = true;
-            index = 0;
+            index = 1;
             richTextBox1.SelectAll();
             richTextBox1.SelectionColor = Color.Black;
             richTextBox1.ScrollToCaret();
@@ -172,26 +185,35 @@ namespace Modeling
 
         private void RichTextBox1_TextChanged(object sender, EventArgs e)
         {
-            if (richTextBox1.Lines.Length != 0)
+            if (richTextBox1.Lines.Length != 0||timer1.Enabled==false)
             {
                 buttonStart.Enabled = true;
+                buttonSingleBlock.Enabled = true;
+                buttonReset.Enabled = true;
             }
-            else
+            
+            if (richTextBox1.Lines.Length == 0)
             {
                 buttonStart.Enabled = false;
-            }
+                buttonSingleBlock.Enabled = false;
+                buttonReset.Enabled = false;
+                buttonRefresh.Enabled = false;
+                coorX.Text = "X ";
+                coorZ.Text = "Z ";
+                ButtonReset_Click(sender, e);
+            }           
         }
 
         private void AboutTheProgramToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2();
+            AboutTheProgram form2 = new AboutTheProgram();
             form2.Owner = this;
             form2.Show();
         }
 
         private void FindAndReplaceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form3 form3 = new Form3();
+            FindAndReplace form3 = new FindAndReplace();
             form3.Owner = this;
             form3.ShowDialog();
             FindAndReplace();
@@ -199,7 +221,7 @@ namespace Modeling
 
         private void RenumberFramesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form4 form4 = new Form4();
+            RenumberFrames form4 = new RenumberFrames();
             form4.Owner = this;
             form4.ShowDialog();
             ReplaceStep();
@@ -220,8 +242,20 @@ namespace Modeling
         private void ButtonSingleBlock_Click(object sender, EventArgs e)
         {
             buttonRefresh.Enabled = true;
-            isButtonPauce = true;
-            buttonSingleBlock.Enabled = false;
+
+            if (isButtonPauce == true)
+            {
+                isButtonPauce = false;
+                timer1.Enabled = true;
+                buttonSingleBlock.ForeColor = Color.Black;
+            }
+            else
+            {
+                isButtonPauce = true;
+                timer1.Enabled = false;
+                buttonSingleBlock.ForeColor = Color.Green;
+            }          
+            //buttonSingleBlock.Enabled = false;
             richTextBox1.ScrollToCaret();
             richTextBox1.Select(0, 0);
         }
@@ -284,9 +318,23 @@ namespace Modeling
                 myCollection.Add(richTextBox2.Lines[i], MyCollection.ListParameter);
             }
             myCollection.ReadParametrVariables(); ;
+            string cadr = "";
             for (int i = 0; i < index; i++)
-            {
-                myCollection.Add(richTextBox1.Lines[i], MyCollection.ListCadrs);
+            {                
+                cadr = richTextBox1.Lines[i];
+                for (int l = 0; l < ReadFile.Ignor.Count; l++)
+                {
+                    if (cadr.Contains(ReadFile.Ignor[l]))
+                    {
+                        string s = cadr.Replace(ReadFile.Ignor[l], "");
+                        cadr = null;
+                        cadr = s;
+                        break;
+                    }
+                }
+                myCollection.Add(cadr, MyCollection.ListCadrs);
+                cadr = "";
+               // myCollection.Add(richTextBox1.Lines[i], MyCollection.ListCadrs);
             }
 
             myCollection.ReadProgramVariables();
@@ -329,6 +377,19 @@ namespace Modeling
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if(index< richTextBox1.Lines.Length)
+            {
+                index++;
+            }
+            else
+            {
+                index = richTextBox1.Lines.Length;
+            }            
+            ButtonStart_Click(sender, e);
         }
 
         private void PictureBox1_MouseMove(object sender, MouseEventArgs e)
@@ -383,11 +444,11 @@ namespace Modeling
             List<string> list = new List<string>();
             for (int i = 0; i < richTextBox1.Lines.Length; i++)
             {
-                if (richTextBox1.Lines[i].Contains(Form3.Find))
+                if (richTextBox1.Lines[i].Contains(Modeling.FindAndReplace.Find))
                 {
                     try
                     {
-                        string s = richTextBox1.Lines[i].Replace(Form3.Find, Form3.Replace);
+                        string s = richTextBox1.Lines[i].Replace(Modeling.FindAndReplace.Find, Modeling.FindAndReplace.Replace);
                         list.Add(s);
                     }
                     catch { }
@@ -438,7 +499,7 @@ namespace Modeling
                             else { break; }
                         }
                         string d = cadr.Replace("N" + str, "");
-                        string g = (int.Parse(Form4.Step) * (t)).ToString() + " ";
+                        string g = (int.Parse(RenumberFrames.Step) * (t)).ToString() + " ";
                         list[i] = null;
                         list[i] = "N" + g + d;
                         d = null;
@@ -447,7 +508,7 @@ namespace Modeling
                     }
                     else
                     {
-                        string g = (int.Parse(Form4.Step) * (t)).ToString() + "  ";
+                        string g = (int.Parse(RenumberFrames.Step) * (t)).ToString() + "  ";
                         list[i] = null;
                         list[i] = "N" + g + cadr;
                         t++;

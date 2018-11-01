@@ -1,6 +1,6 @@
 ﻿namespace Modeling
 {
-    partial class Form2
+    partial class AboutTheProgram
     {
         /// <summary>
         /// Required designer variable.

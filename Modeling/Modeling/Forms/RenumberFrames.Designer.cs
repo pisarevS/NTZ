@@ -1,6 +1,6 @@
 ﻿namespace Modeling
 {
-    partial class Form4
+    partial class RenumberFrames
     {
         /// <summary>
         /// Required designer variable.

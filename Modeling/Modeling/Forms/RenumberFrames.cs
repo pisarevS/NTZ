@@ -9,10 +9,10 @@ using System.Windows.Forms;
 
 namespace Modeling
 {
-    public partial class Form4 : Form
+    public partial class RenumberFrames : Form
     {
         private static string step = "";
-        public Form4()
+        public RenumberFrames()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
