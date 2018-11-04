@@ -27,6 +27,7 @@ namespace Modeling
         private bool isButtonPauce = false;
         public static int index = 1;
         private ReadFile readFile;
+        private string[] fileName1;
 
         public ModelingForm()
         {
@@ -34,38 +35,16 @@ namespace Modeling
             Init();
             pictureBox1.MouseWheel += new MouseEventHandler(PictureBox1_MouseWheel);
             this.StartPosition = FormStartPosition.CenterScreen;
-        }
 
-        private void PictureBox1_MouseWheel(object sender, MouseEventArgs e)
-        {
-            if (isButtonClickebl)
-            {
-                if (e.Delta > 0)
-                {
-                    zoomDefalt++;
-                    if (zoomDefalt > 30)
-                        zoomDefalt = 30;
-                    zoom = zoomDefalt / 10;
-                    label1.Text = Convert.ToString(zoom * 100 + "%");
-                    Manager();
-                }
-                else
-                {
-                    zoomDefalt--;
-                    if (zoomDefalt < 5)
-                        zoomDefalt = 5;
-                    zoom = zoomDefalt / 10;
-                    label1.Text = Convert.ToString(zoom * 100 + "%");
-                    Manager();
-                }
-            }
-        }
+            richTextBox1.DragEnter += RichTextBox1_DragEnter;
+            richTextBox1.DragDrop += RichTextBox1_DragDrop;
+            richTextBox1.AllowDrop = true;
+            richTextBox1.EnableAutoDragDrop = true;
 
-        private void Manager()
-        {
-            draw = new Draw(pictureBox1, coordinateZero);
-            draw.SystemСoordinate(pictureBox1, coordinateZero);
-            draw.DrawСontour(coordinateZero, zoom);
+            richTextBox2.DragEnter += RichTextBox2_DragEnter;
+            richTextBox2.DragDrop += RichTextBox2_DragDrop;
+            richTextBox2.AllowDrop = true;
+            richTextBox2.EnableAutoDragDrop = true;
         }
 
         public void Init()
@@ -80,10 +59,31 @@ namespace Modeling
             buttonSingleBlock.BackColor = DefaultBackColor;
         }
 
+        private void Manager()
+        {
+            draw = new Draw(pictureBox1, coordinateZero);
+            draw.SystemСoordinate(pictureBox1, coordinateZero);
+            draw.DrawСontour(coordinateZero, zoom);
+        }
+
+        private void PictureBox1_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (isButtonClickebl)
+            {
+                if (e.Delta > 0)
+                {
+                    ZoomUpsizer();
+                }
+                else
+                {
+                    ZoomDownsizer();
+                }
+            }
+        }
+
         private void ButtonStart_Click(object sender, EventArgs e)
         {
-            timer1.Interval=int.Parse(numericUpDown1.Value.ToString());          
-            //buttonSingleBlock.Enabled = false;
+            timer1.Interval = int.Parse(numericUpDown1.Value.ToString());
             isButtonClickebl = true;
             myCollection = new MyCollection();
             myCollection.ListVariables.Clear();
@@ -110,12 +110,11 @@ namespace Modeling
                 buttonStart.Enabled = true;
             }
             else
-            {                
-               // buttonStart.Enabled = false;
+            {
                 timer1.Enabled = true;
                 richTextBox1.Select(richTextBox1.GetFirstCharIndexFromLine(index - 1), richTextBox1.Lines[index - 1].Length);
                 richTextBox1.SelectionColor = Color.Blue;
-                richTextBox1.ScrollToCaret(); 
+                richTextBox1.ScrollToCaret();
             }
             string cadr = "";
             for (int i = 0; i < index; i++)
@@ -134,7 +133,6 @@ namespace Modeling
                 myCollection.Add(cadr, MyCollection.ListCadrs);
                 cadr = "";
             }
-
             myCollection.ReadProgramVariables();
 
             Manager();
@@ -146,12 +144,11 @@ namespace Modeling
             {
                 timer1.Enabled = false;
                 buttonStart.Enabled = true;
-                //index = 1;
             }
         }
 
-        public void ButtonReset_Click(object sender, EventArgs e)
-        {            
+        private void ButtonReset_Click(object sender, EventArgs e)
+        {
             timer1.Enabled = false;
             buttonRefresh.Enabled = false;
             if (richTextBox1.Lines.Length != 0)
@@ -171,11 +168,14 @@ namespace Modeling
             zoom = 1;
             label1.Text = "100%";
             isButtonPauce = false;
+            buttonSingleBlock.ForeColor = Color.Black;
             index = 1;
             richTextBox1.SelectAll();
             richTextBox1.SelectionColor = Color.Black;
             richTextBox1.ScrollToCaret();
             N.Text = "N";
+            coorX.Text = "X ";
+            coorZ.Text = "Z ";
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -185,13 +185,13 @@ namespace Modeling
 
         private void RichTextBox1_TextChanged(object sender, EventArgs e)
         {
-            if (richTextBox1.Lines.Length != 0||timer1.Enabled==false)
+            if (richTextBox1.Lines.Length != 0 || timer1.Enabled == false)
             {
                 buttonStart.Enabled = true;
                 buttonSingleBlock.Enabled = true;
                 buttonReset.Enabled = true;
             }
-            
+
             if (richTextBox1.Lines.Length == 0)
             {
                 buttonStart.Enabled = false;
@@ -201,7 +201,7 @@ namespace Modeling
                 coorX.Text = "X ";
                 coorZ.Text = "Z ";
                 ButtonReset_Click(sender, e);
-            }           
+            }
         }
 
         private void AboutTheProgramToolStripMenuItem_Click(object sender, EventArgs e)
@@ -254,8 +254,7 @@ namespace Modeling
                 isButtonPauce = true;
                 timer1.Enabled = false;
                 buttonSingleBlock.ForeColor = Color.Green;
-            }          
-            //buttonSingleBlock.Enabled = false;
+            }
             richTextBox1.ScrollToCaret();
             richTextBox1.Select(0, 0);
         }
@@ -313,14 +312,19 @@ namespace Modeling
             myCollection.ListVariables.Clear();
             MyCollection.ListCadrs.Clear();
             MyCollection.ListParameter.Clear();
+            if (index > richTextBox1.Lines.Length - 1)
+            {
+                index = richTextBox1.Lines.Length - 1;
+            }
             for (int i = 0; i < richTextBox2.Lines.Length; i++)
             {
                 myCollection.Add(richTextBox2.Lines[i], MyCollection.ListParameter);
             }
-            myCollection.ReadParametrVariables(); ;
+            myCollection.ReadParametrVariables();
+
             string cadr = "";
             for (int i = 0; i < index; i++)
-            {                
+            {
                 cadr = richTextBox1.Lines[i];
                 for (int l = 0; l < ReadFile.Ignor.Count; l++)
                 {
@@ -334,7 +338,13 @@ namespace Modeling
                 }
                 myCollection.Add(cadr, MyCollection.ListCadrs);
                 cadr = "";
-               // myCollection.Add(richTextBox1.Lines[i], MyCollection.ListCadrs);
+            }
+            richTextBox1.SelectAll();
+            richTextBox1.SelectionColor = Color.Black;
+            for (int i = 0; i < index; i++)
+            {
+                richTextBox1.Select(richTextBox1.GetFirstCharIndexFromLine(i), richTextBox1.Lines[i].Length);
+                richTextBox1.SelectionColor = Color.Blue;
             }
 
             myCollection.ReadProgramVariables();
@@ -350,46 +360,36 @@ namespace Modeling
         {
             if (isButtonClickebl)
             {
-                zoomDefalt++;
-                if (zoomDefalt > 30)
-                    zoomDefalt = 30;
-                zoom = zoomDefalt / 10;
-                label1.Text = Convert.ToString(zoom * 100 + "%");
-                Manager();
+                ZoomUpsizer();
             }
-
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             if (isButtonClickebl)
             {
-                zoomDefalt--;
-                if (zoomDefalt < 5)
-                    zoomDefalt = 5;
-                zoom = zoomDefalt / 10;
-                label1.Text = Convert.ToString(zoom * 100 + "%");
-                Manager();
+                ZoomDownsizer();
             }
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
+        } 
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if(index< richTextBox1.Lines.Length)
+            if (index < richTextBox1.Lines.Length)
             {
                 index++;
             }
             else
             {
                 index = richTextBox1.Lines.Length;
-            }            
+            }
             ButtonStart_Click(sender, e);
+        }
+
+        private void pictureBox1_DoubleClick(object sender, EventArgs e)
+        {
+            labelX.Text = labelX.Text.Replace(" ", "=");
+            labelZ.Text = labelZ.Text.Replace(" ", "=");
+            Clipboard.SetText(labelX.Text + " " + labelZ.Text, TextDataFormat.UnicodeText);
         }
 
         private void PictureBox1_MouseMove(object sender, MouseEventArgs e)
@@ -419,12 +419,12 @@ namespace Modeling
             if (z > 0) z = -z;
             else
             {
-                labelX.Text = "X " + Math.Round(x).ToString();
-                labelZ.Text = "Z " + Math.Round(Math.Abs(z)).ToString();
+                labelX.Text = "X " + Math.Round(x, 3).ToString();
+                labelZ.Text = "Z " + Math.Round(Math.Abs(z), 3).ToString();
                 return;
             }
-            labelX.Text = "X " + Math.Round(x).ToString();
-            labelZ.Text = "Z " + Math.Round(z).ToString();
+            labelX.Text = "X " + Math.Round(x, 3).ToString();
+            labelZ.Text = "Z " + Math.Round(z, 3).ToString();
         }
 
         private void PictureBox1_SizeChanged(object sender, EventArgs e)
@@ -437,6 +437,36 @@ namespace Modeling
             {
                 Manager();
             }
+        }
+
+        private void RichTextBox1_DragEnter(object sender, DragEventArgs e)
+        {
+            fileName1 = e.Data.GetData(DataFormats.FileDrop) as string[];
+            if (fileName1 != null)
+            {
+                richTextBox1.LoadFile(fileName1[0], RichTextBoxStreamType.PlainText);
+            }
+        }
+
+        private void RichTextBox1_DragDrop(object sender, DragEventArgs e)
+        {
+            richTextBox1.SelectedText = e.Data.GetData(DataFormats.Text).ToString();
+            e.Effect = DragDropEffects.None;
+        }
+
+        private void RichTextBox2_DragEnter(object sender, DragEventArgs e)
+        {
+            fileName1 = e.Data.GetData(DataFormats.FileDrop) as string[];
+            if (fileName1 != null)
+            {
+                richTextBox2.LoadFile(fileName1[0], RichTextBoxStreamType.PlainText);
+            }
+        }
+
+        private void RichTextBox2_DragDrop(object sender, DragEventArgs e)
+        {
+            richTextBox1.SelectedText = e.Data.GetData(DataFormats.Text).ToString();
+            e.Effect = DragDropEffects.None;
         }
 
         private void FindAndReplace()
@@ -529,6 +559,26 @@ namespace Modeling
                 }
             }
             list.Clear();
+        }
+
+        private void ZoomDownsizer()
+        {
+            zoomDefalt--;
+            if (zoomDefalt < 5)
+                zoomDefalt = 5;
+            zoom = zoomDefalt / 10;
+            label1.Text = Convert.ToString(Math.Round(zoom * 100) + "%");
+            Manager();
+        }
+
+        private void ZoomUpsizer()
+        {
+            zoomDefalt++;
+            if (zoomDefalt > 100)
+                zoomDefalt = 100;
+            zoom = zoomDefalt / 10;
+            label1.Text = Convert.ToString(Math.Round(zoom * 100) + "%");
+            Manager();
         }
     }
 }
