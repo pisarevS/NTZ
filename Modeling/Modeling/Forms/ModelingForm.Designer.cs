@@ -67,25 +67,30 @@ namespace Modeling
             this.button2 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.HighlightText;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 27);
+            this.pictureBox1.Location = new System.Drawing.Point(2, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(942, 364);
+            this.pictureBox1.Size = new System.Drawing.Size(634, 404);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.SizeChanged += new System.EventHandler(this.PictureBox1_SizeChanged);
@@ -96,25 +101,25 @@ namespace Modeling
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTextBox1.Location = new System.Drawing.Point(-1, 0);
+            this.richTextBox1.Location = new System.Drawing.Point(3, 3);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(824, 210);
+            this.richTextBox1.Size = new System.Drawing.Size(307, 506);
             this.richTextBox1.TabIndex = 12;
             this.richTextBox1.Text = "";
+            this.richTextBox1.WordWrap = false;
             this.richTextBox1.TextChanged += new System.EventHandler(this.RichTextBox1_TextChanged);
             // 
             // buttonStart
             // 
-            this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonStart.BackColor = System.Drawing.Color.LightGreen;
             this.buttonStart.Enabled = false;
             this.buttonStart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonStart.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStart.Location = new System.Drawing.Point(868, 455);
+            this.buttonStart.Location = new System.Drawing.Point(3, 417);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(75, 35);
             this.buttonStart.TabIndex = 2;
@@ -124,14 +129,14 @@ namespace Modeling
             // 
             // buttonReset
             // 
-            this.buttonReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonReset.AutoSize = true;
             this.buttonReset.BackColor = System.Drawing.Color.IndianRed;
             this.buttonReset.Enabled = false;
             this.buttonReset.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonReset.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonReset.Location = new System.Drawing.Point(868, 537);
+            this.buttonReset.Location = new System.Drawing.Point(3, 499);
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(75, 35);
             this.buttonReset.TabIndex = 3;
@@ -146,7 +151,7 @@ namespace Modeling
             this.справкаToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(965, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(973, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -246,10 +251,10 @@ namespace Modeling
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(899, 39);
+            this.label1.Location = new System.Drawing.Point(584, 378);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 17);
             this.label1.TabIndex = 5;
@@ -263,9 +268,10 @@ namespace Modeling
             // 
             this.labelZ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelZ.AutoSize = true;
-            this.labelZ.Location = new System.Drawing.Point(829, 364);
+            this.labelZ.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelZ.Location = new System.Drawing.Point(480, 378);
             this.labelZ.Name = "labelZ";
-            this.labelZ.Size = new System.Drawing.Size(14, 13);
+            this.labelZ.Size = new System.Drawing.Size(17, 17);
             this.labelZ.TabIndex = 6;
             this.labelZ.Text = "Z";
             // 
@@ -273,20 +279,21 @@ namespace Modeling
             // 
             this.labelX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelX.AutoSize = true;
-            this.labelX.Location = new System.Drawing.Point(756, 364);
+            this.labelX.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelX.Location = new System.Drawing.Point(380, 378);
             this.labelX.Name = "labelX";
-            this.labelX.Size = new System.Drawing.Size(14, 13);
+            this.labelX.Size = new System.Drawing.Size(17, 17);
             this.labelX.TabIndex = 7;
             this.labelX.Text = "X";
             // 
             // buttonSingleBlock
             // 
-            this.buttonSingleBlock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSingleBlock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonSingleBlock.BackColor = System.Drawing.Color.AliceBlue;
             this.buttonSingleBlock.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonSingleBlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonSingleBlock.ForeColor = System.Drawing.Color.Black;
-            this.buttonSingleBlock.Location = new System.Drawing.Point(868, 496);
+            this.buttonSingleBlock.Location = new System.Drawing.Point(3, 458);
             this.buttonSingleBlock.Name = "buttonSingleBlock";
             this.buttonSingleBlock.Size = new System.Drawing.Size(75, 35);
             this.buttonSingleBlock.TabIndex = 8;
@@ -296,10 +303,9 @@ namespace Modeling
             // 
             // N
             // 
-            this.N.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.N.AutoSize = true;
             this.N.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.N.Location = new System.Drawing.Point(25, 362);
+            this.N.Location = new System.Drawing.Point(16, 25);
             this.N.Name = "N";
             this.N.Size = new System.Drawing.Size(18, 17);
             this.N.TabIndex = 13;
@@ -307,34 +313,33 @@ namespace Modeling
             // 
             // coorX
             // 
-            this.coorX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.coorX.AutoSize = true;
-            this.coorX.Location = new System.Drawing.Point(25, 334);
+            this.coorX.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.coorX.Location = new System.Drawing.Point(16, 63);
             this.coorX.Name = "coorX";
-            this.coorX.Size = new System.Drawing.Size(14, 13);
+            this.coorX.Size = new System.Drawing.Size(17, 17);
             this.coorX.TabIndex = 14;
             this.coorX.Text = "X";
             // 
             // coorZ
             // 
-            this.coorZ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.coorZ.AutoSize = true;
-            this.coorZ.Location = new System.Drawing.Point(104, 334);
+            this.coorZ.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.coorZ.Location = new System.Drawing.Point(17, 97);
             this.coorZ.Name = "coorZ";
-            this.coorZ.Size = new System.Drawing.Size(14, 13);
+            this.coorZ.Size = new System.Drawing.Size(17, 17);
             this.coorZ.TabIndex = 15;
             this.coorZ.Text = "Z";
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 397);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(831, 236);
+            this.tabControl1.Size = new System.Drawing.Size(321, 538);
             this.tabControl1.TabIndex = 16;
             // 
             // tabPage1
@@ -343,7 +348,7 @@ namespace Modeling
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(823, 210);
+            this.tabPage1.Size = new System.Drawing.Size(313, 512);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Program";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -354,28 +359,27 @@ namespace Modeling
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(823, 210);
+            this.tabPage2.Size = new System.Drawing.Size(313, 512);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Parameter";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // richTextBox2
             // 
-            this.richTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTextBox2.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox2.Location = new System.Drawing.Point(3, 3);
             this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(823, 210);
+            this.richTextBox2.Size = new System.Drawing.Size(307, 506);
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = "";
             // 
             // buttonRefresh
             // 
-            this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRefresh.Enabled = false;
             this.buttonRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonRefresh.Location = new System.Drawing.Point(868, 594);
+            this.buttonRefresh.Location = new System.Drawing.Point(84, 500);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 35);
             this.buttonRefresh.TabIndex = 17;
@@ -386,9 +390,9 @@ namespace Modeling
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(923, 359);
+            this.button1.Location = new System.Drawing.Point(580, 417);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(20, 20);
+            this.button1.Size = new System.Drawing.Size(48, 47);
             this.button1.TabIndex = 18;
             this.button1.Text = "+";
             this.button1.UseVisualStyleBackColor = true;
@@ -397,9 +401,9 @@ namespace Modeling
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(897, 360);
+            this.button2.Location = new System.Drawing.Point(523, 417);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(20, 20);
+            this.button2.Size = new System.Drawing.Size(48, 47);
             this.button2.TabIndex = 19;
             this.button2.Text = "-";
             this.button2.UseVisualStyleBackColor = true;
@@ -411,8 +415,8 @@ namespace Modeling
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown1.Location = new System.Drawing.Point(868, 419);
+            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.numericUpDown1.Location = new System.Drawing.Point(84, 417);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             100000000,
             0,
@@ -427,38 +431,58 @@ namespace Modeling
             this.numericUpDown1.Size = new System.Drawing.Size(75, 20);
             this.numericUpDown1.TabIndex = 20;
             this.numericUpDown1.Value = new decimal(new int[] {
-            1000,
+            100,
             0,
             0,
             0});
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(0, 27);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.tabControl1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.label1);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonRefresh);
+            this.splitContainer1.Panel2.Controls.Add(this.numericUpDown1);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonSingleBlock);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonReset);
+            this.splitContainer1.Panel2.Controls.Add(this.coorX);
+            this.splitContainer1.Panel2.Controls.Add(this.button1);
+            this.splitContainer1.Panel2.Controls.Add(this.button2);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonStart);
+            this.splitContainer1.Panel2.Controls.Add(this.N);
+            this.splitContainer1.Panel2.Controls.Add(this.coorZ);
+            this.splitContainer1.Panel2.Controls.Add(this.labelX);
+            this.splitContainer1.Panel2.Controls.Add(this.labelZ);
+            this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
+            this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
+            this.splitContainer1.Size = new System.Drawing.Size(965, 538);
+            this.splitContainer1.SplitterDistance = 321;
+            this.splitContainer1.TabIndex = 21;
             // 
             // ModelingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(965, 645);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.buttonRefresh);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.coorZ);
-            this.Controls.Add(this.coorX);
-            this.Controls.Add(this.N);
-            this.Controls.Add(this.buttonSingleBlock);
-            this.Controls.Add(this.labelX);
-            this.Controls.Add(this.labelZ);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.buttonReset);
-            this.Controls.Add(this.buttonStart);
-            this.Controls.Add(this.pictureBox1);
+            this.ClientSize = new System.Drawing.Size(973, 566);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(981, 684);
+            this.MinimumSize = new System.Drawing.Size(981, 600);
             this.Name = "ModelingForm";
             this.Text = "Modeling";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ModelingForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -466,6 +490,11 @@ namespace Modeling
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -508,6 +537,7 @@ namespace Modeling
         private Button button2;
         private Timer timer1;
         private NumericUpDown numericUpDown1;
+        private SplitContainer splitContainer1;
     }
 }
 

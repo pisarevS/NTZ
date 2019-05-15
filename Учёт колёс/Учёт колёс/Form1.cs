@@ -16,8 +16,8 @@ namespace Учёт_колёс
         StreamReader sr;
         _Close _close = new _Close();
         _Excel _excel = new _Excel();
-        string template = Path.GetFullPath("template.xls");
-        string path = "file.txt";
+        string template = "D:/Files/template.xls";
+        string path = "D:/Files/file.txt";
         public string filename = null;
         string side = null;
         int namber = 1;
@@ -34,7 +34,7 @@ namespace Учёт_колёс
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string path = "Штат операторов.txt";
+            string path = "D:/Files/Штат операторов.txt";
             sr = new StreamReader(path, Encoding.Default);
             while (!sr.EndOfStream)
                 oper.Items.Add(sr.ReadLine());

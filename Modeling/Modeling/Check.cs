@@ -11,6 +11,8 @@ namespace Modeling
         {
             switch (input)
             {
+                case ' ':
+                    return true;
                 case '+':
                     return true;
                 case '-':

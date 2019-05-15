@@ -12,13 +12,17 @@ namespace Modeling
     public partial class RenumberFrames : Form
     {
         private static string step = "";
+
+        public static string Step
+        {
+            get { return RenumberFrames.step; }
+            set { RenumberFrames.step = value; }
+        }
         public RenumberFrames()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
         }
-
-        public static string Step { get => step; set => step = value; }
 
         private void button1_Click(object sender, EventArgs e)
         {

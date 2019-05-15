@@ -21,13 +21,15 @@ namespace Modeling
         private bool isButtonClickebl = false;
         private float mousDownX, mousDownY, mousMoveX, mousMoveY;
         private float zoomDefalt = 10;
-        private float zoom = 1;
+        private float zoom = 1F;
         private float x;
         private float z;
         private bool isButtonPauce = false;
         public static int index = 1;
         private ReadFile readFile;
         private string[] fileName1;
+        private string fileNameProgram;
+        private string textProgram = "";
 
         public ModelingForm()
         {
@@ -88,7 +90,7 @@ namespace Modeling
             myCollection = new MyCollection();
             myCollection.ListVariables.Clear();
             MyCollection.ListCadrs.Clear();
-            MyCollection.ListParameter.Clear();
+            MyCollection.ListParameter.Clear();       
             for (int i = 0; i < richTextBox2.Lines.Length; i++)
             {
                 myCollection.Add(richTextBox2.Lines[i], MyCollection.ListParameter);
@@ -151,6 +153,7 @@ namespace Modeling
         {
             timer1.Enabled = false;
             buttonRefresh.Enabled = false;
+            MyCollection.ErrorList.Clear();
             if (richTextBox1.Lines.Length != 0)
             {
                 buttonStart.Enabled = true;
@@ -165,7 +168,7 @@ namespace Modeling
             draw = new Draw(pictureBox1, coordinateZero);
             draw.SystemСoordinate(pictureBox1, coordinateZero);
             isButtonClickebl = false;
-            zoom = 1;
+            zoom = 1F;
             label1.Text = "100%";
             isButtonPauce = false;
             buttonSingleBlock.ForeColor = Color.Black;
@@ -268,6 +271,9 @@ namespace Modeling
             if (openFileDialog1.FileName != "")
             {
                 richTextBox1.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
+                fileNameProgram = openFileDialog1.FileName;
+                Text = fileNameProgram;
+                textProgram = richTextBox1.Text;
             }
         }
 
@@ -339,14 +345,13 @@ namespace Modeling
                 myCollection.Add(cadr, MyCollection.ListCadrs);
                 cadr = "";
             }
-            richTextBox1.SelectAll();
-            richTextBox1.SelectionColor = Color.Black;
-            for (int i = 0; i < index; i++)
-            {
-                richTextBox1.Select(richTextBox1.GetFirstCharIndexFromLine(i), richTextBox1.Lines[i].Length);
-                richTextBox1.SelectionColor = Color.Blue;
-            }
-
+            // richTextBox1.SelectAll();
+            // richTextBox1.SelectionColor = Color.Black;
+            // for (int i = 0; i < index; i++)
+            // {
+            richTextBox1.Select(richTextBox1.GetFirstCharIndexFromLine(index - 1), richTextBox1.Lines[index - 1].Length);
+            richTextBox1.SelectionColor = Color.Blue;
+            // }
             myCollection.ReadProgramVariables();
 
             Manager();
@@ -370,7 +375,7 @@ namespace Modeling
             {
                 ZoomDownsizer();
             }
-        } 
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -445,13 +450,25 @@ namespace Modeling
             if (fileName1 != null)
             {
                 richTextBox1.LoadFile(fileName1[0], RichTextBoxStreamType.PlainText);
+                fileNameProgram = fileName1[0];
+                Text = fileNameProgram;
+                textProgram = richTextBox1.Text;
             }
         }
 
         private void RichTextBox1_DragDrop(object sender, DragEventArgs e)
         {
-            richTextBox1.SelectedText = e.Data.GetData(DataFormats.Text).ToString();
-            e.Effect = DragDropEffects.None;
+            try
+            {
+                richTextBox1.SelectedText = e.Data.GetData(DataFormats.Text).ToString();
+
+            }
+            catch { }
+            finally
+            {
+                e.Effect = DragDropEffects.None;
+            }
+
         }
 
         private void RichTextBox2_DragEnter(object sender, DragEventArgs e)
@@ -460,13 +477,27 @@ namespace Modeling
             if (fileName1 != null)
             {
                 richTextBox2.LoadFile(fileName1[0], RichTextBoxStreamType.PlainText);
+
             }
         }
 
         private void RichTextBox2_DragDrop(object sender, DragEventArgs e)
         {
-            richTextBox1.SelectedText = e.Data.GetData(DataFormats.Text).ToString();
-            e.Effect = DragDropEffects.None;
+            try
+            {
+                richTextBox1.SelectedText = e.Data.GetData(DataFormats.Text).ToString();
+            }
+            catch { }
+            finally
+            {
+                e.Effect = DragDropEffects.None;
+            }
+
+        }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
         private void FindAndReplace()
@@ -563,7 +594,7 @@ namespace Modeling
 
         private void ZoomDownsizer()
         {
-            zoomDefalt--;
+            zoomDefalt = zoomDefalt - 5; ;
             if (zoomDefalt < 5)
                 zoomDefalt = 5;
             zoom = zoomDefalt / 10;
@@ -573,12 +604,25 @@ namespace Modeling
 
         private void ZoomUpsizer()
         {
-            zoomDefalt++;
+            zoomDefalt = zoomDefalt + 5;
             if (zoomDefalt > 100)
                 zoomDefalt = 100;
             zoom = zoomDefalt / 10;
             label1.Text = Convert.ToString(Math.Round(zoom * 100) + "%");
             Manager();
+        }
+
+        private void ModelingForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            string ttt = richTextBox1.Text;
+            if (richTextBox1.Text != textProgram)
+            {
+                saveFileDialog1.FileName = fileNameProgram;
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK && fileNameProgram != " ")
+                {
+                    richTextBox1.SaveFile(fileNameProgram, RichTextBoxStreamType.PlainText);
+                }
+            }
         }
     }
 }

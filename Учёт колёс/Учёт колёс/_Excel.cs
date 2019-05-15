@@ -149,6 +149,7 @@ namespace Учёт_колёс
         public void OpenExcel(string filename, string path, OpenFileDialog openFileDialog1)
         {
             openFileDialog1.ShowDialog();
+            openFileDialog1.InitialDirectory = @"D:\";
             filename = openFileDialog1.FileName;
             if (filename == "")
             {

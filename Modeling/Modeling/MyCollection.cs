@@ -8,9 +8,46 @@ namespace Modeling
     class MyCollection : IMyCollectoin
     {
         private string[] gCode = { "DEF REAL", "DEF INT" };
-        public static List<string> ListCadrs { get; set; } = new List<string>();
-        public static List<string> ListParameter { get; set; } = new List<string>();
-        public Dictionary<string, string> ListVariables { get; set; } = new Dictionary<string, string>();
+
+        private static List<string> listCadrs = new List<string>();
+
+        private static List<string> listParameter = new List<string>();
+
+        private  Dictionary<string, string> listVariables = new Dictionary<string, string>();
+
+        private static List<string> listTemp = new List<string>();
+
+        private static List<string> errorList = new List<string>();
+
+        public static List<string> ErrorList
+        {
+            get { return errorList; }
+            set { errorList = value; }
+        }
+
+        public static List<string> ListTemp
+        {
+            get { return MyCollection.listTemp; }
+            set { MyCollection.listTemp = value; }
+        }
+
+        public static List<string> ListCadrs
+        {
+            get { return MyCollection.listCadrs; }
+            set { MyCollection.listCadrs = value; }
+        }
+        
+        public static List<string> ListParameter
+        {
+            get { return MyCollection.listParameter; }
+            set { MyCollection.listParameter = value; }
+        }
+        
+        public  Dictionary<string, string> ListVariables
+        {
+            get { return listVariables; }
+            set { listVariables = value; }
+        }
 
         public void Add(string cadr, List<string> List)
         {
@@ -29,15 +66,15 @@ namespace Modeling
             string key = "";
             string value = "";
             string parametr = "";
-            ListVariables.Add("N_GANTRYPOS_X", "650");
-            ListVariables.Add("N_GANTRYPOS_Z", "250");
-            ListVariables.Add("N_GANTRYPOS_U", "650");
-            ListVariables.Add("N_GANTRYPOS_W", "250");
-            ListVariables.Add("$P_TOOLR", "16");
+            listVariables.Add("N_GANTRYPOS_X", "650");
+            listVariables.Add("N_GANTRYPOS_Z", "250");
+            listVariables.Add("N_GANTRYPOS_U", "650");
+            listVariables.Add("N_GANTRYPOS_W", "250");
+            listVariables.Add("$P_TOOLR", "16");
 
-            for (int i = 0; i < ListParameter.Count; i++)
+            for (int i = 0; i < listParameter.Count; i++)
             {
-                parametr = ListParameter[i];
+                parametr = listParameter[i];
                 if (parametr.Contains("="))
                 {
                     for (int j = 0; j < parametr.IndexOf('=', 0); j++)
@@ -52,13 +89,13 @@ namespace Modeling
                     }
                     try
                     {
-                        ListVariables.Add(key, value);
+                        listVariables.Add(key, value);
                         key = null;
                         value = null;
                     }
                     catch { }
                 }
-                ReplaceVariables(ListParameter);
+                ReplaceVariables(listParameter);
             }
         }
 
@@ -67,9 +104,9 @@ namespace Modeling
             string key = "";
             string value = "";
             string cadr = "";
-            for (int i = 0; i < ListCadrs.Count; i++)
+            for (int i = 0; i < listCadrs.Count; i++)
             {
-                cadr = ListCadrs[i];
+                cadr = listCadrs[i];
                 for (int h = 0; h < gCode.Length; h++)
                 {
                     if (cadr.Contains(gCode[h]))
@@ -87,7 +124,7 @@ namespace Modeling
                         }
                         try
                         {
-                            ListVariables.Add(key, value);
+                            listVariables.Add(key, value);
                             key = null;
                             value = null;
                         }
@@ -95,7 +132,7 @@ namespace Modeling
                     }
                 }
             }
-            ReplaceVariables(ListCadrs);
+            ReplaceVariables(listCadrs);
         }
 
         public void ReplaceVariables(List<string> List)
@@ -103,7 +140,7 @@ namespace Modeling
             string key = "";
             string value = "";
 
-            foreach (KeyValuePair<string, string> keyValue in ListVariables)
+            foreach (KeyValuePair<string, string> keyValue in listVariables)
             {
                 key = keyValue.Key;
                 value = keyValue.Value;

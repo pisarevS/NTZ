@@ -10,7 +10,13 @@ namespace Modeling
     {
         private StreamReader sr;
 
-        public static List<string> Ignor { get; set; } = new List<string>();
+        private static List<string> ignor = new List<string>();
+
+        public static List<string> Ignor
+        {
+            get { return ReadFile.ignor; }
+            set { ReadFile.ignor = value; }
+        }
 
         public ReadFile()
         {
@@ -20,7 +26,7 @@ namespace Modeling
             {
                 string temp = sr.ReadLine();
                 if (temp == null) break;
-                Ignor.Add(temp);
+                ignor.Add(temp);
             }
             sr.Close();
         }

@@ -187,9 +187,9 @@
             this.Column2,
             this.Column3,
             this.Column4});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 203);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 189);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(329, 414);
+            this.dataGridView1.Size = new System.Drawing.Size(330, 426);
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.UseWaitCursor = true;
             // 
@@ -232,7 +232,7 @@
             // deleteAll
             // 
             this.deleteAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.deleteAll.Location = new System.Drawing.Point(12, 623);
+            this.deleteAll.Location = new System.Drawing.Point(12, 621);
             this.deleteAll.Name = "deleteAll";
             this.deleteAll.Size = new System.Drawing.Size(100, 30);
             this.deleteAll.TabIndex = 10;
@@ -244,7 +244,7 @@
             // deleteCell
             // 
             this.deleteCell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.deleteCell.Location = new System.Drawing.Point(118, 623);
+            this.deleteCell.Location = new System.Drawing.Point(118, 621);
             this.deleteCell.Name = "deleteCell";
             this.deleteCell.Size = new System.Drawing.Size(100, 30);
             this.deleteCell.TabIndex = 11;
@@ -257,7 +257,7 @@
             // 
             this.save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.save.Enabled = false;
-            this.save.Location = new System.Drawing.Point(252, 155);
+            this.save.Location = new System.Drawing.Point(252, 153);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(89, 30);
             this.save.TabIndex = 12;

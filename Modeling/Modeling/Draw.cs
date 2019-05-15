@@ -27,6 +27,7 @@ namespace Modeling
         private bool icHorizantal = false;
         private bool icVertical = false;
         public bool clockwise = true;
+        
 
         public Draw(PictureBox pictureBox1, Point coordinateZero)
         {
@@ -35,9 +36,10 @@ namespace Modeling
             {
                 img = new Bitmap(pictureBox1.Width, pictureBox1.Height);
                 graphics = Graphics.FromImage(img);
+                graphics.SmoothingMode = SmoothingMode.AntiAlias;
             }
             catch { }
-            solidLine = new Pen(Color.Green);
+            solidLine = new Pen(Color.Green, 1.5F);
             dottedLine = new Pen(Brushes.Gray);
             dottedLine.DashPattern = new float[] { 5f, 5f };
             this.coordinateZero = new Point();
@@ -219,7 +221,7 @@ namespace Modeling
         {
             startPoint = new Point();
             endPoint = new Point();
-            RND rnd = new RND();
+            Expression expression = new Expression();
             string strCR = "";
             string horizontal = "X";
             string vertical = "Z";
@@ -300,7 +302,7 @@ namespace Modeling
                     }
                     if (strCR.Contains("+") || strCR.Contains("-") || strCR.Contains("*") || strCR.Contains("/"))
                     {
-                        radius = rnd.Calculate(strCR);
+                        radius = expression.Calculate(strCR);
                         strCR = null;
                     }
                     else
@@ -314,7 +316,11 @@ namespace Modeling
                             radius = float.Parse(strCR);
                             strCR = null;
                         }
-                        catch { MessageBox.Show(cadr); return; }
+                        catch 
+                        {
+                           
+                            MessageBox.Show(cadr); return; 
+                        }
                     }
                 }
                 if (isHorizontal && isVertical && isCR)
@@ -354,7 +360,7 @@ namespace Modeling
 
         private float CoordinateSearch(string cadr, string axis)
         {
-            RND rnd = new RND();
+            Expression expression = new Expression();
             string strAxis = "";
             int n = cadr.IndexOf(axis, 0);
             if (Check.CheckSymbol(cadr[n + 1]))
@@ -385,7 +391,8 @@ namespace Modeling
                         strAxis = null;
                         strAxis = d;
                     }
-                    bool isFloat = float.TryParse(strAxis, out float res);
+                    float res;
+                    bool isFloat = float.TryParse(strAxis, out res);
                     if (!isFloat)
                     {
                         if (strAxis.Contains("-") && strAxis[0] != '-')
@@ -409,7 +416,7 @@ namespace Modeling
                             strAxis = null;
                             strAxis = strS;
                         }
-                        return rnd.Calculate(strAxis);
+                        return expression.Calculate(strAxis);
                     }
                     else
                     {
@@ -423,7 +430,11 @@ namespace Modeling
                 }
                 catch
                 {
-                    MessageBox.Show(cadr);
+                    if (!MyCollection.ErrorList.Contains(cadr))
+                    {
+                        MyCollection.ErrorList.Add(cadr);
+                        MessageBox.Show(cadr);
+                    }                              
                     return FIBO;
                 }
             }

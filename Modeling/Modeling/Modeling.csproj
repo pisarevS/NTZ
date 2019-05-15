@@ -81,7 +81,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadFile.cs" />
-    <Compile Include="RND.cs" />
+    <Compile Include="Expression.cs" />
     <EmbeddedResource Include="Forms\ModelingForm.resx">
       <DependentUpon>ModelingForm.cs</DependentUpon>
     </EmbeddedResource>
