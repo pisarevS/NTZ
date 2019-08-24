@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icons8-круглый-m-500.ico</ApplicationIcon>
+    <ApplicationIcon>_Icon\icons8-круглый-m-500.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -48,50 +48,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Check.cs" />
-    <Compile Include="Draw.cs" />
-    <Compile Include="Forms\ModelingForm.cs">
+    <Compile Include="_Model\Check.cs" />
+    <Compile Include="_Model\Draw.cs" />
+    <Compile Include="_Forms\ModelingForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ModelingForm.Designer.cs">
+    <Compile Include="_Forms\ModelingForm.Designer.cs">
       <DependentUpon>ModelingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AboutTheProgram.cs">
+    <Compile Include="_Forms\AboutTheProgram.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AboutTheProgram.Designer.cs">
+    <Compile Include="_Forms\AboutTheProgram.Designer.cs">
       <DependentUpon>AboutTheProgram.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FindAndReplace.cs">
+    <Compile Include="_Forms\FindAndReplace.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FindAndReplace.Designer.cs">
+    <Compile Include="_Forms\FindAndReplace.Designer.cs">
       <DependentUpon>FindAndReplace.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\RenumberFrames.cs">
+    <Compile Include="_Forms\RenumberFrames.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\RenumberFrames.Designer.cs">
+    <Compile Include="_Forms\RenumberFrames.Designer.cs">
       <DependentUpon>RenumberFrames.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interface\IDraw.cs" />
-    <Compile Include="Interface\IMyCollectoin.cs" />
-    <Compile Include="MyCollection.cs" />
-    <Compile Include="Point.cs" />
+    <Compile Include="_Interface\IDraw.cs" />
+    <Compile Include="_Interface\IMyCollectoin.cs" />
+    <Compile Include="_Model\MyCollection.cs" />
+    <Compile Include="_Model\Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReadFile.cs" />
-    <Compile Include="Expression.cs" />
-    <EmbeddedResource Include="Forms\ModelingForm.resx">
+    <Compile Include="_Model\ReadFile.cs" />
+    <Compile Include="_Model\Expression.cs" />
+    <EmbeddedResource Include="_Forms\ModelingForm.resx">
       <DependentUpon>ModelingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AboutTheProgram.resx">
+    <EmbeddedResource Include="_Forms\AboutTheProgram.resx">
       <DependentUpon>AboutTheProgram.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FindAndReplace.resx">
+    <EmbeddedResource Include="_Forms\FindAndReplace.resx">
       <DependentUpon>FindAndReplace.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\RenumberFrames.resx">
+    <EmbeddedResource Include="_Forms\RenumberFrames.resx">
       <DependentUpon>RenumberFrames.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -119,8 +119,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icons8-круглый-m-500.ico" />
-    <Content Include="icons8-круглый-m-filled-500.ico" />
+    <Content Include="_Icon\icons8-круглый-m-500.ico" />
+    <Content Include="_Icon\icons8-круглый-m-filled-500.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -50,12 +50,18 @@ namespace Modeling
         }
 
         public void Add(string cadr, List<string> List)
-        {
+        {            
             if (cadr.Contains(".") || cadr.Contains(";"))
             {
                 cadr = cadr.Replace(".", ",");
                 if (cadr.IndexOf(';') != -1)
+                {
                     cadr = cadr.Remove(cadr.IndexOf(';'));
+                }
+                if (cadr.Contains("MSG("))
+                {
+                    cadr = cadr.Replace(cadr, "");
+                }
                 List.Add(cadr);
             }
             else { List.Add(cadr); }

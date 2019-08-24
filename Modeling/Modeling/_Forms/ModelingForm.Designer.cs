@@ -34,7 +34,7 @@ namespace Modeling
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModelingForm));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.buttonStart = new System.Windows.Forms.Button();
+            this.buttonSysleStart = new System.Windows.Forms.Button();
             this.buttonReset = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,14 +66,14 @@ namespace Modeling
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.checkBoxShowError = new System.Windows.Forms.CheckBox();
+            this.buttonStart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -94,38 +94,40 @@ namespace Modeling
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.SizeChanged += new System.EventHandler(this.PictureBox1_SizeChanged);
-            this.pictureBox1.DoubleClick += new System.EventHandler(this.pictureBox1_DoubleClick);
+            this.pictureBox1.DoubleClick += new System.EventHandler(this.PictureBox1_DoubleClick);
             this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseDown);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseUp);
             // 
             // richTextBox1
             // 
+            this.richTextBox1.DetectUrls = false;
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.richTextBox1.Location = new System.Drawing.Point(3, 3);
             this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ShowSelectionMargin = true;
             this.richTextBox1.Size = new System.Drawing.Size(307, 506);
             this.richTextBox1.TabIndex = 12;
             this.richTextBox1.Text = "";
             this.richTextBox1.WordWrap = false;
             this.richTextBox1.TextChanged += new System.EventHandler(this.RichTextBox1_TextChanged);
             // 
-            // buttonStart
+            // buttonSysleStart
             // 
-            this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonStart.BackColor = System.Drawing.Color.LightGreen;
-            this.buttonStart.Enabled = false;
-            this.buttonStart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonStart.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStart.Location = new System.Drawing.Point(3, 417);
-            this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(75, 35);
-            this.buttonStart.TabIndex = 2;
-            this.buttonStart.Text = "CYCLE START";
-            this.buttonStart.UseVisualStyleBackColor = false;
-            this.buttonStart.Click += new System.EventHandler(this.ButtonStart_Click);
+            this.buttonSysleStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSysleStart.BackColor = System.Drawing.Color.LightGreen;
+            this.buttonSysleStart.Enabled = false;
+            this.buttonSysleStart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonSysleStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSysleStart.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonSysleStart.Location = new System.Drawing.Point(3, 417);
+            this.buttonSysleStart.Name = "buttonSysleStart";
+            this.buttonSysleStart.Size = new System.Drawing.Size(75, 35);
+            this.buttonSysleStart.TabIndex = 2;
+            this.buttonSysleStart.Text = "CYCLE START";
+            this.buttonSysleStart.UseVisualStyleBackColor = false;
+            this.buttonSysleStart.Click += new System.EventHandler(this.ButtonSysleStart_Click);
             // 
             // buttonReset
             // 
@@ -367,9 +369,10 @@ namespace Modeling
             // richTextBox2
             // 
             this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.richTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.richTextBox2.Location = new System.Drawing.Point(3, 3);
             this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.ShowSelectionMargin = true;
             this.richTextBox2.Size = new System.Drawing.Size(307, 506);
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = "";
@@ -396,7 +399,7 @@ namespace Modeling
             this.button1.TabIndex = 18;
             this.button1.Text = "+";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.ButtonPluse_Click);
             // 
             // button2
             // 
@@ -407,34 +410,11 @@ namespace Modeling
             this.button2.TabIndex = 19;
             this.button2.Text = "-";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.ButtonMinus_Click);
             // 
             // timer1
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDown1.Location = new System.Drawing.Point(84, 417);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            100000000,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(75, 20);
-            this.numericUpDown1.TabIndex = 20;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // splitContainer1
             // 
@@ -450,24 +430,53 @@ namespace Modeling
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.checkBoxShowError);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonStart);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.buttonRefresh);
-            this.splitContainer1.Panel2.Controls.Add(this.numericUpDown1);
             this.splitContainer1.Panel2.Controls.Add(this.buttonSingleBlock);
             this.splitContainer1.Panel2.Controls.Add(this.buttonReset);
             this.splitContainer1.Panel2.Controls.Add(this.coorX);
             this.splitContainer1.Panel2.Controls.Add(this.button1);
             this.splitContainer1.Panel2.Controls.Add(this.button2);
-            this.splitContainer1.Panel2.Controls.Add(this.buttonStart);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonSysleStart);
             this.splitContainer1.Panel2.Controls.Add(this.N);
             this.splitContainer1.Panel2.Controls.Add(this.coorZ);
             this.splitContainer1.Panel2.Controls.Add(this.labelX);
             this.splitContainer1.Panel2.Controls.Add(this.labelZ);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
-            this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
             this.splitContainer1.Size = new System.Drawing.Size(965, 538);
             this.splitContainer1.SplitterDistance = 321;
             this.splitContainer1.TabIndex = 21;
+            // 
+            // checkBoxShowError
+            // 
+            this.checkBoxShowError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxShowError.AutoSize = true;
+            this.checkBoxShowError.Checked = true;
+            this.checkBoxShowError.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxShowError.Location = new System.Drawing.Point(195, 417);
+            this.checkBoxShowError.Name = "checkBoxShowError";
+            this.checkBoxShowError.Size = new System.Drawing.Size(121, 17);
+            this.checkBoxShowError.TabIndex = 22;
+            this.checkBoxShowError.Text = "Show program error ";
+            this.checkBoxShowError.UseVisualStyleBackColor = true;
+            this.checkBoxShowError.Click += new System.EventHandler(this.checkBoxShowError_Click);
+            // 
+            // buttonStart
+            // 
+            this.buttonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonStart.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.buttonStart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonStart.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonStart.Location = new System.Drawing.Point(84, 417);
+            this.buttonStart.Name = "buttonStart";
+            this.buttonStart.Size = new System.Drawing.Size(75, 35);
+            this.buttonStart.TabIndex = 21;
+            this.buttonStart.Text = "START";
+            this.buttonStart.UseVisualStyleBackColor = false;
+            this.buttonStart.Click += new System.EventHandler(this.ButtonStart_Click);
             // 
             // ModelingForm
             // 
@@ -489,7 +498,6 @@ namespace Modeling
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
@@ -504,7 +512,7 @@ namespace Modeling
 
         private System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Button buttonStart;
+        private System.Windows.Forms.Button buttonSysleStart;
         private System.Windows.Forms.Button buttonReset;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
@@ -536,8 +544,9 @@ namespace Modeling
         private Button button1;
         private Button button2;
         private Timer timer1;
-        private NumericUpDown numericUpDown1;
         private SplitContainer splitContainer1;
+        private Button buttonStart;
+        private CheckBox checkBoxShowError;
     }
 }
 

@@ -18,18 +18,20 @@ namespace Modeling
         private Point coordinateZero;
         private Point startPoint, endPoint;
         private bool movable = false;
-        private bool isButtonClickebl = false;
+        private bool isButtonSysleStartClickebl = false;
+        private bool isButtonStartClickebl = false;
+        private bool isButtonSingleBlockClickebl = false;
         private float mousDownX, mousDownY, mousMoveX, mousMoveY;
         private float zoomDefalt = 10;
         private float zoom = 1F;
         private float x;
-        private float z;
-        private bool isButtonPauce = false;
+        private float z;       
         public static int index = 1;
         private ReadFile readFile;
         private string[] fileName1;
         private string fileNameProgram;
         private string textProgram = "";
+        public static bool isError = true;
 
         public ModelingForm()
         {
@@ -68,25 +70,11 @@ namespace Modeling
             draw.DrawСontour(coordinateZero, zoom);
         }
 
-        private void PictureBox1_MouseWheel(object sender, MouseEventArgs e)
+        private void ButtonSysleStart_Click(object sender, EventArgs e)
         {
-            if (isButtonClickebl)
-            {
-                if (e.Delta > 0)
-                {
-                    ZoomUpsizer();
-                }
-                else
-                {
-                    ZoomDownsizer();
-                }
-            }
-        }
-
-        private void ButtonStart_Click(object sender, EventArgs e)
-        {
-            timer1.Interval = int.Parse(numericUpDown1.Value.ToString());
-            isButtonClickebl = true;
+            buttonRefresh.Enabled = true;
+            timer1.Interval = 100;
+            isButtonSysleStartClickebl = true;
             myCollection = new MyCollection();
             myCollection.ListVariables.Clear();
             MyCollection.ListCadrs.Clear();
@@ -96,26 +84,26 @@ namespace Modeling
                 myCollection.Add(richTextBox2.Lines[i], MyCollection.ListParameter);
             }
             myCollection.ReadParametrVariables();
-            if (isButtonPauce)
+            if (isButtonSingleBlockClickebl)
             {
                 if (index < richTextBox1.Lines.Length)
                 {
                     index++;
                     richTextBox1.Select(richTextBox1.GetFirstCharIndexFromLine(index - 1), richTextBox1.Lines[index - 1].Length);
-                    richTextBox1.SelectionColor = Color.Blue;
+                    richTextBox1.SelectionColor = Color.DarkBlue;
                     richTextBox1.ScrollToCaret();
                 }
                 else
                 {
                     index = richTextBox1.Lines.Length;
                 }
-                buttonStart.Enabled = true;
+                buttonSysleStart.Enabled = true;
             }
             else
             {
                 timer1.Enabled = true;
                 richTextBox1.Select(richTextBox1.GetFirstCharIndexFromLine(index - 1), richTextBox1.Lines[index - 1].Length);
-                richTextBox1.SelectionColor = Color.Blue;
+                richTextBox1.SelectionColor = Color.DarkBlue;
                 richTextBox1.ScrollToCaret();
             }
             string cadr = "";
@@ -145,32 +133,72 @@ namespace Modeling
             if (index == richTextBox1.Lines.Length)
             {
                 timer1.Enabled = false;
-                buttonStart.Enabled = true;
+                buttonSysleStart.Enabled = true;
             }
+        }
+
+        private void ButtonStart_Click(object sender, EventArgs e)
+        {       
+            isButtonStartClickebl = true;
+            buttonStart.Enabled = false;
+            myCollection = new MyCollection();
+            myCollection.ListVariables.Clear();
+            MyCollection.ListCadrs.Clear();
+            MyCollection.ListParameter.Clear();
+            for (int i = 0; i < richTextBox2.Lines.Length; i++)
+            {
+                myCollection.Add(richTextBox2.Lines[i], MyCollection.ListParameter);
+            }
+            myCollection.ReadParametrVariables();
+
+            string cadr = "";
+            for (int i = 0; i < richTextBox1.Lines.Length; i++)
+            {
+                cadr = richTextBox1.Lines[i];
+                for (int l = 0; l < ReadFile.Ignor.Count; l++)
+                {
+                    if (cadr.Contains(ReadFile.Ignor[l]))
+                    {
+                        string s = cadr.Replace(ReadFile.Ignor[l], "");
+                        cadr = null;
+                        cadr = s;
+                        break;
+                    }
+                }
+                myCollection.Add(cadr, MyCollection.ListCadrs);
+                cadr = "";
+            }
+            myCollection.ReadProgramVariables();
+            Manager();
+            richTextBox1.SelectionStart = 0;
+            richTextBox1.SelectionLength = 0;
+
         }
 
         private void ButtonReset_Click(object sender, EventArgs e)
         {
+            isButtonStartClickebl = false;
             timer1.Enabled = false;
             buttonRefresh.Enabled = false;
+            buttonStart.Enabled = true;
             MyCollection.ErrorList.Clear();
             if (richTextBox1.Lines.Length != 0)
             {
-                buttonStart.Enabled = true;
+                buttonSysleStart.Enabled = true;
             }
             else
             {
-                buttonStart.Enabled = false;
+                buttonSysleStart.Enabled = false;
             }
 
             myCollection = new MyCollection();
             coordinateZero = new Point(pictureBox1.Width / 2, pictureBox1.Height / 2);
             draw = new Draw(pictureBox1, coordinateZero);
             draw.SystemСoordinate(pictureBox1, coordinateZero);
-            isButtonClickebl = false;
+            isButtonSysleStartClickebl = false;
             zoom = 1F;
             label1.Text = "100%";
-            isButtonPauce = false;
+            isButtonSingleBlockClickebl = false;
             buttonSingleBlock.ForeColor = Color.Black;
             index = 1;
             richTextBox1.SelectAll();
@@ -181,136 +209,24 @@ namespace Modeling
             coorZ.Text = "Z ";
         }
 
-        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void RichTextBox1_TextChanged(object sender, EventArgs e)
-        {
-            if (richTextBox1.Lines.Length != 0 || timer1.Enabled == false)
-            {
-                buttonStart.Enabled = true;
-                buttonSingleBlock.Enabled = true;
-                buttonReset.Enabled = true;
-            }
-
-            if (richTextBox1.Lines.Length == 0)
-            {
-                buttonStart.Enabled = false;
-                buttonSingleBlock.Enabled = false;
-                buttonReset.Enabled = false;
-                buttonRefresh.Enabled = false;
-                coorX.Text = "X ";
-                coorZ.Text = "Z ";
-                ButtonReset_Click(sender, e);
-            }
-        }
-
-        private void AboutTheProgramToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AboutTheProgram form2 = new AboutTheProgram();
-            form2.Owner = this;
-            form2.Show();
-        }
-
-        private void FindAndReplaceToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FindAndReplace form3 = new FindAndReplace();
-            form3.Owner = this;
-            form3.ShowDialog();
-            FindAndReplace();
-        }
-
-        private void RenumberFramesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RenumberFrames form4 = new RenumberFrames();
-            form4.Owner = this;
-            form4.ShowDialog();
-            ReplaceStep();
-        }
-
-        private void PictureBox1_MouseDown(object sender, MouseEventArgs e)
-        {
-            movable = true;
-            mousDownX = Convert.ToInt32(e.X);
-            mousDownY = Convert.ToInt32(e.Y);
-        }
-
-        private void PictureBox1_MouseUp(object sender, MouseEventArgs e)
-        {
-            movable = false;
-        }
-
         private void ButtonSingleBlock_Click(object sender, EventArgs e)
         {
             buttonRefresh.Enabled = true;
 
-            if (isButtonPauce == true)
+            if (isButtonSingleBlockClickebl == true)
             {
-                isButtonPauce = false;
+                isButtonSingleBlockClickebl = false;
                 timer1.Enabled = true;
                 buttonSingleBlock.ForeColor = Color.Black;
             }
             else
             {
-                isButtonPauce = true;
+                isButtonSingleBlockClickebl = true;
                 timer1.Enabled = false;
                 buttonSingleBlock.ForeColor = Color.Green;
             }
             richTextBox1.ScrollToCaret();
             richTextBox1.Select(0, 0);
-        }
-
-        private void ProgramOpenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            openFileDialog1.FileName = "";
-            openFileDialog1.DefaultExt = "*.txt";
-            openFileDialog1.InitialDirectory = @"D:\";
-            openFileDialog1.ShowDialog();
-            if (openFileDialog1.FileName != "")
-            {
-                richTextBox1.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
-                fileNameProgram = openFileDialog1.FileName;
-                Text = fileNameProgram;
-                textProgram = richTextBox1.Text;
-            }
-        }
-
-        private void ParameterOpenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            openFileDialog1.FileName = "";
-            openFileDialog1.DefaultExt = "*.txt";
-            openFileDialog1.InitialDirectory = @"D:\";
-            openFileDialog1.ShowDialog();
-            if (openFileDialog1.FileName != "")
-            {
-                richTextBox2.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
-            }
-        }
-
-        private void ProgramSaveToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            saveFileDialog1.InitialDirectory = @"D:\";
-            saveFileDialog1.FileName = "";
-            saveFileDialog1.Filter = "|*.MPF||*.SPF||*.*";
-            saveFileDialog1.ShowDialog();
-            if (saveFileDialog1.FileName != "")
-            {
-                richTextBox1.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.PlainText);
-            }
-        }
-
-        private void ParameterSaveToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            saveFileDialog1.InitialDirectory = @"D:\";
-            saveFileDialog1.FileName = "";
-            saveFileDialog1.Filter = "|*.MPF||*.SPF||*.*";
-            saveFileDialog1.ShowDialog();
-            if (saveFileDialog1.FileName != "")
-            {
-                richTextBox2.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.PlainText);
-            }
         }
 
         private void ButtonRefresh_Click(object sender, EventArgs e)
@@ -345,13 +261,9 @@ namespace Modeling
                 myCollection.Add(cadr, MyCollection.ListCadrs);
                 cadr = "";
             }
-            // richTextBox1.SelectAll();
-            // richTextBox1.SelectionColor = Color.Black;
-            // for (int i = 0; i < index; i++)
-            // {
             richTextBox1.Select(richTextBox1.GetFirstCharIndexFromLine(index - 1), richTextBox1.Lines[index - 1].Length);
-            richTextBox1.SelectionColor = Color.Blue;
-            // }
+            richTextBox1.SelectionColor = Color.DarkBlue;
+
             myCollection.ReadProgramVariables();
 
             Manager();
@@ -361,36 +273,50 @@ namespace Modeling
             coorZ.Text = "Z " + Draw.endPoint.Z.ToString();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ButtonPluse_Click(object sender, EventArgs e)
         {
-            if (isButtonClickebl)
+            if (isButtonSysleStartClickebl || isButtonStartClickebl)
             {
                 ZoomUpsizer();
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void ButtonMinus_Click(object sender, EventArgs e)
         {
-            if (isButtonClickebl)
+            if (isButtonSysleStartClickebl || isButtonStartClickebl)
             {
                 ZoomDownsizer();
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void PictureBox1_MouseWheel(object sender, MouseEventArgs e)
         {
-            if (index < richTextBox1.Lines.Length)
+            if (isButtonSysleStartClickebl || isButtonStartClickebl)
             {
-                index++;
+                if (e.Delta > 0)
+                {
+                    ZoomUpsizer();
+                }
+                else
+                {
+                    ZoomDownsizer();
+                }
             }
-            else
-            {
-                index = richTextBox1.Lines.Length;
-            }
-            ButtonStart_Click(sender, e);
         }
 
-        private void pictureBox1_DoubleClick(object sender, EventArgs e)
+        private void PictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            movable = true;
+            mousDownX = Convert.ToInt32(e.X);
+            mousDownY = Convert.ToInt32(e.Y);
+        }
+
+        private void PictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            movable = false;
+        }
+
+        private void PictureBox1_DoubleClick(object sender, EventArgs e)
         {
             labelX.Text = labelX.Text.Replace(" ", "=");
             labelZ.Text = labelZ.Text.Replace(" ", "=");
@@ -412,7 +338,7 @@ namespace Modeling
                 mousDownY = Convert.ToInt32(e.Y);
 
                 draw.SystemСoordinate(pictureBox1, coordinateZero);
-                if (isButtonClickebl)
+                if (isButtonSysleStartClickebl || isButtonStartClickebl)
                 {
                     Manager();
                 }
@@ -438,7 +364,7 @@ namespace Modeling
             coordinateZero.Z = pictureBox1.Height / 2;
             draw = new Draw(pictureBox1, coordinateZero);
             draw.SystemСoordinate(pictureBox1, coordinateZero);
-            if (isButtonClickebl)
+            if (isButtonSysleStartClickebl||isButtonStartClickebl)
             {
                 Manager();
             }
@@ -495,9 +421,206 @@ namespace Modeling
 
         }
 
-        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        private void RichTextBox1_TextChanged(object sender, EventArgs e)
         {
+            if (richTextBox1.Lines.Length != 0 || timer1.Enabled == false)
+            {
+                buttonSysleStart.Enabled = true;
+                buttonSingleBlock.Enabled = true;
+                buttonReset.Enabled = true;
+            }
 
+            if (richTextBox1.Lines.Length == 0)
+            {
+                buttonSysleStart.Enabled = false;
+                buttonSingleBlock.Enabled = false;
+                buttonReset.Enabled = false;
+                buttonRefresh.Enabled = false;
+                coorX.Text = "X ";
+                coorZ.Text = "Z ";
+                ButtonReset_Click(sender, e);
+            }
+            if (isButtonStartClickebl)
+            {
+                myCollection = new MyCollection();
+                myCollection.ListVariables.Clear();
+                MyCollection.ListCadrs.Clear();
+                MyCollection.ListParameter.Clear();
+                for (int i = 0; i < richTextBox2.Lines.Length; i++)
+                {
+                    myCollection.Add(richTextBox2.Lines[i], MyCollection.ListParameter);
+                }
+                myCollection.ReadParametrVariables();
+
+                string cadr = "";
+                for (int i = 0; i < richTextBox1.Lines.Length; i++)
+                {
+                    cadr = richTextBox1.Lines[i];
+                    for (int l = 0; l < ReadFile.Ignor.Count; l++)
+                    {
+                        if (cadr.Contains(ReadFile.Ignor[l]))
+                        {
+                            string s = cadr.Replace(ReadFile.Ignor[l], "");
+                            cadr = null;
+                            cadr = s;
+                            break;
+                        }
+                    }
+                    myCollection.Add(cadr, MyCollection.ListCadrs);
+                    cadr = "";
+                }
+                myCollection.ReadProgramVariables();
+                Manager();                       
+            }
+            /*if (isButtonSysleStartClickebl&&isButtonSingleBlockClickebl)
+            {
+                myCollection.ListVariables.Clear();
+                MyCollection.ListCadrs.Clear();
+                MyCollection.ListParameter.Clear();
+                if (index > richTextBox1.Lines.Length - 1)
+                {
+                    index = richTextBox1.Lines.Length - 1;
+                }
+                for (int i = 0; i < richTextBox2.Lines.Length; i++)
+                {
+                    myCollection.Add(richTextBox2.Lines[i], MyCollection.ListParameter);
+                }
+                myCollection.ReadParametrVariables();
+
+                string cadr = "";
+                for (int i = 0; i < index; i++)
+                {
+                    cadr = richTextBox1.Lines[i];
+                    for (int l = 0; l < ReadFile.Ignor.Count; l++)
+                    {
+                        if (cadr.Contains(ReadFile.Ignor[l]))
+                        {
+                            string s = cadr.Replace(ReadFile.Ignor[l], "");
+                            cadr = null;
+                            cadr = s;
+                            break;
+                        }
+                    }
+                    myCollection.Add(cadr, MyCollection.ListCadrs);
+                    cadr = "";
+                }              
+                richTextBox1.Select(richTextBox1.GetFirstCharIndexFromLine(index - 1), richTextBox1.Lines[index - 1].Length);
+                richTextBox1.SelectionColor = Color.DarkBlue;
+                richTextBox1.Text.Insert(d, "555");
+                myCollection.ReadProgramVariables();
+
+                Manager();
+
+                N.Text = MyCollection.ListCadrs[index - 1];
+                coorX.Text = "X " + Draw.endPoint.X.ToString();
+                coorZ.Text = "Z " + Draw.endPoint.Z.ToString();
+            }*/
+
+        }
+
+        private void ProgramOpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.FileName = "";
+            openFileDialog1.DefaultExt = "*.txt";
+            openFileDialog1.InitialDirectory = @"D:\";
+            openFileDialog1.ShowDialog();
+            if (openFileDialog1.FileName != "")
+            {
+                richTextBox1.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
+                fileNameProgram = openFileDialog1.FileName;
+                Text = fileNameProgram;
+                textProgram = richTextBox1.Text;
+            }
+        }
+
+        private void ParameterOpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.FileName = "";
+            openFileDialog1.DefaultExt = "*.txt";
+            openFileDialog1.InitialDirectory = @"D:\";
+            openFileDialog1.ShowDialog();
+            if (openFileDialog1.FileName != "")
+            {
+                richTextBox2.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
+            }
+        }
+
+        private void ProgramSaveToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.InitialDirectory = @"D:\";
+            saveFileDialog1.FileName = "";
+            saveFileDialog1.Filter = "|*.MPF||*.SPF||*.*";
+            saveFileDialog1.ShowDialog();
+            if (saveFileDialog1.FileName != "")
+            {
+                richTextBox1.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.PlainText);
+            }
+        }
+
+        private void ParameterSaveToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.InitialDirectory = @"D:\";
+            saveFileDialog1.FileName = "";
+            saveFileDialog1.Filter = "|*.MPF||*.SPF||*.*";
+            saveFileDialog1.ShowDialog();
+            if (saveFileDialog1.FileName != "")
+            {
+                richTextBox2.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.PlainText);
+            }
+        }
+
+        private void AboutTheProgramToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutTheProgram form2 = new AboutTheProgram();
+            form2.Owner = this;
+            form2.Show();
+        }
+
+        private void FindAndReplaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FindAndReplace form3 = new FindAndReplace();
+            form3.Owner = this;
+            form3.ShowDialog();
+            FindAndReplace();
+        }
+
+        private void RenumberFramesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RenumberFrames form4 = new RenumberFrames();
+            form4.Owner = this;
+            form4.ShowDialog();
+            ReplaceStep();
+        }
+
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+                       
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            if (index < richTextBox1.Lines.Length)
+            {
+                index++;
+            }
+            else
+            {
+                index = richTextBox1.Lines.Length;
+            }
+            ButtonSysleStart_Click(sender, e);
+        }
+             
+        private void ModelingForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            string ttt = richTextBox1.Text;
+            if (richTextBox1.Text != textProgram)
+            {
+                saveFileDialog1.FileName = fileNameProgram;
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK && fileNameProgram != " ")
+                {
+                    richTextBox1.SaveFile(fileNameProgram, RichTextBoxStreamType.PlainText);
+                }
+            }
         }
 
         private void FindAndReplace()
@@ -612,16 +735,16 @@ namespace Modeling
             Manager();
         }
 
-        private void ModelingForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void checkBoxShowError_Click(object sender, EventArgs e)
         {
-            string ttt = richTextBox1.Text;
-            if (richTextBox1.Text != textProgram)
+            if (checkBoxShowError.Checked)
             {
-                saveFileDialog1.FileName = fileNameProgram;
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK && fileNameProgram != " ")
-                {
-                    richTextBox1.SaveFile(fileNameProgram, RichTextBoxStreamType.PlainText);
-                }
+                isError = true;
+                MyCollection.ErrorList.Clear();
+            }
+            if(!checkBoxShowError.Checked)
+            {
+                isError = false;
             }
         }
     }

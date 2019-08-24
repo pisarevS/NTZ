@@ -9,15 +9,17 @@ using System.Windows.Forms;
 
 namespace Modeling
 {
-    internal class Draw : IDraw
+    internal class Draw :IDraw
     {
+
         private readonly PictureBox pictureBox1;
         private readonly Bitmap img;
         private Graphics graphics;
         private readonly Point coordinateZero;
         private readonly Pen solidLine;
         private Pen dottedLine;
-        private Pen line;
+      
+        private Pen dottedLineSystemCoordinate;  private Pen line;
         private string cadr = "";
         public static Point startPoint;
         public static Point endPoint;
@@ -27,11 +29,13 @@ namespace Modeling
         private bool icHorizantal = false;
         private bool icVertical = false;
         public bool clockwise = true;
+      
+        string horizontalAxis = "X";
+        string verticalAxis = "Z";  
         
-
         public Draw(PictureBox pictureBox1, Point coordinateZero)
         {
-            this.pictureBox1 = pictureBox1;
+      
             try
             {
                 img = new Bitmap(pictureBox1.Width, pictureBox1.Height);
@@ -40,7 +44,11 @@ namespace Modeling
             }
             catch { }
             solidLine = new Pen(Color.Green, 1.5F);
-            dottedLine = new Pen(Brushes.Gray);
+            dottedLineSystemCoordinate = new Pen(Brushes.Gray);
+            dottedLineSystemCoordinate.DashPattern = new float[] { 5f, 5f };
+          
+          
+            dottedLine = new Pen(Brushes.Black);
             dottedLine.DashPattern = new float[] { 5f, 5f };
             this.coordinateZero = new Point();
             pictureBox1.Image = img;
@@ -48,13 +56,15 @@ namespace Modeling
             this.coordinateZero.Z = pictureBox1.Height / 2;
         }
 
+       
+
         public void SystemСoordinate(PictureBox pictureBox1, Point coordinateZero)
         {
-            dottedLine.DashPattern = new float[] { 5f, 5f };
+            dottedLineSystemCoordinate.DashPattern = new float[] { 5f, 5f };
             try
             {
-                graphics.DrawLine(dottedLine, coordinateZero.X, 0, coordinateZero.X, pictureBox1.Height); //горизонтальная
-                graphics.DrawLine(dottedLine, 0, coordinateZero.Z, pictureBox1.Width, coordinateZero.Z); //вертикальная
+                graphics.DrawLine(dottedLineSystemCoordinate, coordinateZero.X, 0, coordinateZero.X, pictureBox1.Height); //горизонтальная
+                graphics.DrawLine(dottedLineSystemCoordinate, 0, coordinateZero.Z, pictureBox1.Width, coordinateZero.Z); //вертикальная
             }
             catch { }
 
@@ -93,7 +103,6 @@ namespace Modeling
             else startZ = coordinateZero.Z + Math.Abs(startZ);
             if (endZ > 0) endZ = coordinateZero.Z - endZ;
             else endZ = coordinateZero.Z + Math.Abs(endZ);
-            try
             {
                 graphics.DrawLine(pen, coordinateZero.X + startX, startZ, coordinateZero.X + endX, endZ);
             }
@@ -106,107 +115,106 @@ namespace Modeling
             float startZ = startPoint.Z;
             float endX = endPoint.X;
             float endZ = endPoint.Z;
-            Point square = new Point();
+            Point sframe = new Point();
             RectangleF rectangle = new RectangleF();
             startX = startX * zoom;
             startZ = startZ * zoom;
             endX = endX * zoom;
-            endZ = endZ * zoom;
-            radius = radius * zoom;
+            endZ = endZ * zoom;frame         radius = radius * zoom;
             float startAngle = 0;
             float sweepAngle = 0;
-            float catet;
-            float hord = (float)Math.Sqrt(Math.Pow(startX - endX, 2) + Math.Pow(startZ - endZ, 2));
+            float frame;
+            flframeord = (float)Math.Sqrt(Math.Pow(startX - endX, 2) + Math.Pow(startZ - endZ, 2));
             float h = (float)Math.Sqrt(radius * radius - (hord / 2) * (hord / 2));
             if (clockwise)
-            {
-                float x01 = (startX + (endX - startX) / 2 + h * (endZ - startZ) / hord);
-                float z01 = (startZ + (endZ - startZ) / 2 - h * (endX - startX) / hord);
+          frame                float x01 = (startX + (endX - startX) / 2 + h * (endZ - startZ) / hord);
+                float z01 = (startZ + (endZ - startZ) frame h * (endX - startX) / hord);
                 if (startX > x01 && startZ >= z01)
                 {
-                    catet = startX - x01;
+                    frame = startX - x01;
                     if (startZ == z01)
                     {
-                        startAngle = 0;
+   frame                startAngle = 0;
                     }
-                    else { startAngle = (float)(360 - Math.Acos(catet / radius) * (180 / Math.PI)); }
+                    else { startAngle = (float)(360 - Math.Acos(frame / radius) * (180 /frame.PI)); }
                 }
                 if (startX >= x01 && startZ < z01)
                 {
-                    catet = startX - x01;
+                    frame = startX - x01;
                     if (startX == x01)
                     {
-                        startAngle = 90;
+     frame              startAngle = 90;
                     }
-                    else { startAngle = (float)(Math.Acos(catet / radius) * (180 / Math.PI)); }
+                    else { startAngle = (float)(Math.Acos(frame / radius) * (180 / Math.PI)); }
                 }
                 if (startX < x01 && startZ <= z01)
                 {
-                    catet = x01 - startX;
+                    frame = x01 - startX;
                     if (startZ == z01)
                     {
                         startAngle = 180;
                     }
-                    else { startAngle = (float)(180 - Math.Acos(catet / radius) * (180 / Math.PI)); }
+                    else { startAngle = (float)frame- Math.Acos(frame / radius) * (180 / Math.PI)); }
                 }
                 if (startX <= x01 && startZ > z01)
                 {
-                    catet = x01 - startX;
-                    if (startX == x01)
+                    frame = x01 - startX;
+                    iframeartX == x01)
                     {
                         startAngle = 270;
                     }
-                    else { startAngle = (float)(180 + Math.Acos(catet / radius) * (180 / Math.PI)); }
+                    else { startAngleframeloat)(180 + Math.Acos(frame / radius) * (180 / Math.PI)); }
                 }
                 square.X = x01 - radius;
                 square.Z = z01 + radius;
             }
-            if (!clockwise)
+            if (!clocframe)
             {
 
                 float x02 = startX + (endX - startX) / 2 - h * (endZ - startZ) / hord;
-                float z02 = startZ + (endZ - startZ) / 2 + h * (endX - startX) / hord;
+                float z02 = starframe(endZ - startZ) / 2 + h * (endX - startX) / hord;
                 if (endX > x02 && endZ >= z02)
                 {
-                    catet = endX - x02;
+                    frame = endX - x02;
                     if (endZ == z02)
-                    {
+          frame     {
                         startAngle = 0;
                     }
-                    else { startAngle = (float)(360 - Math.Acos(catet / radius) * (180 / Math.PI)); }
+                    else { startAngle = (float)(360 - Math.Acos(framframeadius) * (180 / Math.PI)); }
                 }
                 if (endX >= x02 && endZ < z02)
                 {
-                    catet = endX - x02;
+                    frame = endX - x02;
                     if (endX == x02)
-                    {
+            frame   {
                         startAngle = 90;
                     }
-                    else { startAngle = (float)(Math.Acos(catet / radius) * (180 / Math.PI)); }
+                    else { startAngle = (float)(Math.Acos(frame / radius) * (180 / Math.PI)); }
                 }
                 if (endX < x02 && endZ <= z02)
                 {
-                    catet = x02 - endX;
+                    frame = x02 - endX;
                     if (endZ == z02)
                     {
                         startAngle = 180;
                     }
-                    else { startAngle = (float)(180 - Math.Acos(catet / radius) * (180 / Math.PI)); }
+                    else { startAngle = (float)(180 - Math.Acos(frame / radius) * (180 / Math.PI)); }
                 }
                 if (endX <= x02 && endZ > z02)
                 {
-                    catet = x02 - endX;
+                    frame = x02 - endX;
                     if (endX == x02)
                     {
                         startAngle = 270;
                     }
-                    else { startAngle = (float)(180 + Math.Acos(catet / radius) * (180 / Math.PI)); }
+                    else { startAngle = (float)(180 + Math.Acos(frame / radius) * (180 / Math.PI)); }
                 }
                 square.X = x02 - radius;
                 square.Z = z02 + radius;
             }
-            sweepAngle = (float)(2 * Math.Asin(hord / (2 * radius)) * (180 / Math.PI));
-            rectangle.X = coordinateZero.X + square.X;
+            sweepAngle = (float)(2 * Math.Asin(hord / (2 * radius)) * (180 / Math
+
+            SelectAxis();.X = coordinateZero.X + square.X;
             rectangle.Y = coordinateZero.Z - square.Z;
             rectangle.Width = radius * 2;
             rectangle.Height = radius * 2;
@@ -219,49 +227,18 @@ namespace Modeling
 
         public void DrawСontour(Point coordinateZero, float zoom)
         {
-            startPoint = new Point();
+            startPoinhorizontalAxis);
             endPoint = new Point();
-            Expression expression = new Expression();
-            string strCR = "";
-            string horizontal = "X";
-            string vertical = "Z";
-            string CR = "CR";
-            float radius = 0;
+            Expression expreshorizontalAxis) == FIBO) return;
+                    endPoint.X = CoordinateSearch(cadr, horizontalAxis         float radius = 0;
             startPoint.X = 650f;
             startPoint.Z = 250f;
-            endPoint.X = 650f;
+   verticalAxisPoint.X = 650f;
             endPoint.Z = 250f;
-            bool isCR = false;
-            int x = 0;
-            int u = 0;
-
-            for (int i = 0; i < MyCollection.ListCadrs.Count; i++)
+            bool isCRverticalAxis) == FIBO) return;
+                    endPoint.Z = CoordinateSearch(cadr, verticalAxisstCadrs.Count; i++)
             {
-                if (MyCollection.ListCadrs[i].Contains("X"))
-                {
-                    x++;
-                }
-                if (MyCollection.ListCadrs[i].Contains("U"))
-                {
-                    u++;
-                }
-
-            }
-            if (x > u)
-            {
-                horizontal = "X";
-                vertical = "Z";
-            }
-            if (x < u)
-            {
-                horizontal = "U";
-                vertical = "W";
-            }
-
-            for (int i = 0; i < MyCollection.ListCadrs.Count; i++)
-            {
-                dottedLine = new Pen(Brushes.Black);
-                dottedLine.DashPattern = new float[] { 5f, 5f };
+                
                 cadr = MyCollection.ListCadrs[i];
                 if (cadr.Contains("IC("))
                 {
@@ -270,16 +247,16 @@ namespace Modeling
                     cadr = s;
                 }
                 ContainsGcod(cadr);
-                if (cadr.Contains(horizontal))
+                if (cadr.Contains(horizontalAxis))
                 {
-                    if (CoordinateSearch(cadr, horizontal) == FIBO) return;
-                    endPoint.X = CoordinateSearch(cadr, horizontal);
+                    if (CoordinateSearch(cadr, horizontalAxis) == FIBO) return;
+                    endPoint.X = CoordinateSearch(cadr, horizontalAxis);
                     isHorizontal = true;
                 }
-                if (cadr.Contains(vertical))
+                if (cadr.Contains(verticalAxis))
                 {
-                    if (CoordinateSearch(cadr, vertical) == FIBO) return;
-                    endPoint.Z = CoordinateSearch(cadr, vertical);
+                    if (CoordinateSearch(cadr, verticalAxis) == FIBO) return;
+                    endPoint.Z = CoordinateSearch(cadr, verticalAxis);
                     isVertical = true;
                 }
                 if (cadr.Contains(CR))
@@ -318,8 +295,14 @@ namespace Modeling
                         }
                         catch 
                         {
-                           
-                            MessageBox.Show(cadr); return; 
+                            if (!MyCollection.ErrorList.Contains(cadr))
+                            {
+                                MyCollection.ErrorList.Add(cadr);
+                                if (ModelingForm.isError)
+                                {
+                                    MessageBox.Show(cadr);
+                                }
+                            }                                       
                         }
                     }
                 }
@@ -334,29 +317,69 @@ namespace Modeling
                     isVertical = false;
                     isCR = false;
                 }
-                if (isHorizontal || isVertical)
+                if (isHorizontal || isVerti
+
+        private void SelectAxis() 
+        {
+            int x = 0;
+            int u = 0;
+            for (int i = 0; i < MyCollection.ListCadrs.Count; i++)
+            {
+                if (MyCollection.ListCadrs[i].Contains("X"))
                 {
-                    if (icHorizantal)
-                    {
-                        endPoint.X = startPoint.X + endPoint.X;
-                    }
-                    if (icVertical)
-                    {
-                        endPoint.Z = startPoint.Z + endPoint.Z;
-                    }
-                    DrawLine(line, coordinateZero, zoom, startPoint, endPoint);
-                    startPoint.X = 0;
-                    startPoint.X = endPoint.X;
-                    startPoint.Z = 0;
-                    startPoint.Z = endPoint.Z;
-                    isHorizontal = false;
-                    isVertical = false;
-                    icHorizantal = false;
-                    icVertical = false;
+                    x++;
+                }
+                if (MyCollection.ListCadrs[i].Contains("U"))
+                {
+                    u++;
+                }
+
+            }
+            if (x > u)
+            {
+                horizontalAxis = "X";
+                verticalAxis = "Z";
+            }
+            if (x < u)
+            {
+                horizontalAxis = "U";
+                verticalAxis = "W";
+            }
+        }
+   icVertical = false;
                 }
             }
             DrawPoint(coordinateZero, endPoint, 3, zoom);
         }
+
+        private void SelectAxis() 
+        {
+            int x = 0;
+            int u = 0;
+            for (int i = 0; i < MyCollection.ListCadrs.Count; i++)
+            {
+                if (MyCollection.ListCadrs[i].Contains("X"))
+                {
+                    x++;
+                }
+                if (MyCollection.ListCadrs[i].Contains("U"))
+                {
+                    u++;
+                }
+
+            }
+            if (x > u)
+            {
+                horizontalAxis = "X";
+                verticalAxis = "Z";
+            }
+            if (x < u)
+            {
+                horizontalAxis = "U";
+                verticalAxis = "W";
+            }
+        }
+
 
         private float CoordinateSearch(string cadr, string axis)
         {
@@ -433,7 +456,10 @@ namespace Modeling
                     if (!MyCollection.ErrorList.Contains(cadr))
                     {
                         MyCollection.ErrorList.Add(cadr);
-                        MessageBox.Show(cadr);
+                        if (ModelingForm.isError)
+                        {
+                            MessageBox.Show(cadr);
+                        }                    
                     }                              
                     return FIBO;
                 }
