@@ -490,7 +490,7 @@ namespace Modeling
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(981, 600);
             this.Name = "ModelingForm";
-            this.Text = "Modeling";
+            this.Text = "CNC Modeling";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ModelingForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuStrip1.ResumeLayout(false);

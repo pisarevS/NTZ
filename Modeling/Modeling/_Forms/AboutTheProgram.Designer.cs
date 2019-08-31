@@ -43,7 +43,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Версия 1.0";
+            this.label1.Text = "Версия 2.0";
             // 
             // label2
             // 
@@ -62,9 +62,9 @@
             this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label3.Location = new System.Drawing.Point(21, 25);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 22);
+            this.label3.Size = new System.Drawing.Size(126, 22);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Modeling";
+            this.label3.Text = "CNC Modeling";
             // 
             // linkLabel1
             // 
@@ -82,13 +82,13 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(109, 30);
+            this.label4.Location = new System.Drawing.Point(162, 30);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(92, 17);
             this.label4.TabIndex = 4;
             this.label4.Text = "Open Source";
             // 
-            // Form2
+            // AboutTheProgram
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -99,7 +99,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "Form2";
+            this.Name = "AboutTheProgram";
             this.Text = "О программе";
             this.ResumeLayout(false);
             this.PerformLayout();
