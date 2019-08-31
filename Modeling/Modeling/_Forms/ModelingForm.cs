@@ -728,8 +728,8 @@ namespace Modeling
         private void ZoomUpsizer()
         {
             zoomDefalt = zoomDefalt + 5;
-            if (zoomDefalt > 100)
-                zoomDefalt = 100;
+            if (zoomDefalt > 1000)
+                zoomDefalt = 1000;
             zoom = zoomDefalt / 10;
             label1.Text = Convert.ToString(Math.Round(zoom * 100) + "%");
             Manager();
