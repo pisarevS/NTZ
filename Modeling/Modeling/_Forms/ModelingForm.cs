@@ -32,6 +32,7 @@ namespace Modeling
         private string fileNameProgram;
         private string textProgram = "";
         public static bool isError = true;
+        private int numberLine=0;
 
         public ModelingForm()
         {
@@ -67,7 +68,7 @@ namespace Modeling
         {
             draw = new Draw(pictureBox1, coordinateZero);
             draw.SystemСoordinate(pictureBox1, coordinateZero);
-            draw.DrawСontour(coordinateZero, zoom);
+            draw.DrawСontour(coordinateZero, zoom,numberLine);
         }
 
         private void ButtonSysleStart_Click(object sender, EventArgs e)
@@ -207,6 +208,7 @@ namespace Modeling
             N.Text = "N";
             coorX.Text = "X ";
             coorZ.Text = "Z ";
+            numberLine = 0;
         }
 
         private void ButtonSingleBlock_Click(object sender, EventArgs e)
@@ -472,50 +474,6 @@ namespace Modeling
                 myCollection.ReadProgramVariables();
                 Manager();                       
             }
-            /*if (isButtonSysleStartClickebl&&isButtonSingleBlockClickebl)
-            {
-                myCollection.ListVariables.Clear();
-                MyCollection.ListCadrs.Clear();
-                MyCollection.ListParameter.Clear();
-                if (index > richTextBox1.Lines.Length - 1)
-                {
-                    index = richTextBox1.Lines.Length - 1;
-                }
-                for (int i = 0; i < richTextBox2.Lines.Length; i++)
-                {
-                    myCollection.Add(richTextBox2.Lines[i], MyCollection.ListParameter);
-                }
-                myCollection.ReadParametrVariables();
-
-                string cadr = "";
-                for (int i = 0; i < index; i++)
-                {
-                    cadr = richTextBox1.Lines[i];
-                    for (int l = 0; l < ReadFile.Ignor.Count; l++)
-                    {
-                        if (cadr.Contains(ReadFile.Ignor[l]))
-                        {
-                            string s = cadr.Replace(ReadFile.Ignor[l], "");
-                            cadr = null;
-                            cadr = s;
-                            break;
-                        }
-                    }
-                    myCollection.Add(cadr, MyCollection.ListCadrs);
-                    cadr = "";
-                }              
-                richTextBox1.Select(richTextBox1.GetFirstCharIndexFromLine(index - 1), richTextBox1.Lines[index - 1].Length);
-                richTextBox1.SelectionColor = Color.DarkBlue;
-                richTextBox1.Text.Insert(d, "555");
-                myCollection.ReadProgramVariables();
-
-                Manager();
-
-                N.Text = MyCollection.ListCadrs[index - 1];
-                coorX.Text = "X " + Draw.endPoint.X.ToString();
-                coorZ.Text = "Z " + Draw.endPoint.Z.ToString();
-            }*/
-
         }
 
         private void ProgramOpenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -746,6 +704,13 @@ namespace Modeling
             {
                 isError = false;
             }
+        }
+
+        private void richTextBox1_DoubleClick(object sender, EventArgs e)
+        {
+            numberLine=richTextBox1.GetLineFromCharIndex(richTextBox1.GetFirstCharIndexOfCurrentLine());
+            Manager();
+            
         }
     }
 }

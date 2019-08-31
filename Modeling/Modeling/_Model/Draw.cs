@@ -79,6 +79,25 @@ namespace Modeling
             catch { }
         }
 
+        public void DrawPointDoubleClick(Point coordinateZero, Point startPoint, int radius, float zoom)
+        {
+            RectangleF rectangle = new RectangleF();
+            SolidBrush brush1 = new SolidBrush(Color.Red);
+            float startX = startPoint.X;
+            float startZ = startPoint.Z;
+            startX = startX * zoom;
+            startZ = startZ * zoom;
+            rectangle.X = coordinateZero.X + startX - radius;
+            rectangle.Y = coordinateZero.Z - startZ - radius;
+            rectangle.Width = radius * 2;
+            rectangle.Height = radius * 2;
+            try
+            {
+                graphics.FillEllipse(brush1, rectangle);
+            }
+            catch { }
+        }
+
         public void DrawLine(Pen pen, Point coordinateZero, float zoom, Point startPoint, Point endPoint)
         {
             float startX = startPoint.X;
@@ -217,7 +236,7 @@ namespace Modeling
             catch { }
         }
 
-        public void DrawСontour(Point coordinateZero, float zoom)
+        public void DrawСontour(Point coordinateZero, float zoom, int numberLine)
         {
             startPoint = new Point();
             endPoint = new Point();
@@ -360,8 +379,13 @@ namespace Modeling
                     icHorizantal = false;
                     icVertical = false;
                 }
+                if (i == numberLine)
+                {
+                    DrawPointDoubleClick(coordinateZero, endPoint, 3, zoom);
+                }
             }
-            DrawPoint(coordinateZero, endPoint, 3, zoom);
+            DrawPoint(coordinateZero, endPoint, 3, zoom);         
+
         }
 
         private float CoordinateSearch(string cadr, string axis)
