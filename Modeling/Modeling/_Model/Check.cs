@@ -71,7 +71,15 @@ namespace Modeling
                     return false;
                 case 'R':
                     return false;
+                case 'I':
+                    return false;
                 case 'L':
+                    return false;
+                case 'O':
+                    return false;
+                case 'N':
+                    return false;
+                case 'E':
                     return false;
             }
             return true;

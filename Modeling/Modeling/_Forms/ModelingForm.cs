@@ -629,28 +629,28 @@ namespace Modeling
                 string cadr = list[i];
                 if (cadr != "")
                 {
-                    if (cadr.Contains("N"))
+                    if (cadr[getIndexChar(cadr)]=='N')
                     {
-                        int n = cadr.IndexOf("N");
+                        int n = getIndexChar(cadr);
                         for (int j = n + 1; j < cadr.Length; j++)
                         {
-                            if (Check.ReadUp(cadr[j]))
+                            if (Check.isDigit(cadr[j]))
                             {
                                 str += cadr[j];
                             }
                             else { break; }
                         }
                         string d = cadr.Replace("N" + str, "");
-                        string g = (int.Parse(RenumberFrames.Step) * (t)).ToString() + " ";
+                        string g = (int.Parse(RenumberFrames.Step) * (t)).ToString() + "";
                         list[i] = null;
                         list[i] = "N" + g + d;
                         d = null;
                         str = null;
                         t++;
                     }
-                    else
+                    else if(cadr[getIndexChar(cadr)]!=';')
                     {
-                        string g = (int.Parse(RenumberFrames.Step) * (t)).ToString() + "  ";
+                        string g = (int.Parse(RenumberFrames.Step) * (t)).ToString() + " ";
                         list[i] = null;
                         list[i] = "N" + g + cadr;
                         t++;
@@ -671,6 +671,18 @@ namespace Modeling
                 }
             }
             list.Clear();
+        }
+
+        private int getIndexChar(string cadre)
+        {
+            for (int i = 0; i < cadre.Length; i++)
+            {
+                if (cadre[i] != ' ')
+                {
+                    return i;
+                }
+            }
+            return 0;
         }
 
         private void ZoomDownsizer()
