@@ -62,6 +62,10 @@ namespace Modeling
                 {
                     cadr = cadr.Remove(0);
                 }
+                if(cadr.Contains("GOTOF"))
+                {
+                    int n = cadr.IndexOf("GOTOF");
+                }
                 List.Add(cadr);
             }
             else { List.Add(cadr); }

@@ -629,33 +629,37 @@ namespace Modeling
                 string cadr = list[i];
                 if (cadr != "")
                 {
-                    if (cadr[getIndexChar(cadr)]=='N')
+                    try
                     {
-                        int n = getIndexChar(cadr);
-                        for (int j = n + 1; j < cadr.Length; j++)
+                        if (cadr[getIndexChar(cadr)] == 'N' && Check.isDigit(cadr[getIndexChar(cadr) + 1]))
                         {
-                            if (Check.isDigit(cadr[j]))
+                            int n = getIndexChar(cadr);
+                            for (int j = n + 1; j < cadr.Length; j++)
                             {
-                                str += cadr[j];
+                                if (Check.isDigit(cadr[j]))
+                                {
+                                    str += cadr[j];
+                                }
+                                else { break; }
                             }
-                            else { break; }
+                            string d = cadr.Replace("N" + str, "");
+                            string g = (int.Parse(RenumberFrames.Step) * (t)).ToString() + "";
+                            list[i] = null;
+                            list[i] = "N" + g + d;
+                            d = null;
+                            str = null;
+                            t++;
                         }
-                        string d = cadr.Replace("N" + str, "");
-                        string g = (int.Parse(RenumberFrames.Step) * (t)).ToString() + "";
-                        list[i] = null;
-                        list[i] = "N" + g + d;
-                        d = null;
-                        str = null;
-                        t++;
+                        else if (cadr[getIndexChar(cadr)] != ';')
+                        {
+                            string g = (int.Parse(RenumberFrames.Step) * (t)).ToString() + " ";
+                            list[i] = null;
+                            list[i] = "N" + g + cadr;
+                            t++;
+                        }
+                        cadr = null;
                     }
-                    else if(cadr[getIndexChar(cadr)]!=';')
-                    {
-                        string g = (int.Parse(RenumberFrames.Step) * (t)).ToString() + " ";
-                        list[i] = null;
-                        list[i] = "N" + g + cadr;
-                        t++;
-                    }
-                    cadr = null;
+                    catch { }
                 }
             }
             richTextBox1.Clear();
@@ -671,6 +675,8 @@ namespace Modeling
                 }
             }
             list.Clear();
+            richTextBox1.Select(0, 0);
+            richTextBox1.ScrollToCaret();
         }
 
         private int getIndexChar(string cadre)
