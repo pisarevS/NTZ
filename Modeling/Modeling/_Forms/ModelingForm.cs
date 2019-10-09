@@ -125,7 +125,7 @@ namespace Modeling
                 cadr = "";
             }
             myCollection.ReadProgramVariables();
-
+        
             Manager();
 
             N.Text = MyCollection.ListCadrs[index - 1];
@@ -139,7 +139,8 @@ namespace Modeling
         }
 
         private void ButtonStart_Click(object sender, EventArgs e)
-        {       
+        {
+            buttonRefresh.Enabled = true;
             isButtonStartClickebl = true;
             buttonStart.Enabled = false;
             myCollection = new MyCollection();
@@ -728,6 +729,16 @@ namespace Modeling
         {
             numberLine=richTextBox1.GetLineFromCharIndex(richTextBox1.GetFirstCharIndexOfCurrentLine());
             Manager();
+            try
+            {
+                N.Text = MyCollection.ListCadrs[numberLine - 1];
+            }
+            catch 
+            { 
+
+            }
+            coorX.Text = "X ";
+            coorZ.Text = "Z ";
             
         }
     }

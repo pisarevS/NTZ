@@ -18,7 +18,7 @@ namespace Modeling
         private readonly Pen solidLine;
         private Pen dottedLine;
         private Pen line;
-        private string cadr = "";
+        private string cadre = "";
         public static Point startPoint;
         public static Point endPoint;
         private const float FIBO = 01123581321345589144f;
@@ -26,7 +26,8 @@ namespace Modeling
         private bool isVertical = false;
         private bool icHorizantal = false;
         private bool icVertical = false;
-        public bool clockwise = true;
+        //public bool clockwise = true;
+        public int clockwiseInt = 0;
         
         
         public Draw(PictureBox pictureBox1, Point coordinateZero)
@@ -119,7 +120,7 @@ namespace Modeling
             catch { }
         }
 
-        public void DrawArc(Pen pen, Point coordinateZero, bool clockwise, float zoom, float radius, Point startPoint, Point endPoint)
+        public void DrawArc(Pen pen, Point coordinateZero, int clockwiseInt, float zoom, float radius, Point startPoint, Point endPoint)
         {
             float startX = startPoint.X;
             float startZ = startPoint.Z;
@@ -137,7 +138,18 @@ namespace Modeling
             float catet;
             float hord = (float)Math.Sqrt(Math.Pow(startX - endX, 2) + Math.Pow(startZ - endZ, 2));
             float h = (float)Math.Sqrt(radius * radius - (hord / 2) * (hord / 2));
-            if (clockwise)
+            if (clockwiseInt == 0)
+            {
+                if (!MyCollection.ErrorList.Contains(cadre))
+                {
+                    MyCollection.ErrorList.Add(cadre);
+                    if (ModelingForm.isError)
+                    {
+                        MessageBox.Show(cadre);
+                    }
+                }
+            }
+            if (clockwiseInt==1)
             {
                 float x01 = (startX + (endX - startX) / 2 + h * (endZ - startZ) / hord);
                 float z01 = (startZ + (endZ - startZ) / 2 - h * (endX - startX) / hord);
@@ -180,7 +192,7 @@ namespace Modeling
                 square.X = x01 - radius;
                 square.Z = z01 + radius;
             }
-            if (!clockwise)
+            if (clockwiseInt==2)
             {
 
                 float x02 = startX + (endX - startX) / 2 - h * (endZ - startZ) / hord;
@@ -281,35 +293,35 @@ namespace Modeling
             {
                 dottedLine = new Pen(Brushes.Black);
                 dottedLine.DashPattern = new float[] { 5f, 5f };
-                cadr = MyCollection.ListCadrs[i];
-                if (cadr.Contains("IC("))
+                cadre = MyCollection.ListCadrs[i];
+                if (cadre.Contains("IC("))
                 {
-                    string s = cadr.Replace("IC", "|");
-                    cadr = null;
-                    cadr = s;
+                    string s = cadre.Replace("IC", "|");
+                    cadre = null;
+                    cadre = s;
                 }
-                ContainsGcod(cadr);
-                if (cadr.Contains(horizontal))
+                ContainsGcod(cadre);
+                if (cadre.Contains(horizontal))
                 {
-                    if (CoordinateSearch(cadr, horizontal) == FIBO) return;
-                    endPoint.X = CoordinateSearch(cadr, horizontal);
+                    if (CoordinateSearch(cadre, horizontal) == FIBO) return;
+                    endPoint.X = CoordinateSearch(cadre, horizontal);
                     isHorizontal = true;
                 }
-                if (cadr.Contains(vertical))
+                if (cadre.Contains(vertical))
                 {
-                    if (CoordinateSearch(cadr, vertical) == FIBO) return;
-                    endPoint.Z = CoordinateSearch(cadr, vertical);
+                    if (CoordinateSearch(cadre, vertical) == FIBO) return;
+                    endPoint.Z = CoordinateSearch(cadre, vertical);
                     isVertical = true;
                 }
-                if (cadr.Contains(CR))
+                if (cadre.Contains(CR))
                 {
                     isCR = true;
-                    int n = cadr.IndexOf(CR, 0);
-                    for (int j = n + 2; j < cadr.Length; j++)
+                    int n = cadre.IndexOf(CR, 0);
+                    for (int j = n + 2; j < cadre.Length; j++)
                     {
-                        if (Check.ReadUp(cadr[j]))
+                        if (Check.ReadUp(cadre[j]))
                         {
-                            strCR += cadr[j];
+                            strCR += cadre[j];
                             if (strCR.Contains("=") || strCR.Contains(strCR) || strCR.Contains(" "))
                             {
                                 string s = strCR.Replace("=", "").Replace(CR, "").Replace(" ", "");
@@ -337,20 +349,20 @@ namespace Modeling
                         }
                         catch 
                         {
-                            if (!MyCollection.ErrorList.Contains(cadr))
+                            if (!MyCollection.ErrorList.Contains(cadre))
                             {
-                                MyCollection.ErrorList.Add(cadr);
+                                MyCollection.ErrorList.Add(cadre);
                                 if (ModelingForm.isError)
                                 {
-                                    MessageBox.Show(cadr);
+                                    MessageBox.Show(cadre);
                                 }
                             }                                       
                         }
                     }
                 }
-                if (isHorizontal && isVertical && isCR)
+                if (isHorizontal && isVertical && isCR )
                 {
-                    DrawArc(line, coordinateZero, clockwise, zoom, radius, startPoint, endPoint);
+                    DrawArc(line, coordinateZero, clockwiseInt, zoom, radius, startPoint, endPoint);
                     startPoint.X = 0;
                     startPoint.X = endPoint.X;
                     startPoint.Z = 0;
@@ -359,7 +371,7 @@ namespace Modeling
                     isVertical = false;
                     isCR = false;
                 }
-                if (isHorizontal || isVertical)
+                if (isHorizontal || isVertical )
                 {
                     if (icHorizantal)
                     {
@@ -510,30 +522,30 @@ namespace Modeling
                             case "G2":
                                 if (Check.isG17())
                                 {
-                                    clockwise = true;
+                                    clockwiseInt = 1;
                                 }
-                                else { clockwise = false; }
+                                else { clockwiseInt = 2; }
                                 break;
                             case "G02":
                                 if (Check.isG17())
                                 {
-                                    clockwise = true;
+                                    clockwiseInt = 1;
                                 }
-                                else { clockwise = false; }
+                                else { clockwiseInt = 2; }
                                 break;
                             case "G3":
                                 if (Check.isG17())
                                 {
-                                    clockwise = false;
+                                    clockwiseInt = 2;
                                 }
-                                else { clockwise = true; }
+                                else { clockwiseInt = 1; }
                                 break;
                             case "G03":
                                 if (Check.isG17())
                                 {
-                                    clockwise = false;
+                                    clockwiseInt = 2;
                                 }
-                                else { clockwise = true; }
+                                else { clockwiseInt = 1; }
                                 break;
                         }
                         G = "G";
@@ -541,6 +553,6 @@ namespace Modeling
                 }
             }
         }
-    }
+    }  
 }
 
